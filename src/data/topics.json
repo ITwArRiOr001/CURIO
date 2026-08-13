@@ -1,0 +1,3770 @@
+{
+ "version": 2,
+ "schema": {
+  "required": [
+   "id",
+   "cat",
+   "title",
+   "hook",
+   "enriched"
+  ],
+  "enrichedAdds": [
+   "summary",
+   "facts (3)",
+   "vocab (3)",
+   "question"
+  ],
+  "note": "enriched=false entries carry title+hook only; the app generates the briefing on demand and caches it for the session."
+ },
+ "contentStandard": "The hook must create emotion before information: curiosity, mystery, discovery, wonder. Documentary opening, never an encyclopedia sentence. Titles are 2-5 word museum labels. Strictly age-appropriate.",
+ "categories": [
+  {
+   "key": "ECHOES",
+   "label": "Paradoxes & Thought Experiments",
+   "description": "Logic loops, philosophical puzzles and reasoning that turns on itself."
+  },
+  {
+   "key": "HISTORY",
+   "label": "Forgotten History",
+   "description": "Obscure turning points, strange episodes and events that shaped the world quietly."
+  },
+  {
+   "key": "CIVILIZATIONS",
+   "label": "Lost Civilizations",
+   "description": "Vanished cultures, undeciphered records and technologies we cannot fully explain."
+  },
+  {
+   "key": "MIND",
+   "label": "The Human Mind",
+   "description": "Perception glitches, memory oddities and the strange machinery of thinking."
+  },
+  {
+   "key": "WORLD",
+   "label": "The Living World",
+   "description": "Places and natural phenomena on Earth that sound invented but are not."
+  },
+  {
+   "key": "SCIENCE",
+   "label": "Counter-Intuitive Science",
+   "description": "Truths from physics, biology and space that contradict ordinary intuition."
+  },
+  {
+   "key": "INVENTIONS",
+   "label": "Accidents & Inventions",
+   "description": "Mistakes, failures and stray observations that changed everyday life."
+  },
+  {
+   "key": "LANGUAGE",
+   "label": "Language & Meaning",
+   "description": "Untranslatable ideas, strange grammars and what words do to thought."
+  },
+  {
+   "key": "SECRETS",
+   "label": "Unsolved & Unexplained",
+   "description": "Open mysteries, unbroken codes and phenomena still without an agreed answer."
+  },
+  {
+   "key": "ODDITIES",
+   "label": "Wonderful Oddities",
+   "description": "Pure novelty from the living world — things that simply should not work, but do."
+  }
+ ],
+ "topics": [
+  {
+   "id": "EC001",
+   "cat": "ECHOES",
+   "title": "Chesterton's Fence",
+   "hook": "You find a fence in the middle of a field with no clear purpose. The wise move is not to remove it.",
+   "enriched": true,
+   "summary": "The writer G. K. Chesterton proposed a rule for reform: if you come across a fence across a road and cannot see why it is there, do not tear it down until you know. The point is not that old things should be preserved. It is that not understanding a rule is not the same as the rule being pointless, and the cost of removing a protection you did not understand can be severe. The principle is now widely applied in engineering, policy, and software.",
+   "facts": [
+    "Chesterton introduced the idea in a 1929 essay about reform and tradition.",
+    "Programmers cite it as a reason not to delete code whose purpose is unclear.",
+    "The principle cuts both ways: once the reason is known and found obsolete, removal is justified."
+   ],
+   "vocab": [
+    {
+     "word": "reform",
+     "meaning": "changing something to improve it"
+    },
+    {
+     "word": "obsolete",
+     "meaning": "no longer useful or needed"
+    },
+    {
+     "word": "principle",
+     "meaning": "a basic rule that guides behaviour or thinking"
+    }
+   ],
+   "question": "What is a rule in your own life that you follow without knowing where it came from?"
+  },
+  {
+   "id": "EC002",
+   "cat": "ECHOES",
+   "title": "Newcomb's Boxes",
+   "hook": "A predictor who has never been wrong has already filled the boxes. Does your choice still matter?",
+   "enriched": true,
+   "summary": "You may take one opaque box or both boxes. A highly reliable predictor placed a large sum in the opaque box only if it predicted you would take one. Evidential reasoning says take one, since one-boxers reliably do better. Causal reasoning says take both, since the contents are already fixed and your choice cannot change them. Both arguments appear sound and they conflict.",
+   "facts": [
+    "It divides decision theory into evidential and causal camps.",
+    "The prediction is already made and unchangeable before you choose.",
+    "Surveys of philosophers show the field remains genuinely split."
+   ],
+   "vocab": [
+    {
+     "word": "opaque",
+     "meaning": "not able to be seen through"
+    },
+    {
+     "word": "predictor",
+     "meaning": "something or someone that forecasts what will happen"
+    },
+    {
+     "word": "causal",
+     "meaning": "relating to cause and effect"
+    }
+   ],
+   "question": "If someone could reliably predict your choices, would they still be choices?"
+  },
+  {
+   "id": "EC003",
+   "cat": "ECHOES",
+   "title": "Schrödinger's Cat",
+   "hook": "A physicist invented this scenario to show how absurd quantum theory sounded. It became its most famous image.",
+   "enriched": true,
+   "summary": "Erwin Schrödinger described a sealed box containing a cat and a mechanism triggered by a random quantum event. If the standard interpretation were taken literally, the cat would be in a combined state of both outcomes until observed. Schrödinger's intent was satirical — he meant to show that applying quantum rules to everyday objects produces nonsense. The thought experiment is now used to introduce the very ideas he was criticising.",
+   "facts": [
+    "Schrödinger proposed it in 1935, in correspondence with Albert Einstein.",
+    "He intended it as a criticism, not an illustration to be taught approvingly.",
+    "Physicists now explain why large objects lose quantum behaviour rapidly, through a process called decoherence."
+   ],
+   "vocab": [
+    {
+     "word": "quantum",
+     "meaning": "relating to the physics of very small particles"
+    },
+    {
+     "word": "satirical",
+     "meaning": "using humour or exaggeration to criticise something"
+    },
+    {
+     "word": "interpretation",
+     "meaning": "a particular way of understanding something"
+    }
+   ],
+   "question": "Why do arguments meant as criticism sometimes become the most famous version of an idea?"
+  },
+  {
+   "id": "EC004",
+   "cat": "ECHOES",
+   "title": "Survivorship Bias",
+   "hook": "Engineers armoured the bullet holes on returning planes. A statistician told them they had it exactly backwards.",
+   "enriched": true,
+   "summary": "During the Second World War, analysts examined returning aircraft and mapped where they had been hit, planning to reinforce those areas. Statistician Abraham Wald pointed out the flaw: they were only studying planes that made it back. The undamaged areas on survivors were precisely the areas where a hit meant the plane never returned. The armour belonged where the holes were not. The lesson generalises: studying only successes teaches the wrong lesson.",
+   "facts": [
+    "Wald worked with the Statistical Research Group at Columbia University during the war.",
+    "The same error appears in business advice drawn only from companies that succeeded.",
+    "It also distorts history, since records survive unevenly and favour certain groups."
+   ],
+   "vocab": [
+    {
+     "word": "bias",
+     "meaning": "a tendency that leads to unfair or incorrect conclusions"
+    },
+    {
+     "word": "reinforce",
+     "meaning": "to make something stronger"
+    },
+    {
+     "word": "generalises",
+     "meaning": "applies broadly beyond the original case"
+    }
+   ],
+   "question": "Whose stories are missing from the advice you have been given about success?"
+  },
+  {
+   "id": "EC005",
+   "cat": "ECHOES",
+   "title": "The Birthday Paradox",
+   "hook": "In a room of just 23 people, it is more likely than not that two share a birthday. Most people guess 180.",
+   "enriched": true,
+   "summary": "The result feels wrong because people instinctively ask how many others share their own birthday. The actual question is whether any pair among the group matches. With 23 people there are 253 possible pairs, and the probability that none of them match falls below one half. At 50 people the probability of a shared birthday exceeds 97 percent. Our intuition badly underestimates how quickly combinations grow.",
+   "facts": [
+    "The number of possible pairs grows roughly with the square of the group size.",
+    "At 70 people the probability of a shared birthday is above 99 percent.",
+    "The same mathematics underlies certain attacks on cryptographic systems."
+   ],
+   "vocab": [
+    {
+     "word": "probability",
+     "meaning": "how likely something is to happen"
+    },
+    {
+     "word": "intuition",
+     "meaning": "a feeling about something without working it out"
+    },
+    {
+     "word": "combination",
+     "meaning": "a particular way of pairing or grouping things"
+    }
+   ],
+   "question": "Why does human intuition fail so badly when numbers start multiplying?"
+  },
+  {
+   "id": "EC006",
+   "cat": "ECHOES",
+   "title": "The Infinite Hotel",
+   "hook": "A hotel with endless rooms is completely full. A new guest arrives — and there is still space.",
+   "enriched": true,
+   "summary": "Mathematician David Hilbert imagined a hotel with infinitely many rooms, all occupied. When one guest arrives, the manager asks everyone to move one room along: room 1 to room 2, room 2 to room 3, and so on. Room 1 is now free, though nobody left. If infinitely many guests arrive, everyone moves to double their room number, freeing every odd-numbered room. The thought experiment shows that infinity does not behave like an ordinary large number.",
+   "facts": [
+    "The paradox was introduced by David Hilbert in the 1920s to teach how infinite sets behave.",
+    "It demonstrates that an infinite set can be the same size as a part of itself.",
+    "Some infinities are genuinely larger than others — a result proven by Georg Cantor."
+   ],
+   "vocab": [
+    {
+     "word": "paradox",
+     "meaning": "a statement that seems to contradict itself but may be true"
+    },
+    {
+     "word": "infinite",
+     "meaning": "without any end or limit"
+    },
+    {
+     "word": "occupied",
+     "meaning": "being used or filled by someone"
+    }
+   ],
+   "question": "Can something be completely full and still have room? What does 'full' really mean?"
+  },
+  {
+   "id": "EC007",
+   "cat": "ECHOES",
+   "title": "The Monty Hall Problem",
+   "hook": "Switching doors doubles your chance of winning. Thousands of mathematicians insisted this was wrong.",
+   "enriched": true,
+   "summary": "You pick one of three doors. The host, who knows what is behind each, opens a different door revealing a goat, then offers you the swap. Switching wins two times in three, because your first pick was right only one time in three, and the host's constrained choice concentrates the remaining probability. When Marilyn vos Savant published the correct answer in 1990, she received thousands of letters insisting she was mistaken.",
+   "facts": [
+    "The host's knowledge is essential; a random reveal would change the answer entirely.",
+    "Vos Savant received roughly ten thousand letters, many from people with doctorates.",
+    "Computer simulation settles it immediately and unambiguously."
+   ],
+   "vocab": [
+    {
+     "word": "constrained",
+     "meaning": "limited by rules or conditions"
+    },
+    {
+     "word": "simulation",
+     "meaning": "a model run repeatedly to test what happens"
+    },
+    {
+     "word": "unambiguously",
+     "meaning": "with no possible confusion or doubt"
+    }
+   ],
+   "question": "What should you do when the correct answer feels obviously wrong?"
+  },
+  {
+   "id": "EC008",
+   "cat": "ECHOES",
+   "title": "The Observer Effect",
+   "hook": "In one famous experiment, particles behaved one way when measured — and completely differently when no one was watching.",
+   "enriched": true,
+   "summary": "In the double-slit experiment, particles fired at a barrier with two openings produce an interference pattern, behaving like waves. But when detectors are placed to record which slit each particle passes through, the pattern disappears and they behave like ordinary particles. The act of measuring changes the result. This is not about human consciousness watching; it is about the physical interaction any measurement requires. It remains one of the strangest confirmed results in physics.",
+   "facts": [
+    "The experiment works even when particles are fired one at a time, which should make interference impossible.",
+    "It has been repeated with electrons, atoms, and even large molecules.",
+    "The result is central to quantum mechanics and has never been overturned in over a century of testing."
+   ],
+   "vocab": [
+    {
+     "word": "interference",
+     "meaning": "what happens when two waves overlap and combine"
+    },
+    {
+     "word": "detector",
+     "meaning": "a device that senses and records something"
+    },
+    {
+     "word": "overturned",
+     "meaning": "proven wrong and replaced"
+    }
+   ],
+   "question": "Can anything ever be studied without the study itself changing it?"
+  },
+  {
+   "id": "EC009",
+   "cat": "ECHOES",
+   "title": "The Sleeping Beauty Problem",
+   "hook": "You wake with no memory of waking before. What odds should you give a coin you never saw flipped?",
+   "enriched": true,
+   "summary": "A participant is put to sleep. A fair coin is flipped. On heads she is woken once; on tails she is woken twice, with memory of the first waking erased. On waking, what probability should she assign to heads? Halfers say one half, since the coin is fair and she has learned nothing. Thirders say one third, since two of three possible wakings follow tails. The disagreement remains unresolved.",
+   "facts": [
+    "The two positions are known as the halfer and thirder views.",
+    "It connects directly to debates about anthropic reasoning in cosmology.",
+    "Neither answer has achieved consensus among philosophers or statisticians."
+   ],
+   "vocab": [
+    {
+     "word": "probability",
+     "meaning": "how likely something is to happen"
+    },
+    {
+     "word": "anthropic",
+     "meaning": "reasoning that accounts for the fact of your own existence"
+    },
+    {
+     "word": "consensus",
+     "meaning": "general agreement among a group"
+    }
+   ],
+   "question": "Does simply existing to ask a question count as evidence about the answer?"
+  },
+  {
+   "id": "EC010",
+   "cat": "ECHOES",
+   "title": "The Trolley Problem",
+   "hook": "Pull a lever and one person is harmed. Do nothing and five are. Almost every room splits in half.",
+   "enriched": true,
+   "summary": "Philosopher Philippa Foot introduced this thought experiment to expose a gap in how we reason about harm. Most people say they would pull the lever, choosing the smaller loss. But in a variant where saving the five requires physically pushing one person, most refuse — even though the arithmetic is identical. The difference reveals that we distinguish between causing harm and allowing it, and that proximity changes our moral intuitions.",
+   "facts": [
+    "Foot introduced the problem in 1967 while writing about a different ethical question entirely.",
+    "The scenario is now seriously discussed in the design of self-driving cars.",
+    "Responses vary measurably across cultures, ages, and how the question is worded."
+   ],
+   "vocab": [
+    {
+     "word": "ethical",
+     "meaning": "relating to what is right and wrong"
+    },
+    {
+     "word": "intuition",
+     "meaning": "a feeling about something without conscious reasoning"
+    },
+    {
+     "word": "variant",
+     "meaning": "a slightly different version of something"
+    }
+   ],
+   "question": "Should a machine ever be programmed to decide who gets harmed?"
+  },
+  {
+   "id": "EC011",
+   "cat": "ECHOES",
+   "title": "The Unexpected Hanging",
+   "hook": "A judge promises a surprise event next week. Perfect logic proves it cannot happen — and then it does.",
+   "enriched": true,
+   "summary": "A prisoner is told he will be executed on a weekday next week, and that the day will be a surprise. He reasons it cannot be Friday, since by Thursday evening it would be predictable; that eliminates Thursday for the same reason, and so on until no day remains. Reassured, he is genuinely surprised when it occurs. The paradox exposes something unresolved about self-referential knowledge and prediction.",
+   "facts": [
+    "It is also known as the unexpected examination or surprise test paradox.",
+    "Proposed resolutions span logic, epistemology and formal accounts of knowledge.",
+    "No single resolution is universally accepted by philosophers."
+   ],
+   "vocab": [
+    {
+     "word": "eliminate",
+     "meaning": "to rule something out completely"
+    },
+    {
+     "word": "self-referential",
+     "meaning": "referring to itself"
+    },
+    {
+     "word": "epistemology",
+     "meaning": "the study of how we know what we know"
+    }
+   ],
+   "question": "Can a chain of reasoning be flawless at every step and still reach a wrong answer?"
+  },
+  {
+   "id": "EC012",
+   "cat": "ECHOES",
+   "title": "Buridan's Donkey",
+   "hook": "Why a perfectly balanced choice can freeze a decision completely.",
+   "enriched": false
+  },
+  {
+   "id": "EC013",
+   "cat": "ECHOES",
+   "title": "Ship of Theseus",
+   "hook": "Replace every plank one by one — is it still the same ship?",
+   "enriched": false
+  },
+  {
+   "id": "EC014",
+   "cat": "ECHOES",
+   "title": "The Backfire Effect",
+   "hook": "Being proven wrong sometimes deepens the belief instead.",
+   "enriched": false
+  },
+  {
+   "id": "EC015",
+   "cat": "ECHOES",
+   "title": "The Bootstrap Paradox",
+   "hook": "An idea or object that appears to have no origin whatsoever.",
+   "enriched": false
+  },
+  {
+   "id": "EC016",
+   "cat": "ECHOES",
+   "title": "The Fermi Paradox",
+   "hook": "In so vast a universe, why have we found no one else at all?",
+   "enriched": false
+  },
+  {
+   "id": "EC017",
+   "cat": "ECHOES",
+   "title": "The Grandfather Paradox",
+   "hook": "Could you exist if you went back and prevented your own birth?",
+   "enriched": false
+  },
+  {
+   "id": "EC018",
+   "cat": "ECHOES",
+   "title": "The Heap Paradox",
+   "hook": "At which exact grain of sand does a heap stop being a heap?",
+   "enriched": false
+  },
+  {
+   "id": "EC019",
+   "cat": "ECHOES",
+   "title": "Zeno's Arrow",
+   "hook": "At every single instant, a flying arrow is technically standing still.",
+   "enriched": false
+  },
+  {
+   "id": "HI001",
+   "cat": "HISTORY",
+   "title": "Cargo Cults",
+   "hook": "They built runways from bamboo and control towers from wood, then waited for planes that never came.",
+   "enriched": true,
+   "summary": "During the Second World War, remote Pacific islands saw sudden enormous influxes of aircraft, supplies, and personnel. When the war ended and the forces withdrew, some communities constructed replicas of runways, radios, and control towers, reproducing the visible activities that had preceded the arrival of goods. The physicist Richard Feynman later borrowed the term to criticise research that copies the outward form of science without its substance.",
+   "facts": [
+    "The practices arose after a sudden and unexplained disruption of ordinary life.",
+    "Feynman used the phrase 'cargo cult science' in a 1974 address about self-deception in research.",
+    "Anthropologists now criticise the term as oversimplifying complex religious and political movements."
+   ],
+   "vocab": [
+    {
+     "word": "replica",
+     "meaning": "a copy made to look like the original"
+    },
+    {
+     "word": "influx",
+     "meaning": "a large arrival of people or things"
+    },
+    {
+     "word": "substance",
+     "meaning": "the real content or meaning of something"
+    }
+   ],
+   "question": "Where do you see people copying the appearance of success without its substance?"
+  },
+  {
+   "id": "HI002",
+   "cat": "HISTORY",
+   "title": "Kowloon Walled City",
+   "hook": "A single block held 33,000 people, had almost no laws, and worked anyway.",
+   "enriched": true,
+   "summary": "Through a quirk of treaty history, this densely built settlement in Hong Kong fell outside effective jurisdiction of both the British administration and mainland authorities. Buildings grew organically upward and into each other until sunlight never reached the lower alleys. Residents ran unlicensed clinics, factories and schools, and organised their own utilities and waste collection. It was demolished in the 1990s and is now a park.",
+   "facts": [
+    "Its population density was among the highest ever recorded anywhere on Earth.",
+    "Buildings stopped at fourteen storeys only because of the nearby airport flight path.",
+    "Residents organised their own water supply, postal delivery and rubbish collection."
+   ],
+   "vocab": [
+    {
+     "word": "jurisdiction",
+     "meaning": "the area where a particular authority has power"
+    },
+    {
+     "word": "density",
+     "meaning": "how many people or things fit in a given space"
+    },
+    {
+     "word": "organically",
+     "meaning": "growing naturally without central planning"
+    }
+   ],
+   "question": "What does this place prove about whether order requires authority?"
+  },
+  {
+   "id": "HI003",
+   "cat": "HISTORY",
+   "title": "Operation Paul Bunyan",
+   "hook": "To cut down one tree, two nations assembled bombers, helicopters and artillery — and said nothing.",
+   "enriched": true,
+   "summary": "In 1976, a poplar tree in the Korean Demilitarised Zone blocked a line of sight between observation posts. An attempt to trim it ended in violence. Three days later, the trimming was completed under the cover of an enormous show of force: convoys, attack helicopters, B-52s at altitude, and artillery on alert. The tree was cut. No shots were fired. The operation is studied as a case of overwhelming deterrence used to avoid escalation.",
+   "facts": [
+    "The force assembled included B-52 bombers escorted by fighter aircraft, visible from the north.",
+    "The actual work party needed only around forty minutes to finish the job.",
+    "The stump was deliberately left standing as a marker."
+   ],
+   "vocab": [
+    {
+     "word": "deterrence",
+     "meaning": "preventing action by making the cost look too high"
+    },
+    {
+     "word": "escalation",
+     "meaning": "a situation getting more serious step by step"
+    },
+    {
+     "word": "demilitarised",
+     "meaning": "an area where military forces are not allowed"
+    }
+   ],
+   "question": "Is showing overwhelming strength a way of avoiding conflict, or of inviting it?"
+  },
+  {
+   "id": "HI004",
+   "cat": "HISTORY",
+   "title": "Roanoke Colony",
+   "hook": "The ship returned after three years. Every one of the 115 settlers was gone — no bodies, no struggle, one word carved into a post.",
+   "enriched": true,
+   "summary": "In 1587 more than a hundred English settlers established a colony on Roanoke Island. Their governor sailed back to England for supplies and was delayed for three years by war. When he finally returned, the settlement was empty and dismantled, with no sign of violence and no graves. The only clue was the word CROATOAN carved into a post — the name of a nearby island and the people who lived there. A storm prevented him from sailing to check. No one has ever confirmed what happened.",
+   "facts": [
+    "The colony included the first English child born in the Americas, the governor's own granddaughter.",
+    "The houses had been taken apart carefully rather than burned or destroyed, suggesting a planned departure.",
+    "Some historians believe the settlers integrated with the Croatoan people; no theory has ever been proven."
+   ],
+   "vocab": [
+    {
+     "word": "colony",
+     "meaning": "a settlement built by people from another country"
+    },
+    {
+     "word": "dismantled",
+     "meaning": "taken apart piece by piece"
+    },
+    {
+     "word": "integrated",
+     "meaning": "joined and became part of another group"
+    }
+   ],
+   "question": "Why do unsolved disappearances hold our attention far longer than solved ones?"
+  },
+  {
+   "id": "HI005",
+   "cat": "HISTORY",
+   "title": "The Bone Wars",
+   "hook": "Two scientists hated each other so much they dynamited fossil sites rather than let the other have them.",
+   "enriched": true,
+   "summary": "Between the 1870s and 1890s, palaeontologists Othniel Marsh and Edward Cope competed ferociously to name new dinosaur species. They bribed crews, spied on each other's digs, published hastily, and reportedly destroyed sites to deny their rival. Between them they named over a hundred species. Many names later had to be corrected, and both men ended their careers financially and professionally damaged.",
+   "facts": [
+    "Their rush to publish created lasting confusion, including the long-disputed Brontosaurus naming.",
+    "Between them they described well over a hundred new species.",
+    "Both died having spent most of their fortunes on the rivalry."
+   ],
+   "vocab": [
+    {
+     "word": "palaeontologist",
+     "meaning": "a scientist who studies fossils"
+    },
+    {
+     "word": "rivalry",
+     "meaning": "strong competition between people"
+    },
+    {
+     "word": "hastily",
+     "meaning": "done quickly and without enough care"
+    }
+   ],
+   "question": "Can competition speed up discovery and damage it at the same time?"
+  },
+  {
+   "id": "HI006",
+   "cat": "HISTORY",
+   "title": "The Christmas Truce",
+   "hook": "On one night in 1914, soldiers climbed out of the trenches, exchanged gifts and sang together.",
+   "enriched": true,
+   "summary": "Along parts of the Western Front in December 1914, unofficial ceasefires broke out. Soldiers from opposing trenches met in no man's land to bury the dead, exchange food and tobacco, and in some places play football. Commands on both sides discouraged repetition, and orders in later years explicitly prohibited fraternisation. It was never repeated on the same scale.",
+   "facts": [
+    "The truces were spontaneous and locally arranged, not authorised by any command.",
+    "Letters home describing it were widely published and surprised the public.",
+    "Both sides issued orders in following years specifically to prevent it happening again."
+   ],
+   "vocab": [
+    {
+     "word": "truce",
+     "meaning": "an agreement to stop fighting for a time"
+    },
+    {
+     "word": "spontaneous",
+     "meaning": "happening naturally without being planned"
+    },
+    {
+     "word": "fraternisation",
+     "meaning": "being friendly with people you are supposed to oppose"
+    }
+   ],
+   "question": "Why did the people in charge work so hard to prevent it happening again?"
+  },
+  {
+   "id": "HI007",
+   "cat": "HISTORY",
+   "title": "The Dancing Plague",
+   "hook": "One woman began dancing in the street. Within a month, hundreds had joined her — and none of them could stop.",
+   "enriched": true,
+   "summary": "In Strasbourg in 1518, a woman started dancing and did not stop for days. Others joined, and within weeks accounts describe hundreds of people dancing continuously, many collapsing from exhaustion. City authorities, believing the cure was more dancing, hired musicians and cleared halls, which appears to have made it worse. Historians now generally treat it as a case of mass psychogenic illness — real physical symptoms spreading through a population under extreme stress.",
+   "facts": [
+    "The region had recently suffered famine and disease, leaving the population under severe strain.",
+    "Contemporary records describe city officials actively encouraging the dancing as a supposed remedy.",
+    "Similar outbreaks of mass psychogenic illness have been documented in schools and factories in modern times."
+   ],
+   "vocab": [
+    {
+     "word": "psychogenic",
+     "meaning": "caused by the mind rather than by physical disease"
+    },
+    {
+     "word": "outbreak",
+     "meaning": "a sudden start of something spreading widely"
+    },
+    {
+     "word": "remedy",
+     "meaning": "a cure or solution to a problem"
+    }
+   ],
+   "question": "How much of what we feel is genuinely our own, and how much is caught from the people around us?"
+  },
+  {
+   "id": "HI008",
+   "cat": "HISTORY",
+   "title": "The Dreadnought Hoax",
+   "hook": "Six people in costume and stage makeup were given a full royal tour of Britain's most secret warship.",
+   "enriched": true,
+   "summary": "In 1910, a small group including the writer Virginia Woolf disguised themselves as an Abyssinian royal delegation and requested to inspect HMS Dreadnought. The Navy laid on a formal reception with an honour guard. The group communicated in improvised nonsense, and the officers, including a relative of one of the hoaxers, did not recognise them. The subsequent embarrassment prompted questions about how identity was verified at all.",
+   "facts": [
+    "The Navy could not find the appropriate national anthem and played Zanzibar's instead.",
+    "The group's spokesperson used fragments of mangled Latin and Greek as a fake language.",
+    "One of the participants was related to an officer serving aboard the ship."
+   ],
+   "vocab": [
+    {
+     "word": "delegation",
+     "meaning": "a group of people representing an organisation or country"
+    },
+    {
+     "word": "improvised",
+     "meaning": "made up on the spot without preparation"
+    },
+    {
+     "word": "hoax",
+     "meaning": "a trick played to make people believe something untrue"
+    }
+   ],
+   "question": "How much of who we are accepted as depends on simply looking the part?"
+  },
+  {
+   "id": "HI009",
+   "cat": "HISTORY",
+   "title": "The Great Molasses Flood",
+   "hook": "A storage tank burst in Boston and sent a wave of syrup through the streets at 55 kilometres an hour.",
+   "enriched": true,
+   "summary": "In January 1919, a large tank of molasses in Boston's North End failed catastrophically, releasing millions of litres. The resulting wave moved fast enough to shift buildings off foundations and buckle railway supports. Residents had complained for years that the tank leaked; the company had painted it brown, which disguised the seepage. The subsequent legal case led to significantly stricter engineering oversight and certification rules.",
+   "facts": [
+    "The tank had been leaking for years, and children collected the seepage.",
+    "The case ran for years and became a landmark in corporate liability.",
+    "It contributed to requirements that engineering plans be certified and filed with authorities."
+   ],
+   "vocab": [
+    {
+     "word": "catastrophically",
+     "meaning": "failing suddenly and completely"
+    },
+    {
+     "word": "oversight",
+     "meaning": "official supervision to make sure rules are followed"
+    },
+    {
+     "word": "seepage",
+     "meaning": "liquid slowly leaking through something"
+    }
+   ],
+   "question": "Why are warnings so often ignored until after something goes wrong?"
+  },
+  {
+   "id": "HI010",
+   "cat": "HISTORY",
+   "title": "The Radium Girls",
+   "hook": "They were told the paint was harmless, and encouraged to point the brushes with their lips.",
+   "enriched": true,
+   "summary": "In the 1910s and 1920s, young women painted glowing radium dial faces on watches and instruments. Instructed to shape their brushes with their mouths, they ingested radium daily, and some painted their nails and teeth with it for fun. As they fell seriously ill, the companies denied responsibility. The workers' lawsuits established that employers could be held liable for occupational disease, and directly shaped modern workplace safety law.",
+   "facts": [
+    "Radium accumulates in bone because the body treats it chemically like calcium.",
+    "The resulting court cases helped establish the right to sue employers over occupational illness.",
+    "Their case contributed to the founding of workplace safety standards later formalised in law."
+   ],
+   "vocab": [
+    {
+     "word": "occupational",
+     "meaning": "relating to a person's job"
+    },
+    {
+     "word": "liable",
+     "meaning": "legally responsible for something"
+    },
+    {
+     "word": "ingested",
+     "meaning": "taken into the body by swallowing"
+    }
+   ],
+   "question": "Who should carry the cost when a workplace danger is discovered too late?"
+  },
+  {
+   "id": "HI011",
+   "cat": "HISTORY",
+   "title": "The Streisand Effect",
+   "hook": "A single photograph had been downloaded six times. Then someone tried to have it removed.",
+   "enriched": true,
+   "summary": "In 2003, an aerial photograph of the California coastline sat almost unnoticed in a public erosion survey. A lawsuit demanding its removal drew enormous attention, and within a month it had been viewed hundreds of thousands of times. The pattern now has a name: attempts to suppress information frequently guarantee its spread, because the suppression itself becomes the story and signals that the material must be worth seeing.",
+   "facts": [
+    "The photograph was part of a coastal erosion documentation project, not a targeted image.",
+    "The term was coined by a journalist writing about the case shortly afterwards.",
+    "The effect is now routinely cited when advising organisations how to respond to criticism."
+   ],
+   "vocab": [
+    {
+     "word": "suppress",
+     "meaning": "to prevent something from being seen or known"
+    },
+    {
+     "word": "aerial",
+     "meaning": "taken or happening from the air"
+    },
+    {
+     "word": "coined",
+     "meaning": "invented a new word or phrase"
+    }
+   ],
+   "question": "When is staying silent about criticism stronger than responding to it?"
+  },
+  {
+   "id": "HI012",
+   "cat": "HISTORY",
+   "title": "The Tanganyika Laughter",
+   "hook": "It started with three schoolgirls laughing. Within months, thousands were affected and schools closed.",
+   "enriched": true,
+   "summary": "In 1962, an outbreak of uncontrollable laughter began at a mission school in what is now Tanzania. Affected students could not stop for hours or days at a time, and the school was forced to close. As pupils returned home, it spread to their villages and other schools, ultimately affecting around a thousand people over months. It is now classified as mass psychogenic illness, linked to the acute stress of a society undergoing rapid change.",
+   "facts": [
+    "The outbreak lasted, on and off, for more than a year across multiple villages.",
+    "Around fourteen schools were closed as a result.",
+    "Symptoms included crying and restlessness as well as laughter, and no physical cause was ever found."
+   ],
+   "vocab": [
+    {
+     "word": "outbreak",
+     "meaning": "a sudden occurrence of something spreading"
+    },
+    {
+     "word": "psychogenic",
+     "meaning": "originating in the mind rather than the body"
+    },
+    {
+     "word": "acute",
+     "meaning": "severe and happening over a short period"
+    }
+   ],
+   "question": "What does it mean that a society's stress can appear as a physical symptom?"
+  },
+  {
+   "id": "HI013",
+   "cat": "HISTORY",
+   "title": "The Year Without Summer",
+   "hook": "In 1816, snow fell in June across New England. The cause was a volcano on the other side of the world.",
+   "enriched": true,
+   "summary": "The eruption of Mount Tambora in Indonesia in April 1815 threw enormous quantities of sulphate aerosols into the stratosphere, dimming sunlight worldwide. The following year brought frost in summer, failed harvests across Europe and North America, and widespread food shortages. One indirect consequence: a group of writers trapped indoors by relentless rain at Lake Geneva held a ghost-story contest, which produced Frankenstein.",
+   "facts": [
+    "Tambora was the largest volcanic eruption in recorded human history.",
+    "Crop failures drove grain prices in parts of Europe to several times their normal level.",
+    "The gloomy weather at Lake Geneva directly prompted the writing of Frankenstein."
+   ],
+   "vocab": [
+    {
+     "word": "aerosol",
+     "meaning": "tiny particles suspended in the air"
+    },
+    {
+     "word": "stratosphere",
+     "meaning": "a high layer of the atmosphere above the weather"
+    },
+    {
+     "word": "harvest",
+     "meaning": "the gathering of crops when they are ready"
+    }
+   ],
+   "question": "How should a world this interconnected prepare for a single event that affects everyone?"
+  },
+  {
+   "id": "HI014",
+   "cat": "HISTORY",
+   "title": "Tulip Mania",
+   "hook": "At its peak, one flower bulb was worth more than a house on an Amsterdam canal.",
+   "enriched": true,
+   "summary": "In the 1630s, rare tulip bulbs in the Dutch Republic became objects of intense speculation. Prices for the most prized varieties climbed to extraordinary levels, driven largely by contracts to buy bulbs still in the ground. In early 1637 buyers stopped appearing at auction and prices collapsed within weeks. Modern historians argue the economic damage was far narrower than the legend suggests, but the episode remains the standard shorthand for speculative bubbles.",
+   "facts": [
+    "The most valuable bulbs owed their striped patterns to a virus infecting the plant.",
+    "Much of the trading involved contracts for future delivery rather than actual bulbs.",
+    "Historians now believe the wider Dutch economy was far less damaged than popular accounts claim."
+   ],
+   "vocab": [
+    {
+     "word": "speculation",
+     "meaning": "buying something hoping its price will rise"
+    },
+    {
+     "word": "bubble",
+     "meaning": "a period when prices rise far above real value"
+    },
+    {
+     "word": "collapse",
+     "meaning": "to fall suddenly and completely"
+    }
+   ],
+   "question": "What decides the value of something — what it does, or what people believe about it?"
+  },
+  {
+   "id": "HI015",
+   "cat": "HISTORY",
+   "title": "Kaspar Hauser",
+   "hook": "A boy appeared in a German town remembering almost nothing at all.",
+   "enriched": false
+  },
+  {
+   "id": "HI016",
+   "cat": "HISTORY",
+   "title": "Prester John",
+   "hook": "A legendary king medieval Europe searched for and never found.",
+   "enriched": false
+  },
+  {
+   "id": "HI017",
+   "cat": "HISTORY",
+   "title": "The Antikythera Mechanism",
+   "hook": "A 2,000-year-old shipwreck device that could predict eclipses.",
+   "enriched": false
+  },
+  {
+   "id": "HI018",
+   "cat": "HISTORY",
+   "title": "The Berlin Wall",
+   "hook": "For nearly thirty years a single wall split one city in two.",
+   "enriched": false
+  },
+  {
+   "id": "HI019",
+   "cat": "HISTORY",
+   "title": "The Emu War",
+   "hook": "In 1932 Australia's army was famously outmatched by thousands of birds.",
+   "enriched": false
+  },
+  {
+   "id": "HI020",
+   "cat": "HISTORY",
+   "title": "The Georgia Guidestones",
+   "hook": "A granite monument inscribed with instructions for a distant future.",
+   "enriched": false
+  },
+  {
+   "id": "HI021",
+   "cat": "HISTORY",
+   "title": "The Great Fire of London",
+   "hook": "In 1666 fire consumed the city yet claimed remarkably few lives.",
+   "enriched": false
+  },
+  {
+   "id": "HI022",
+   "cat": "HISTORY",
+   "title": "The Library of Alexandria",
+   "hook": "One of history's greatest gatherings of knowledge, eventually lost.",
+   "enriched": false
+  },
+  {
+   "id": "HI023",
+   "cat": "HISTORY",
+   "title": "The Mary Celeste",
+   "hook": "A ship found sailing, fully stocked, with not one soul aboard.",
+   "enriched": false
+  },
+  {
+   "id": "HI024",
+   "cat": "HISTORY",
+   "title": "The Sealed Capsule",
+   "hook": "Some time capsules are not to be opened for hundreds of years.",
+   "enriched": false
+  },
+  {
+   "id": "HI025",
+   "cat": "HISTORY",
+   "title": "The South Sea Bubble",
+   "hook": "One of the first stock crashes, built almost entirely on hype.",
+   "enriched": false
+  },
+  {
+   "id": "HI026",
+   "cat": "HISTORY",
+   "title": "The Toynbee Tiles",
+   "hook": "Cryptic messages embedded in city streets — the maker still unknown.",
+   "enriched": false
+  },
+  {
+   "id": "HI027",
+   "cat": "HISTORY",
+   "title": "The Unsinkable Ship",
+   "hook": "The Titanic's loss wrote the safety rules ships still follow today.",
+   "enriched": false
+  },
+  {
+   "id": "HI028",
+   "cat": "HISTORY",
+   "title": "The Wow! Signal",
+   "hook": "A 72-second radio burst from deep space, never once repeated.",
+   "enriched": false
+  },
+  {
+   "id": "CV001",
+   "cat": "CIVILIZATIONS",
+   "title": "Göbekli Tepe",
+   "hook": "Hunter-gatherers built a temple complex 6,000 years before Stonehenge — then deliberately buried the whole thing.",
+   "enriched": true,
+   "summary": "On a hilltop in southeastern Turkey stand massive carved limestone pillars arranged in rings, raised around 9500 BCE by people who had not yet invented pottery, writing, or farming. Textbooks held that agriculture produced settlement, which produced religion and monuments. Göbekli Tepe reverses the order. Stranger still, the builders methodically backfilled the enclosures with rubble, sealing them.",
+   "facts": [
+    "The pillars weigh up to sixteen tonnes and were shaped without metal tools.",
+    "Some are carved with foxes, scorpions, vultures and snakes in high relief.",
+    "The site was deliberately buried, which is why it survived in such good condition."
+   ],
+   "vocab": [
+    {
+     "word": "monument",
+     "meaning": "a large structure built to be remembered"
+    },
+    {
+     "word": "agriculture",
+     "meaning": "the practice of growing crops and raising animals"
+    },
+    {
+     "word": "backfilled",
+     "meaning": "filled a hole back in with earth or rubble"
+    }
+   ],
+   "question": "If belief came before farming, what does that say about what humans need most?"
+  },
+  {
+   "id": "CV002",
+   "cat": "CIVILIZATIONS",
+   "title": "Phoenician Purple",
+   "hook": "It took twelve thousand sea snails to dye a single robe. Only emperors were allowed to wear it.",
+   "enriched": true,
+   "summary": "Tyrian purple was extracted from a gland in certain predatory sea snails, requiring enormous quantities for a small amount of dye. The process was foul-smelling and laborious, which made the colour extraordinarily expensive. Rome eventually restricted its use by law to the imperial household. When Constantinople fell, the technique was effectively lost, and cardinals switched to a scarlet dye instead.",
+   "facts": [
+    "Estimates suggest roughly 12,000 snails yielded enough dye for one garment's trim.",
+    "The colour deepened rather than faded with sunlight and age, unlike most ancient dyes.",
+    "Roman sumptuary laws made unauthorised wearing of it a serious offence."
+   ],
+   "vocab": [
+    {
+     "word": "laborious",
+     "meaning": "needing a lot of hard work"
+    },
+    {
+     "word": "imperial",
+     "meaning": "relating to an emperor or empire"
+    },
+    {
+     "word": "sumptuary",
+     "meaning": "laws limiting what people may buy or wear"
+    }
+   ],
+   "question": "Why do societies keep inventing ways to make status visible?"
+  },
+  {
+   "id": "CV003",
+   "cat": "CIVILIZATIONS",
+   "title": "The Cucuteni Burnings",
+   "hook": "Every sixty to eighty years, these people burned their entire town to the ground — on purpose.",
+   "enriched": true,
+   "summary": "The Cucuteni-Trypillia culture of Neolithic Eastern Europe built some of the largest settlements of their era, housing thousands. Archaeological layers show that at regular intervals the inhabitants deliberately burned every house, then rebuilt on the ashes. The fires were hot enough to vitrify clay, meaning they were deliberately fuelled, not accidental. No agreed explanation exists.",
+   "facts": [
+    "The burn layers repeat at intervals of roughly two to three generations.",
+    "Temperatures were high enough to turn clay walls glassy, requiring deliberate fuelling.",
+    "Some settlements held several thousand people, rivalling early Mesopotamian cities."
+   ],
+   "vocab": [
+    {
+     "word": "Neolithic",
+     "meaning": "the later Stone Age, when farming began"
+    },
+    {
+     "word": "vitrify",
+     "meaning": "to turn into a glassy substance through intense heat"
+    },
+    {
+     "word": "settlement",
+     "meaning": "a place where a community lives"
+    }
+   ],
+   "question": "What kind of belief would make a community destroy everything it built, over and over?"
+  },
+  {
+   "id": "CV004",
+   "cat": "CIVILIZATIONS",
+   "title": "The Harappan Drains",
+   "hook": "Four thousand years ago, ordinary houses had private bathrooms connected to covered city sewers.",
+   "enriched": true,
+   "summary": "Mohenjo-daro and Harappa were laid out on grids with brick-lined drainage running beneath the streets, fitted with inspection covers for maintenance. Individual homes had bathing platforms and toilets that connected to the network. This level of household sanitation would not be matched in many European cities until the nineteenth century. Notably, the cities show few grand palaces or obvious royal tombs.",
+   "facts": [
+    "Drains had removable covers specifically to allow cleaning and inspection.",
+    "Bricks across the civilisation followed a consistent ratio, suggesting standardised production.",
+    "Archaeologists have found no clearly identifiable royal burials or palaces."
+   ],
+   "vocab": [
+    {
+     "word": "sanitation",
+     "meaning": "systems for keeping places clean and healthy"
+    },
+    {
+     "word": "standardised",
+     "meaning": "made the same according to an agreed rule"
+    },
+    {
+     "word": "grid",
+     "meaning": "a pattern of straight lines crossing at right angles"
+    }
+   ],
+   "question": "What does it say about a society when it spends its wealth on drains instead of palaces?"
+  },
+  {
+   "id": "CV005",
+   "cat": "CIVILIZATIONS",
+   "title": "The Inca Quipu",
+   "hook": "An empire ran without writing. Its records were kept in knots on coloured string.",
+   "enriched": true,
+   "summary": "The Inca administered a state spanning thousands of kilometres using quipu — arrangements of knotted cords where colour, ply, knot type and position all carried meaning. Numerical quipu are well understood and used a decimal system. But some appear to encode more than numbers, possibly names, events or narrative. Specialists called quipucamayocs trained for years to read them, and most were destroyed after the Spanish conquest.",
+   "facts": [
+    "Position along the cord indicated place value, much like decimal columns.",
+    "Fewer than a thousand quipu survive worldwide.",
+    "Some scholars argue certain quipu encode language, not just quantity."
+   ],
+   "vocab": [
+    {
+     "word": "decimal",
+     "meaning": "a counting system based on tens"
+    },
+    {
+     "word": "administer",
+     "meaning": "to manage and run something large"
+    },
+    {
+     "word": "encode",
+     "meaning": "to store information in a particular form"
+    }
+   ],
+   "question": "Does a society need writing to be sophisticated, or just a reliable way to remember?"
+  },
+  {
+   "id": "CV006",
+   "cat": "CIVILIZATIONS",
+   "title": "The Indus Script",
+   "hook": "A city of a million people left thousands of inscriptions. Not one has ever been read.",
+   "enriched": true,
+   "summary": "The Indus Valley Civilisation built sophisticated planned cities across what is now Pakistan and northwest India, complete with drainage, standardised bricks and weights. They left behind thousands of short inscriptions on seals and tablets. Despite more than a century of effort, the script remains undeciphered — partly because the inscriptions are extremely short, and no bilingual key like the Rosetta Stone has ever been found.",
+   "facts": [
+    "Most inscriptions are only around five symbols long, far too short for standard decoding methods.",
+    "Scholars still dispute whether it encodes a spoken language at all.",
+    "The civilisation was larger in area than contemporary Egypt and Mesopotamia combined."
+   ],
+   "vocab": [
+    {
+     "word": "inscription",
+     "meaning": "words or symbols carved or written on a surface"
+    },
+    {
+     "word": "undeciphered",
+     "meaning": "not yet understood or decoded"
+    },
+    {
+     "word": "bilingual",
+     "meaning": "written in two languages"
+    }
+   ],
+   "question": "How much of a civilisation can we truly know if we cannot read its words?"
+  },
+  {
+   "id": "CV007",
+   "cat": "CIVILIZATIONS",
+   "title": "The Songlines",
+   "hook": "Entire continents were memorised as songs. Sing the verses in order and you can navigate a thousand kilometres.",
+   "enriched": true,
+   "summary": "Aboriginal Australian songlines encode routes across country in sung sequences, where the order of verses corresponds to the order of landmarks, waterholes and features along a path. They function simultaneously as maps, law, history and ceremony. Some tracks cross language groups, with each community holding a section, so travelling the full route requires cooperation between peoples who speak differently.",
+   "facts": [
+    "A single songline can extend across thousands of kilometres and multiple language groups.",
+    "The melody's shape can correspond to the shape of the land it describes.",
+    "Some encode knowledge of coastlines that have been underwater for thousands of years."
+   ],
+   "vocab": [
+    {
+     "word": "ceremony",
+     "meaning": "a formal event with cultural or religious meaning"
+    },
+    {
+     "word": "landmark",
+     "meaning": "a feature of the land used to recognise a place"
+    },
+    {
+     "word": "sequence",
+     "meaning": "things arranged in a particular order"
+    }
+   ],
+   "question": "Why does information stored in song survive so much longer than information written down?"
+  },
+  {
+   "id": "CV008",
+   "cat": "CIVILIZATIONS",
+   "title": "The Viking Sunstone",
+   "hook": "Sagas describe a stone that found the sun through thick cloud. Physicists eventually proved it could work.",
+   "enriched": true,
+   "summary": "Norse texts mention a sólarsteinn used for navigation when the sun was hidden. For a long time this was treated as legend. Then researchers showed that certain birefringent crystals, such as Iceland spar, split light according to its polarisation, producing a pattern that reveals the sun's position even under overcast skies. A crystal of this type was later recovered from a sixteenth-century shipwreck.",
+   "facts": [
+    "Iceland spar splits a single image into two, and their relative brightness shifts with polarisation.",
+    "Experiments show the technique can locate the sun to within a few degrees under cloud.",
+    "A calcite crystal was found aboard an Elizabethan wreck off Alderney."
+   ],
+   "vocab": [
+    {
+     "word": "polarisation",
+     "meaning": "the direction in which light waves vibrate"
+    },
+    {
+     "word": "navigation",
+     "meaning": "finding your way from one place to another"
+    },
+    {
+     "word": "birefringent",
+     "meaning": "splitting light into two separate rays"
+    }
+   ],
+   "question": "How many other old stories are waiting for science to catch up with them?"
+  },
+  {
+   "id": "CV009",
+   "cat": "CIVILIZATIONS",
+   "title": "The Voynich Manuscript",
+   "hook": "For six hundred years, the best codebreakers alive have opened this book, studied it, and admitted defeat.",
+   "enriched": true,
+   "summary": "The Voynich Manuscript is a 240-page illustrated book written in an unknown script, filled with drawings of plants that match no known species, astronomical charts, and unexplained diagrams. Carbon dating places the vellum in the early 1400s. Professional cryptographers from both World Wars, including teams who broke military codes, have failed to decipher a single confirmed sentence. Arguments continue over whether it is a lost language, an elaborate cipher, or a beautiful hoax.",
+   "facts": [
+    "Statistical analysis shows the text behaves like a real language, with natural word-frequency patterns.",
+    "The plants illustrated do not reliably match any species botanists can identify.",
+    "It is kept at Yale University, and high-resolution scans are freely available to anyone who wants to try."
+   ],
+   "vocab": [
+    {
+     "word": "manuscript",
+     "meaning": "a book or document written by hand"
+    },
+    {
+     "word": "decipher",
+     "meaning": "to work out the meaning of something written in code"
+    },
+    {
+     "word": "hoax",
+     "meaning": "something created to deceive people"
+    }
+   ],
+   "question": "What would it take to convince you that a book is meaningless rather than simply unsolved?"
+  },
+  {
+   "id": "CV010",
+   "cat": "CIVILIZATIONS",
+   "title": "The Australian Songlines",
+   "hook": "Indigenous routes across the continent were memorized as songs that map the land.",
+   "enriched": false
+  },
+  {
+   "id": "CV011",
+   "cat": "CIVILIZATIONS",
+   "title": "The Cucuteni Houses",
+   "hook": "An ancient European culture deliberately burned their entire settlements every few decades.",
+   "enriched": false
+  },
+  {
+   "id": "CV012",
+   "cat": "CIVILIZATIONS",
+   "title": "The Dogon Sirius Knowledge",
+   "hook": "A West African people held detailed knowledge of a star system invisible to the naked eye.",
+   "enriched": false
+  },
+  {
+   "id": "CV013",
+   "cat": "CIVILIZATIONS",
+   "title": "The Khmer Water Cities",
+   "hook": "Angkor's empire managed water on a scale that still impresses modern engineers.",
+   "enriched": false
+  },
+  {
+   "id": "CV014",
+   "cat": "CIVILIZATIONS",
+   "title": "The Lost City of Z",
+   "hook": "An explorer vanished searching for a legendary city in the Amazon.",
+   "enriched": false
+  },
+  {
+   "id": "CV015",
+   "cat": "CIVILIZATIONS",
+   "title": "The Minoan Bull Leap",
+   "hook": "Art from Crete shows athletes vaulting over charging bulls as ritual or sport.",
+   "enriched": false
+  },
+  {
+   "id": "CV016",
+   "cat": "CIVILIZATIONS",
+   "title": "The Nazca Lines",
+   "hook": "Giant geoglyphs in the desert are only fully visible from the air.",
+   "enriched": false
+  },
+  {
+   "id": "CV017",
+   "cat": "CIVILIZATIONS",
+   "title": "The Olmec Colossal Heads",
+   "hook": "Enormous stone faces were carved and moved by a civilization with no wheeled vehicles.",
+   "enriched": false
+  },
+  {
+   "id": "CV018",
+   "cat": "CIVILIZATIONS",
+   "title": "The Punic Tophet",
+   "hook": "Sacred precincts in Carthage still spark debate about what rituals occurred there.",
+   "enriched": false
+  },
+  {
+   "id": "CV019",
+   "cat": "CIVILIZATIONS",
+   "title": "The Rapa Nui Moai",
+   "hook": "Giant stone heads on Easter Island once had bodies buried underground.",
+   "enriched": false
+  },
+  {
+   "id": "CV020",
+   "cat": "CIVILIZATIONS",
+   "title": "The Sumerian King List",
+   "hook": "An ancient list claims some early rulers reigned for tens of thousands of years.",
+   "enriched": false
+  },
+  {
+   "id": "CV021",
+   "cat": "CIVILIZATIONS",
+   "title": "The Terra Cotta Army",
+   "hook": "Thousands of life-sized clay soldiers were buried with a Chinese emperor.",
+   "enriched": false
+  },
+  {
+   "id": "MN001",
+   "cat": "MIND",
+   "title": "Baader-Meinhof",
+   "hook": "You learn a new word today. By tomorrow it is everywhere — and it was always there.",
+   "enriched": true,
+   "summary": "Also called the frequency illusion, this is the experience of noticing something constantly right after first encountering it. Two effects combine: selective attention, where your brain now flags the thing it has just filed as significant, and confirmation bias, where each new sighting reinforces the sense that something has genuinely changed. Nothing about the world's frequency has altered. Only your filter has.",
+   "facts": [
+    "The odd name comes from a reader's comment about repeatedly encountering references to a German group.",
+    "It is now a standard example used to explain how attention shapes perception.",
+    "Advertisers rely on the effect: one memorable exposure makes later ones feel unavoidable."
+   ],
+   "vocab": [
+    {
+     "word": "illusion",
+     "meaning": "something that appears different from how it really is"
+    },
+    {
+     "word": "perception",
+     "meaning": "how we notice and understand what is around us"
+    },
+    {
+     "word": "reinforce",
+     "meaning": "to strengthen a belief or impression"
+    }
+   ],
+   "question": "How much of what you believe about the world is really just what you have been noticing?"
+  },
+  {
+   "id": "MN002",
+   "cat": "MIND",
+   "title": "Change Blindness",
+   "hook": "A stranger asking directions was swapped for a different person mid-conversation. Half the people never noticed.",
+   "enriched": true,
+   "summary": "In a classic experiment, an experimenter asking for directions was replaced by a different person while workers carrying a door passed between them. Roughly half of participants failed to notice. Change blindness shows that we retain far less visual detail than we assume; we hold the gist and re-sample the world as needed, trusting that it will stay put while we look away.",
+   "facts": [
+    "Around half of participants in the door study did not notice the swap.",
+    "Changes made during a blink or camera cut are especially easy to miss.",
+    "The effect is exploited deliberately in film editing and stage magic."
+   ],
+   "vocab": [
+    {
+     "word": "gist",
+     "meaning": "the general meaning without the details"
+    },
+    {
+     "word": "participant",
+     "meaning": "someone taking part in a study"
+    },
+    {
+     "word": "retain",
+     "meaning": "to keep or hold on to"
+    }
+   ],
+   "question": "How much of what you think you saw today did you actually see?"
+  },
+  {
+   "id": "MN003",
+   "cat": "MIND",
+   "title": "Chronostasis",
+   "hook": "Glance at a clock and the first second seems to last too long. Your brain has been editing the tape.",
+   "enriched": true,
+   "summary": "When your eyes make a rapid movement called a saccade, vision is briefly suppressed to avoid a blur. To hide the gap, the brain backfills the missing interval with the image that arrives after the movement ends. The result is that the first perceived moment feels stretched — the stopped-clock illusion. It demonstrates that our sense of now is constructed slightly after the fact.",
+   "facts": [
+    "Vision is actively suppressed during saccades, which happen several times per second.",
+    "The effect also occurs with touch and hearing, not only sight.",
+    "It means your experience of the present is assembled with a short delay."
+   ],
+   "vocab": [
+    {
+     "word": "saccade",
+     "meaning": "a fast movement of the eyes between fixed points"
+    },
+    {
+     "word": "suppressed",
+     "meaning": "held back or blocked"
+    },
+    {
+     "word": "illusion",
+     "meaning": "something perceived differently from how it really is"
+    }
+   ],
+   "question": "If the present moment is reconstructed by your brain, what are you actually experiencing?"
+  },
+  {
+   "id": "MN004",
+   "cat": "MIND",
+   "title": "Dunning-Kruger",
+   "hook": "The less someone knows about a subject, the more confident they often are that they've mastered it.",
+   "enriched": true,
+   "summary": "Psychologists David Dunning and Justin Kruger found that people who performed worst on tests of logic, grammar, and humour consistently rated their own ability well above average. The reason is that the skills needed to perform well are the same skills needed to recognise poor performance. If you do not know the rules, you also cannot see where you broke them. Notably, genuine experts often underrate themselves, assuming that what feels easy to them must be easy for everyone.",
+   "facts": [
+    "The original study was published in 1999 and has been replicated across many different skills.",
+    "Training people in a skill improves both their performance and their self-assessment at the same time.",
+    "The effect is often misquoted as 'stupid people are confident' — the real finding is about everyone, in areas where they are inexperienced."
+   ],
+   "vocab": [
+    {
+     "word": "competence",
+     "meaning": "the ability to do something well"
+    },
+    {
+     "word": "replicated",
+     "meaning": "repeated by other researchers with the same result"
+    },
+    {
+     "word": "self-assessment",
+     "meaning": "judging your own ability or performance"
+    }
+   ],
+   "question": "In which part of your own life might you currently be overestimating yourself?"
+  },
+  {
+   "id": "MN005",
+   "cat": "MIND",
+   "title": "Déjà Vu",
+   "hook": "A moment arrives that you are certain you have lived before — and you know for a fact that you have not.",
+   "enriched": true,
+   "summary": "Déjà vu is the sudden, powerful sense that a present moment is a repetition of a past one, combined with the simultaneous knowledge that it cannot be. Leading explanations point to a brief mismatch in memory processing: the brain's familiarity signal fires without the corresponding recollection, so the scene feels retrieved rather than newly experienced. It occurs most often in younger people, when tired, and in unfamiliar surroundings.",
+   "facts": [
+    "Around two-thirds of people report experiencing it at some point.",
+    "It becomes less frequent with age, which is unusual for a memory-related phenomenon.",
+    "Some people with certain kinds of epilepsy experience it reliably before a seizure, which has helped researchers study it."
+   ],
+   "vocab": [
+    {
+     "word": "familiarity",
+     "meaning": "the feeling of having encountered something before"
+    },
+    {
+     "word": "recollection",
+     "meaning": "a specific memory of something that happened"
+    },
+    {
+     "word": "phenomenon",
+     "meaning": "something that happens and can be observed"
+    }
+   ],
+   "question": "If your memory can be confidently wrong, how much should you trust it?"
+  },
+  {
+   "id": "MN006",
+   "cat": "MIND",
+   "title": "Hedonic Adaptation",
+   "hook": "The thing you most wanted last year stopped making you happy about three months after you got it.",
+   "enriched": true,
+   "summary": "Hedonic adaptation describes the tendency to return to a stable baseline level of happiness after major positive or negative events. Research on lottery winners and on people who suffered serious injury found that both groups drifted back toward their previous baseline over time, though the extent varies. The effect explains why acquisitions deliver shorter-lived satisfaction than expected, and it also means people recover from setbacks better than they predict.",
+   "facts": [
+    "A well-known 1978 study compared lottery winners with accident survivors over time.",
+    "Some events, such as long-term unemployment or bereavement, show much weaker adaptation.",
+    "Experiences and relationships tend to resist adaptation better than possessions."
+   ],
+   "vocab": [
+    {
+     "word": "baseline",
+     "meaning": "a normal starting level used for comparison"
+    },
+    {
+     "word": "adaptation",
+     "meaning": "adjusting to a new situation over time"
+    },
+    {
+     "word": "satisfaction",
+     "meaning": "the feeling of being pleased with something"
+    }
+   ],
+   "question": "If new things stop satisfying us, what actually makes life feel better over time?"
+  },
+  {
+   "id": "MN007",
+   "cat": "MIND",
+   "title": "Inattentional Blindness",
+   "hook": "Count the passes carefully and you will very likely miss the person in a gorilla suit walking through.",
+   "enriched": true,
+   "summary": "In the well-known selective attention study, viewers asked to count basketball passes frequently failed to notice a person in a gorilla costume walk into frame, pause, and leave. Roughly half missed it entirely. Attention is a limited resource that actively excludes, not a passive window. The finding has serious implications for driving, radiology, and any task requiring vigilance during focus.",
+   "facts": [
+    "Around half of viewers do not see the gorilla when counting passes.",
+    "Trained radiologists in one study missed an image deliberately inserted into a scan.",
+    "People who miss it typically refuse to believe it was there until shown again."
+   ],
+   "vocab": [
+    {
+     "word": "inattentional",
+     "meaning": "caused by attention being directed elsewhere"
+    },
+    {
+     "word": "vigilance",
+     "meaning": "careful watchfulness"
+    },
+    {
+     "word": "selective",
+     "meaning": "choosing only some things out of many"
+    }
+   ],
+   "question": "What is the cost of concentration, and when is that cost too high?"
+  },
+  {
+   "id": "MN008",
+   "cat": "MIND",
+   "title": "Prosopagnosia",
+   "hook": "Some people cannot recognise their own family's faces — or their own in a mirror.",
+   "enriched": true,
+   "summary": "Face blindness is the inability to recognise faces despite normal vision and intelligence. It can follow brain injury or be present from birth, and the developmental form may affect around two percent of people. Many who have it never realise, assuming everyone relies on voice, hair or gait. It is dissociable from object recognition, which suggests the brain has dedicated machinery for faces specifically.",
+   "facts": [
+    "The developmental form is estimated to affect around one in fifty people.",
+    "Sufferers usually compensate using voice, hairstyle, gait or clothing.",
+    "It can occur while object recognition remains completely intact."
+   ],
+   "vocab": [
+    {
+     "word": "developmental",
+     "meaning": "present from early life rather than acquired later"
+    },
+    {
+     "word": "dissociable",
+     "meaning": "able to be separated from something else"
+    },
+    {
+     "word": "compensate",
+     "meaning": "to make up for something that is missing"
+    }
+   ],
+   "question": "If faces need their own brain machinery, what does that say about how social we are?"
+  },
+  {
+   "id": "MN009",
+   "cat": "MIND",
+   "title": "The Barnum Effect",
+   "hook": "A psychologist gave every student in his class the exact same personality profile. Nearly all of them called it accurate.",
+   "enriched": true,
+   "summary": "In 1948, Bertram Forer handed his students what he said were individual personality analyses. Every student received identical text, assembled from a newsstand astrology column. Asked to rate its accuracy, the class averaged well above four out of five. The statements worked because they were broad, mildly flattering, and contained gentle contradictions, allowing anyone to recognise themselves. The effect underpins astrology, cold reading, and many personality quizzes.",
+   "facts": [
+    "The original average accuracy rating was around 4.3 out of 5.",
+    "Statements work best when they are positive and contain small internal contradictions.",
+    "The effect strengthens when people believe the assessment was made specifically for them."
+   ],
+   "vocab": [
+    {
+     "word": "profile",
+     "meaning": "a description of someone's character or qualities"
+    },
+    {
+     "word": "flattering",
+     "meaning": "saying nice things, sometimes more than deserved"
+    },
+    {
+     "word": "contradiction",
+     "meaning": "two statements that cannot both be fully true"
+    }
+   ],
+   "question": "Why is it so satisfying to be told something specific about yourself, even when it isn't?"
+  },
+  {
+   "id": "MN010",
+   "cat": "MIND",
+   "title": "The Rubber Hand Illusion",
+   "hook": "Watch a fake hand being stroked in time with your own, and within minutes your brain adopts it.",
+   "enriched": true,
+   "summary": "A participant's real hand is hidden while a visible rubber hand is stroked simultaneously with it. Within a few minutes, most people report feeling touch located in the rubber hand and describe it as their own. If it is then threatened, they flinch and show a measurable stress response. Body ownership turns out to be a continuously updated inference from combined senses, not a fixed fact.",
+   "facts": [
+    "Synchronised stroking is essential; if the timing is offset, the illusion collapses.",
+    "Participants show genuine physiological stress when the fake hand is threatened.",
+    "Related techniques have been used therapeutically for phantom limb discomfort."
+   ],
+   "vocab": [
+    {
+     "word": "synchronised",
+     "meaning": "happening at exactly the same time"
+    },
+    {
+     "word": "physiological",
+     "meaning": "relating to how the body functions"
+    },
+    {
+     "word": "inference",
+     "meaning": "a conclusion worked out from evidence"
+    }
+   ],
+   "question": "If your body's boundaries can be redrawn in minutes, how fixed is your sense of self?"
+  },
+  {
+   "id": "MN011",
+   "cat": "MIND",
+   "title": "The Spotlight Effect",
+   "hook": "Everyone remembers your embarrassing moment far less clearly than you do — usually not at all.",
+   "enriched": true,
+   "summary": "People consistently overestimate how much others notice their appearance, mistakes and behaviour. In one study, participants asked to wear an embarrassing shirt predicted about twice as many observers would recall it as actually did. The cause is anchoring: we experience ourselves as the centre of our own attention and cannot fully discount that when estimating others' attention.",
+   "facts": [
+    "Participants overestimated how many people noticed by roughly a factor of two.",
+    "The same overestimation applies to noticing performance and contributions in groups.",
+    "Simply learning about the effect measurably reduces social anxiety for some people."
+   ],
+   "vocab": [
+    {
+     "word": "overestimate",
+     "meaning": "to think something is greater than it really is"
+    },
+    {
+     "word": "anchoring",
+     "meaning": "relying too heavily on your first reference point"
+    },
+    {
+     "word": "discount",
+     "meaning": "to reduce the weight given to something"
+    }
+   ],
+   "question": "What would you attempt if you truly believed nobody was watching closely?"
+  },
+  {
+   "id": "MN012",
+   "cat": "MIND",
+   "title": "Anton's Syndrome",
+   "hook": "A rare condition where a person cannot perceive their own blindness.",
+   "enriched": false
+  },
+  {
+   "id": "MN013",
+   "cat": "MIND",
+   "title": "Pareidolia",
+   "hook": "Why we see faces in clouds, sockets, and slices of burnt toast.",
+   "enriched": false
+  },
+  {
+   "id": "MN014",
+   "cat": "MIND",
+   "title": "Synesthesia",
+   "hook": "Some people taste sounds, or see letters in unchanging colors.",
+   "enriched": false
+  },
+  {
+   "id": "MN015",
+   "cat": "MIND",
+   "title": "The Bystander Effect",
+   "hook": "Why help becomes less likely as more people stand watching.",
+   "enriched": false
+  },
+  {
+   "id": "MN016",
+   "cat": "MIND",
+   "title": "The Halo Effect",
+   "hook": "Why we assume confident or attractive people are also kinder and smarter.",
+   "enriched": false
+  },
+  {
+   "id": "MN017",
+   "cat": "MIND",
+   "title": "The Mandela Effect",
+   "hook": "Why crowds of people share the exact same false memory.",
+   "enriched": false
+  },
+  {
+   "id": "MN018",
+   "cat": "MIND",
+   "title": "The Nocebo Effect",
+   "hook": "The placebo's mirror image — expecting harm can produce it.",
+   "enriched": false
+  },
+  {
+   "id": "MN019",
+   "cat": "MIND",
+   "title": "The Paradox of Choice",
+   "hook": "Why more options can leave people less happy with what they picked.",
+   "enriched": false
+  },
+  {
+   "id": "MN020",
+   "cat": "MIND",
+   "title": "The Phantom Limb",
+   "hook": "Sensation felt clearly in a limb that is no longer there.",
+   "enriched": false
+  },
+  {
+   "id": "MN021",
+   "cat": "MIND",
+   "title": "The Ringelmann Effect",
+   "hook": "Why people pull less hard on a rope as the team grows larger.",
+   "enriched": false
+  },
+  {
+   "id": "WD001",
+   "cat": "WORLD",
+   "title": "Ball Lightning",
+   "hook": "Pilots, sailors and farmers have reported glowing spheres drifting through storms for centuries. Science still cannot reliably reproduce one.",
+   "enriched": true,
+   "summary": "Ball lightning is described as a luminous sphere, typically the size of a grapefruit, that appears during thunderstorms, drifts for seconds, and sometimes passes through windows before vanishing or bursting. Reports span centuries and cultures. Because it is rare, brief, and unpredictable, controlled observation is extremely difficult; one Chinese research team captured a spectrum by chance in 2012, suggesting vaporised soil. No theory yet explains all reported behaviour.",
+   "facts": [
+    "A 2012 Chinese team accidentally recorded one while studying ordinary lightning.",
+    "That spectrum showed elements found in soil, supporting one leading theory.",
+    "Laboratory attempts have produced similar glowing spheres, but none that behave exactly as reported."
+   ],
+   "vocab": [
+    {
+     "word": "luminous",
+     "meaning": "giving off light"
+    },
+    {
+     "word": "spectrum",
+     "meaning": "the range of light an object emits, used to identify materials"
+    },
+    {
+     "word": "vaporised",
+     "meaning": "turned into gas, usually by intense heat"
+    }
+   ],
+   "question": "How many eyewitness reports should it take before science treats something as real?"
+  },
+  {
+   "id": "WD002",
+   "cat": "WORLD",
+   "title": "Fairy Circles",
+   "hook": "Perfect bare circles cover the desert in a repeating pattern, spaced as evenly as if someone measured them.",
+   "enriched": true,
+   "summary": "Across parts of the Namib Desert and Western Australia, the grassland is interrupted by millions of circular bare patches, each a few metres across, arranged in a strikingly regular grid. Two main explanations compete: termite colonies clearing vegetation to preserve water beneath them, and plants self-organising by competing for scarce moisture until an even spacing emerges. Evidence supports both in different locations, and the debate remains open.",
+   "facts": [
+    "The circles can persist for decades, slowly appearing and disappearing over time.",
+    "Similar patterning appears in mathematical models of any system competing for a scarce resource.",
+    "They were long explained in local tradition as the footprints of gods or spirits."
+   ],
+   "vocab": [
+    {
+     "word": "vegetation",
+     "meaning": "plants in general, especially covering an area"
+    },
+    {
+     "word": "self-organising",
+     "meaning": "forming a pattern without anything directing it"
+    },
+    {
+     "word": "persist",
+     "meaning": "to continue existing over a long time"
+    }
+   ],
+   "question": "When a pattern looks designed, what evidence should convince us that nothing designed it?"
+  },
+  {
+   "id": "WD003",
+   "cat": "WORLD",
+   "title": "Lake Hillier",
+   "hook": "An Australian lake is bubblegum pink. Scoop it into a glass and it stays pink.",
+   "enriched": true,
+   "summary": "Lake Hillier on Middle Island in Western Australia holds a permanently pink colour that persists even when the water is removed. Genetic sampling has found the lake dominated by salt-tolerant organisms including Dunaliella salina and purple sulphur bacteria, which produce red and pink pigments. The lake is extremely saline, and the colour does not vary seasonally as it does in some other pink lakes.",
+   "facts": [
+    "The colour remains when water is taken out, unlike optical effects in other lakes.",
+    "Genetic surveys found a community dominated by salt-loving microorganisms.",
+    "The lake sits only a narrow strip of land away from the deep blue ocean."
+   ],
+   "vocab": [
+    {
+     "word": "saline",
+     "meaning": "containing a lot of salt"
+    },
+    {
+     "word": "pigment",
+     "meaning": "a substance that gives something its colour"
+    },
+    {
+     "word": "microorganism",
+     "meaning": "a living thing too small to see without a microscope"
+    }
+   ],
+   "question": "Why does an unusual colour in nature grab our attention so strongly?"
+  },
+  {
+   "id": "WD004",
+   "cat": "WORLD",
+   "title": "The Boiling River",
+   "hook": "Geologists said it was impossible. A boy who grew up hearing the legend spent years proving them wrong.",
+   "enriched": true,
+   "summary": "Deep in the Peruvian Amazon runs a four-kilometre stretch of river hot enough to kill anything that falls in. Volcanic rivers exist, but this one sits hundreds of kilometres from the nearest volcano, which is why scientists long dismissed the local stories as myth. A geoscientist who had heard the legend from his grandfather went looking for it, found it, and spent years explaining how water heated far underground rises through a fault to reach the surface still scalding.",
+   "facts": [
+    "The water can exceed 90°C — hot enough to cook an animal that falls in within seconds.",
+    "Local shamans had known and protected the river for generations before it appeared in scientific literature.",
+    "It is heated by geothermal water travelling upward through a fault, not by any nearby volcano."
+   ],
+   "vocab": [
+    {
+     "word": "geothermal",
+     "meaning": "heat that comes from inside the Earth"
+    },
+    {
+     "word": "fault",
+     "meaning": "a crack in the Earth's crust where rock has shifted"
+    },
+    {
+     "word": "dismissed",
+     "meaning": "rejected an idea without taking it seriously"
+    }
+   ],
+   "question": "When local knowledge and official science disagree, who should be believed first, and why?"
+  },
+  {
+   "id": "WD005",
+   "cat": "WORLD",
+   "title": "The Door to Hell",
+   "hook": "Engineers set a gas crater alight expecting it to burn out in weeks. That was over fifty years ago.",
+   "enriched": true,
+   "summary": "In the Karakum Desert of Turkmenistan, a wide crater has burned continuously for decades. The widely told account is that a Soviet drilling operation collapsed into a gas cavern, and the escaping methane was deliberately ignited to burn it off safely, with engineers assuming the fuel would be exhausted within weeks. The gas has not run out. The site has become an unlikely tourist destination, and the government has repeatedly announced plans to extinguish it.",
+   "facts": [
+    "The crater is roughly 70 metres across and about 20 metres deep.",
+    "Details of its origin are disputed, as Soviet-era records were not well preserved.",
+    "It burns methane, the same gas used for cooking in millions of homes."
+   ],
+   "vocab": [
+    {
+     "word": "crater",
+     "meaning": "a large bowl-shaped hole in the ground"
+    },
+    {
+     "word": "ignited",
+     "meaning": "set on fire"
+    },
+    {
+     "word": "exhausted",
+     "meaning": "completely used up"
+    }
+   ],
+   "question": "How should we judge a decision that seemed sensible at the time but lasted for generations?"
+  },
+  {
+   "id": "WD006",
+   "cat": "WORLD",
+   "title": "The Five Percent",
+   "hook": "We have better maps of the surface of Mars than of the floor of our own ocean.",
+   "enriched": true,
+   "summary": "Roughly 95 percent of the ocean has never been directly observed by humans or robots. We have mapped its shape from satellites at low resolution, but seeing it — actually looking at the seafloor — remains rare. The pressure at depth crushes most equipment, sunlight vanishes within a few hundred metres, and each expedition costs enormous amounts. As a result, new species are found on almost every serious deep-sea voyage.",
+   "facts": [
+    "Pressure at the deepest point is over a thousand times greater than at sea level.",
+    "More people have travelled to space than have visited the deepest part of the ocean.",
+    "Scientists estimate the majority of ocean species have not yet been described or named."
+   ],
+   "vocab": [
+    {
+     "word": "expedition",
+     "meaning": "an organised journey made for a specific purpose"
+    },
+    {
+     "word": "resolution",
+     "meaning": "how much fine detail an image or map can show"
+    },
+    {
+     "word": "observed",
+     "meaning": "watched or examined carefully"
+    }
+   ],
+   "question": "Why do humans invest so much more in exploring space than exploring our own ocean?"
+  },
+  {
+   "id": "WD007",
+   "cat": "WORLD",
+   "title": "The Sailing Stones",
+   "hook": "Heavy rocks leave long trails across a dry lakebed. For decades, nobody could catch them moving.",
+   "enriched": true,
+   "summary": "On a flat desert playa in Death Valley, stones weighing up to fifteen kilograms sit at the end of long tracks carved into the ground, as though dragged. Theories ranged from wind to magnetism to hoaxes. In 2014, researchers finally recorded the process with time-lapse cameras and GPS: a thin sheet of water freezes overnight into panes of ice, the ice breaks up in the morning sun, and a light breeze pushes the floating ice sheets, which shove the stones along at a few centimetres per second.",
+   "facts": [
+    "The stones move so slowly that the motion is nearly invisible to someone standing there.",
+    "Some tracks stretch for hundreds of metres across the lakebed.",
+    "The exact conditions required are so rare that years can pass with no movement at all."
+   ],
+   "vocab": [
+    {
+     "word": "playa",
+     "meaning": "a flat dry lakebed in a desert"
+    },
+    {
+     "word": "time-lapse",
+     "meaning": "filming slowly and playing back fast to show slow change"
+    },
+    {
+     "word": "phenomenon",
+     "meaning": "something observed that is remarkable or hard to explain"
+    }
+   ],
+   "question": "Why do we find slow, invisible processes harder to believe than dramatic ones?"
+  },
+  {
+   "id": "WD008",
+   "cat": "WORLD",
+   "title": "The Singing Sand",
+   "hook": "Some dunes emit a deep sustained note loud enough to be heard kilometres away.",
+   "enriched": true,
+   "summary": "Booming dunes produce low-frequency sound, sometimes near a recognisable musical pitch, when a sufficiently large mass of dry sand avalanches down a slip face. The effect requires narrow grain size distribution, roundness, and dryness. The whole avalanching layer appears to vibrate coherently, acting as a large loudspeaker. Only a limited number of dune fields worldwide reliably produce it.",
+   "facts": [
+    "The emitted frequency correlates with the average grain size of the sand.",
+    "Sand from booming dunes often stops working if washed or moved.",
+    "Marco Polo recorded accounts of the phenomenon centuries ago."
+   ],
+   "vocab": [
+    {
+     "word": "avalanche",
+     "meaning": "a mass of material sliding rapidly downhill"
+    },
+    {
+     "word": "coherently",
+     "meaning": "acting together in a consistent way"
+    },
+    {
+     "word": "frequency",
+     "meaning": "how high or low a sound is"
+    }
+   ],
+   "question": "How many natural sounds have we never heard simply because we were not standing there?"
+  },
+  {
+   "id": "WD009",
+   "cat": "WORLD",
+   "title": "The Sixth Ocean",
+   "hook": "Hundreds of kilometres beneath your feet, there may be more water than in every ocean on the surface.",
+   "enriched": true,
+   "summary": "In 2014, researchers studying a rare mineral called ringwoodite found in a diamond discovered it contained water locked within its crystal structure. Ringwoodite forms in the transition zone of Earth's mantle, roughly 400 to 660 kilometres down. If the water content of that sample is typical, the mantle may hold water equivalent to several times all the surface oceans combined — not as liquid, but chemically bound inside rock.",
+   "facts": [
+    "The water is not liquid; it exists as hydroxide bound into the mineral's structure.",
+    "The discovery came from a single small diamond carried up from great depth.",
+    "It may help explain where Earth's surface oceans originally came from."
+   ],
+   "vocab": [
+    {
+     "word": "mantle",
+     "meaning": "the thick layer of rock between Earth's crust and core"
+    },
+    {
+     "word": "mineral",
+     "meaning": "a naturally occurring solid with a specific chemical structure"
+    },
+    {
+     "word": "transition",
+     "meaning": "the process of changing from one state to another"
+    }
+   ],
+   "question": "How should we treat scientific claims that rest on a single rare sample?"
+  },
+  {
+   "id": "WD010",
+   "cat": "WORLD",
+   "title": "Angel Falls",
+   "hook": "The tallest waterfall is so high the water turns to mist before landing.",
+   "enriched": false
+  },
+  {
+   "id": "WD011",
+   "cat": "WORLD",
+   "title": "Blood Falls",
+   "hook": "An Antarctic waterfall runs red — iron-rich water reacting with open air.",
+   "enriched": false
+  },
+  {
+   "id": "WD012",
+   "cat": "WORLD",
+   "title": "Dust Across an Ocean",
+   "hook": "Wind carries mineral-rich Sahara dust all the way to South America.",
+   "enriched": false
+  },
+  {
+   "id": "WD013",
+   "cat": "WORLD",
+   "title": "Eight Million Strikes",
+   "hook": "Somewhere on the planet, lightning is almost always striking right now.",
+   "enriched": false
+  },
+  {
+   "id": "WD014",
+   "cat": "WORLD",
+   "title": "Lake Hillier's Pink",
+   "hook": "A lake in Australia stays bubblegum pink year-round for reasons still only partly understood.",
+   "enriched": false
+  },
+  {
+   "id": "WD015",
+   "cat": "WORLD",
+   "title": "Older Than Pyramids",
+   "hook": "A single bristlecone pine in California has been alive over 4,500 years.",
+   "enriched": false
+  },
+  {
+   "id": "WD016",
+   "cat": "WORLD",
+   "title": "The Blue Hole",
+   "hook": "A sinkhole in the ocean so deep and round it looks like an eye from space.",
+   "enriched": false
+  },
+  {
+   "id": "WD017",
+   "cat": "WORLD",
+   "title": "The Dead Sea",
+   "hook": "Nearly ten times saltier than ocean water — you float without trying.",
+   "enriched": false
+  },
+  {
+   "id": "WD018",
+   "cat": "WORLD",
+   "title": "The Full-Circle Rainbow",
+   "hook": "From an airplane, a rainbow can appear as a complete unbroken ring.",
+   "enriched": false
+  },
+  {
+   "id": "WD019",
+   "cat": "WORLD",
+   "title": "The Glowing Shore",
+   "hook": "In the Maldives, bioluminescent plankton light the beach like scattered stars.",
+   "enriched": false
+  },
+  {
+   "id": "WD020",
+   "cat": "WORLD",
+   "title": "The Green Sahara",
+   "hook": "Thousands of years ago the world's biggest desert was covered in lakes and grass.",
+   "enriched": false
+  },
+  {
+   "id": "WD021",
+   "cat": "WORLD",
+   "title": "The Growing Mountain",
+   "hook": "Tectonic plates push Everest a few millimeters higher every single year.",
+   "enriched": false
+  },
+  {
+   "id": "WD022",
+   "cat": "WORLD",
+   "title": "The Ice Desert",
+   "hook": "Technically, Antarctica counts as the largest desert on Earth.",
+   "enriched": false
+  },
+  {
+   "id": "WD023",
+   "cat": "WORLD",
+   "title": "The Loudest Sound",
+   "hook": "The 1883 Krakatoa eruption was heard clearly nearly 3,000 miles away.",
+   "enriched": false
+  },
+  {
+   "id": "WD024",
+   "cat": "WORLD",
+   "title": "The Weight of a Cloud",
+   "hook": "Despite floating gently overhead, an average cloud is extraordinarily heavy.",
+   "enriched": false
+  },
+  {
+   "id": "SC001",
+   "cat": "SCIENCE",
+   "title": "Hydrothermal Vents",
+   "hook": "We assumed all life needed sunlight. Then we found thriving cities in total darkness, feeding on chemicals.",
+   "enriched": true,
+   "summary": "In 1977, scientists exploring the Galápagos Rift found dense communities of tube worms, clams, and crabs clustered around superheated mineral-rich water venting from the seafloor. Nothing there depends on sunlight. Bacteria convert chemicals from the vent fluid into energy through chemosynthesis, and everything else feeds on them. The discovery rewrote assumptions about where life can exist and reshaped how scientists search for it on other worlds.",
+   "facts": [
+    "Vent fluid can exceed 300°C but does not boil, because of the immense pressure.",
+    "The base of the food web is chemosynthesis rather than photosynthesis.",
+    "The find directly influenced how agencies plan the search for life on icy moons."
+   ],
+   "vocab": [
+    {
+     "word": "chemosynthesis",
+     "meaning": "making food energy from chemicals instead of sunlight"
+    },
+    {
+     "word": "vent",
+     "meaning": "an opening through which gas or fluid escapes"
+    },
+    {
+     "word": "assumption",
+     "meaning": "something believed true without being checked"
+    }
+   ],
+   "question": "What else might we be assuming about life simply because it is true here?"
+  },
+  {
+   "id": "SC002",
+   "cat": "SCIENCE",
+   "title": "Rogue Planets",
+   "hook": "Some worlds have no sun at all. They drift through the galaxy in permanent darkness, and there may be billions.",
+   "enriched": true,
+   "summary": "Rogue or free-floating planets are worlds not gravitationally bound to any star, most likely ejected from their systems by gravitational interactions early in their formation. They are extremely difficult to detect, since they emit almost no light; astronomers find them mainly through microlensing, when a rogue planet passes in front of a distant star and briefly bends its light. Estimates suggest they may be remarkably common.",
+   "facts": [
+    "They are detected chiefly through gravitational microlensing events lasting only days.",
+    "Some may retain enough internal heat to hold liquid water beneath thick ice.",
+    "Estimates of their number in our galaxy run into the billions."
+   ],
+   "vocab": [
+    {
+     "word": "ejected",
+     "meaning": "forced out or thrown away from"
+    },
+    {
+     "word": "microlensing",
+     "meaning": "the bending of light by a passing object's gravity"
+    },
+    {
+     "word": "gravitationally",
+     "meaning": "by the force of gravity"
+    }
+   ],
+   "question": "Could life exist somewhere that has never seen a sunrise?"
+  },
+  {
+   "id": "SC003",
+   "cat": "SCIENCE",
+   "title": "Slime Mould Maps",
+   "hook": "Researchers gave a brainless organism a map of Tokyo. It rebuilt the rail network almost exactly.",
+   "enriched": true,
+   "summary": "Physarum polycephalum is a single-celled organism with no brain and no nervous system. Researchers placed food at points matching the cities around Tokyo and let it grow. It extended tubes in all directions, then reinforced the efficient routes and abandoned the rest, producing a network closely resembling the real rail system engineers had designed. It has since been used to solve mazes and model other transport problems.",
+   "facts": [
+    "It solves problems by reinforcing what works and withdrawing from what does not — no planning required.",
+    "It can retain a form of memory about where it has already searched.",
+    "It is not an animal, plant, or fungus; it belongs to a separate group entirely."
+   ],
+   "vocab": [
+    {
+     "word": "organism",
+     "meaning": "any individual living thing"
+    },
+    {
+     "word": "efficient",
+     "meaning": "achieving a result without wasting effort or resources"
+    },
+    {
+     "word": "reinforce",
+     "meaning": "to strengthen something that is working"
+    }
+   ],
+   "question": "How much of what we call intelligence is really just trying, failing, and adjusting?"
+  },
+  {
+   "id": "SC004",
+   "cat": "SCIENCE",
+   "title": "Spaghettification",
+   "hook": "Physicists needed a word for what a black hole does to matter. They settled on the least serious one available.",
+   "enriched": true,
+   "summary": "Near a black hole, gravity pulls far more strongly on the near side of an object than the far side. This difference, called a tidal force, stretches the object lengthwise while compressing it sideways, drawing it into a long thin stream. Physicists adopted the informal name spaghettification, and it stuck as the standard term. For very large black holes the effect at the horizon is gentler, since the gradient is spread over a greater distance.",
+   "facts": [
+    "The effect comes from the difference in gravitational pull across an object, not the total pull.",
+    "The same principle, far weaker, is what causes ocean tides on Earth.",
+    "Astronomers have observed stars being torn apart this way in distant galaxies."
+   ],
+   "vocab": [
+    {
+     "word": "tidal force",
+     "meaning": "the stretching caused by uneven gravity across an object"
+    },
+    {
+     "word": "gradient",
+     "meaning": "how quickly something changes across a distance"
+    },
+    {
+     "word": "horizon",
+     "meaning": "the boundary of a black hole beyond which nothing returns"
+    }
+   ],
+   "question": "Does giving something a funny name make it easier to understand, or harder to take seriously?"
+  },
+  {
+   "id": "SC005",
+   "cat": "SCIENCE",
+   "title": "Starlight From the Past",
+   "hook": "Some stars you can see tonight burned out long before anyone alive was born.",
+   "enriched": true,
+   "summary": "Light travels fast but not instantly. When you look at a star hundreds of light years away, you are seeing light that left it hundreds of years ago. For distant stars, that gap can exceed their remaining lifespan, meaning the object you are looking at may no longer exist. For most stars visible to the naked eye the distances are modest enough that they are probably still there — but the principle holds: the night sky is a record of the past, not the present.",
+   "facts": [
+    "Light from the Sun takes about eight minutes to reach Earth.",
+    "A light year is the distance light travels in a year, roughly 9.5 trillion kilometres.",
+    "Telescopes looking at very distant galaxies are effectively looking billions of years back in time."
+   ],
+   "vocab": [
+    {
+     "word": "light year",
+     "meaning": "the distance light travels in one year"
+    },
+    {
+     "word": "lifespan",
+     "meaning": "how long something exists or lives"
+    },
+    {
+     "word": "simultaneous",
+     "meaning": "happening at the same moment"
+    }
+   ],
+   "question": "If we can only ever see the past, what does it mean to say something is happening 'now'?"
+  },
+  {
+   "id": "SC006",
+   "cat": "SCIENCE",
+   "title": "The Boötes Void",
+   "hook": "There is a region of space so empty that if we lived at its centre, we might not have known other galaxies existed.",
+   "enriched": true,
+   "summary": "The Boötes Void is a roughly spherical region about 330 million light years across containing far fewer galaxies than expected. It is not entirely empty — dozens have been found within it — but the density is dramatically below average. Astronomer Greg Aldering noted that a civilisation at its centre would have discovered other galaxies only quite late in its development, because the nearest ones would be too faint to notice easily.",
+   "facts": [
+    "It spans roughly 330 million light years and was identified in 1981.",
+    "Around 60 galaxies have been found inside, where standard models predict many times more.",
+    "It may have formed from the merger of several smaller voids over cosmic time."
+   ],
+   "vocab": [
+    {
+     "word": "void",
+     "meaning": "a completely or almost completely empty space"
+    },
+    {
+     "word": "density",
+     "meaning": "how tightly packed something is in a given space"
+    },
+    {
+     "word": "civilisation",
+     "meaning": "an advanced society with its own culture and technology"
+    }
+   ],
+   "question": "How much of what we know depends on simply happening to be somewhere we could see it?"
+  },
+  {
+   "id": "SC007",
+   "cat": "SCIENCE",
+   "title": "The Golden Record",
+   "hook": "Humanity chose what to say to whoever finds us. Greetings in 55 languages, a heartbeat, and the sound of rain.",
+   "enriched": true,
+   "summary": "Attached to both Voyager spacecraft is a gold-plated disc carrying a portrait of Earth: greetings in dozens of languages, music from many cultures, natural sounds including surf, wind, and animals, and encoded photographs. A committee chaired by Carl Sagan selected the contents, knowing the chance of anyone ever finding it is vanishingly small. It also carries the recorded brainwaves of a woman thinking about what it means to be human.",
+   "facts": [
+    "The cover is engraved with instructions for playing it, using the hydrogen atom as a universal time reference.",
+    "It includes a greeting in a language spoken thousands of years ago as well as modern ones.",
+    "Voyager 1 will not come close to another star system for tens of thousands of years."
+   ],
+   "vocab": [
+    {
+     "word": "encoded",
+     "meaning": "stored in a form that must be decoded to read"
+    },
+    {
+     "word": "committee",
+     "meaning": "a group chosen to make decisions together"
+    },
+    {
+     "word": "portrait",
+     "meaning": "a representation of someone or something"
+    }
+   ],
+   "question": "If you could add one sound to that record, what would you choose, and why?"
+  },
+  {
+   "id": "SC008",
+   "cat": "SCIENCE",
+   "title": "The Great Attractor",
+   "hook": "Our entire galaxy is being pulled toward something enormous — and the Milky Way itself blocks our view of it.",
+   "enriched": true,
+   "summary": "The Milky Way and thousands of neighbouring galaxies are moving toward a region roughly 250 million light years away at a considerable speed. The trouble is that this direction lies behind the dense dust and stars of our own galaxy's disc, a region astronomers call the Zone of Avoidance. X-ray and infrared observations have revealed massive galaxy clusters there, though astronomers still debate how much of the pull they fully account for.",
+   "facts": [
+    "The region is hidden behind the plane of our own galaxy, blocking most visible light.",
+    "Our local group of galaxies moves at hundreds of kilometres per second in that direction.",
+    "The expansion of the universe means we will likely never travel anywhere near it."
+   ],
+   "vocab": [
+    {
+     "word": "cluster",
+     "meaning": "a group of things gathered closely together"
+    },
+    {
+     "word": "infrared",
+     "meaning": "light we cannot see that can pass through dust"
+    },
+    {
+     "word": "gravitational",
+     "meaning": "relating to the force that pulls objects toward each other"
+    }
+   ],
+   "question": "How does it feel to know we are moving somewhere we can never see and never reach?"
+  },
+  {
+   "id": "SC009",
+   "cat": "SCIENCE",
+   "title": "The Great Dying",
+   "hook": "Long before the dinosaurs vanished, life on Earth came within a fraction of ending completely.",
+   "enriched": true,
+   "summary": "About 252 million years ago, the end-Permian extinction eliminated the overwhelming majority of marine species and a large share of land species — a far greater loss than the extinction that ended the dinosaurs. The leading explanation is enormous volcanic activity in what is now Siberia, releasing gases that acidified oceans, stripped oxygen from the water, and drove severe warming. Ecosystems took millions of years to recover.",
+   "facts": [
+    "It is the most severe extinction event in the fossil record.",
+    "The volcanic region involved covered an area comparable to a large country.",
+    "Full ecological recovery is estimated to have taken several million years."
+   ],
+   "vocab": [
+    {
+     "word": "extinction",
+     "meaning": "the complete disappearance of a species"
+    },
+    {
+     "word": "acidified",
+     "meaning": "made more acidic"
+    },
+    {
+     "word": "ecosystem",
+     "meaning": "a community of living things and their environment"
+    }
+   ],
+   "question": "What can an event from 252 million years ago reasonably teach us about today?"
+  },
+  {
+   "id": "SC010",
+   "cat": "SCIENCE",
+   "title": "The Immortal Jellyfish",
+   "hook": "Everything alive grows old and dies. One creature in the ocean seems never to have received the message.",
+   "enriched": true,
+   "summary": "Turritopsis dohrnii is a jellyfish barely larger than a fingernail. When injured, starving, or simply old, it can collapse its body and revert to the polyp stage — the earliest phase of its own life — then grow up all over again. In principle it can repeat this indefinitely, which is why biologists describe it as biologically immortal. It still gets eaten and still gets sick, so it does die; it just does not appear to die of age.",
+   "facts": [
+    "The process is called transdifferentiation: its cells transform directly into entirely different cell types.",
+    "It is roughly 4.5 millimetres across, about the size of a lentil.",
+    "Researchers study it hoping to understand how human cells might one day be encouraged to repair themselves."
+   ],
+   "vocab": [
+    {
+     "word": "revert",
+     "meaning": "to go back to an earlier state"
+    },
+    {
+     "word": "indefinitely",
+     "meaning": "with no fixed limit or ending"
+    },
+    {
+     "word": "biologically",
+     "meaning": "relating to living things and how they work"
+    }
+   ],
+   "question": "If humans could reset their bodies to youth, would that be a gift or a problem?"
+  },
+  {
+   "id": "SC011",
+   "cat": "SCIENCE",
+   "title": "The Mpemba Effect",
+   "hook": "A schoolboy claimed hot water freezes faster than cold. His teacher laughed. The debate is still running.",
+   "enriched": true,
+   "summary": "In 1963, Tanzanian student Erasto Mpemba noticed that hotter ice cream mixture froze sooner and was ridiculed for saying so. A visiting physicist tested it and co-published with him. Since then results have been inconsistent, and proposed mechanisms include evaporation, dissolved gases, convection and supercooling. Some researchers argue the effect is an artefact of how freezing is defined and measured.",
+   "facts": [
+    "Mpemba co-authored the original 1969 paper with physicist Denis Osborne.",
+    "No single mechanism has ever been agreed upon.",
+    "Some careful modern experiments fail to reproduce the effect at all."
+   ],
+   "vocab": [
+    {
+     "word": "convection",
+     "meaning": "heat moving through a liquid or gas by circulation"
+    },
+    {
+     "word": "artefact",
+     "meaning": "a false result caused by the method of measurement"
+    },
+    {
+     "word": "mechanism",
+     "meaning": "the process by which something happens"
+    }
+   ],
+   "question": "How should science treat an observation that keeps appearing but resists explanation?"
+  },
+  {
+   "id": "SC012",
+   "cat": "SCIENCE",
+   "title": "The Pale Blue Dot",
+   "hook": "A spacecraft turned its camera around one last time. Everyone you will ever know fits inside a single pixel.",
+   "enriched": true,
+   "summary": "In 1990, as Voyager 1 left the solar system, it turned back and photographed Earth from roughly six billion kilometres away. In the image, Earth is less than one pixel wide, caught in a band of scattered sunlight. The photograph has no scientific value. It was taken because Carl Sagan argued that seeing ourselves at that scale would change how we think about our arguments, our borders, and our importance.",
+   "facts": [
+    "The image was nearly cancelled because it served no research purpose.",
+    "Earth appears inside a beam of sunlight scattered in the camera's optics — a coincidence.",
+    "Voyager 1 is still transmitting, and is now the most distant human-made object from Earth."
+   ],
+   "vocab": [
+    {
+     "word": "pixel",
+     "meaning": "one of the tiny dots that make up a digital image"
+    },
+    {
+     "word": "scattered",
+     "meaning": "spread out in different directions"
+    },
+    {
+     "word": "transmitting",
+     "meaning": "sending out signals or information"
+    }
+   ],
+   "question": "Does knowing how small we are make life feel less meaningful, or more?"
+  },
+  {
+   "id": "SC013",
+   "cat": "SCIENCE",
+   "title": "The Pistol Shrimp's Bubble",
+   "hook": "Its claw snaps so fast the water tears open, and for an instant the flash inside is hotter than lava.",
+   "enriched": true,
+   "summary": "The snapping shrimp closes its claw at extraordinary speed, driving a jet of water that drops local pressure enough to form a cavitation bubble. When the bubble collapses it produces a shockwave loud enough to stun prey, plus a brief flash of light — a phenomenon called sonoluminescence. Colonies are loud enough to interfere with sonar.",
+   "facts": [
+    "The stunning effect comes from the collapsing bubble, not the claw striking anything.",
+    "Collapse produces a brief flash of light known as shrimpoluminescence.",
+    "Colonies can be loud enough to disrupt underwater sonar equipment."
+   ],
+   "vocab": [
+    {
+     "word": "cavitation",
+     "meaning": "bubbles forming in liquid due to a pressure drop"
+    },
+    {
+     "word": "shockwave",
+     "meaning": "a sudden powerful wave of pressure"
+    },
+    {
+     "word": "sonar",
+     "meaning": "a system that uses sound to detect objects underwater"
+    }
+   ],
+   "question": "Why do the most extreme forces in nature so often come in the smallest packages?"
+  },
+  {
+   "id": "SC014",
+   "cat": "SCIENCE",
+   "title": "The Quantum Zeno Effect",
+   "hook": "Measure an unstable particle often enough and it stops decaying. Watching genuinely freezes it.",
+   "enriched": true,
+   "summary": "In quantum mechanics, a system that is repeatedly measured can be prevented from evolving. Each measurement collapses the system back toward its initial state, and if measurements come fast enough relative to the decay process, the transition is suppressed. It is named after Zeno's paradoxes of motion, and it has been demonstrated experimentally in trapped ions and other systems.",
+   "facts": [
+    "It has been demonstrated in laboratory experiments with trapped ions.",
+    "An inverse effect exists where certain measurement patterns accelerate decay instead.",
+    "The name references Zeno's ancient arguments that motion is impossible."
+   ],
+   "vocab": [
+    {
+     "word": "decay",
+     "meaning": "the process of an unstable particle breaking down"
+    },
+    {
+     "word": "suppressed",
+     "meaning": "prevented from happening"
+    },
+    {
+     "word": "evolving",
+     "meaning": "changing gradually over time"
+    }
+   ],
+   "question": "Is there a real difference between observing something and interfering with it?"
+  },
+  {
+   "id": "SC015",
+   "cat": "SCIENCE",
+   "title": "The Tun State",
+   "hook": "A tardigrade can expel almost all its water, curl into a grain-like husk, and wait for decades.",
+   "enriched": true,
+   "summary": "Under drying conditions, tardigrades enter cryptobiosis, contracting into a barrel shape called a tun and reducing metabolism to nearly undetectable levels. In this state they tolerate temperatures near absolute zero, immense pressure, and hard radiation. Specialised proteins form a glass-like matrix inside their cells, physically holding delicate structures in place until water returns.",
+   "facts": [
+    "Metabolic activity in the tun state can fall to a tiny fraction of normal.",
+    "Specialised proteins vitrify inside cells, protecting structures mechanically.",
+    "Tardigrades in tun state have survived direct exposure to the vacuum of space."
+   ],
+   "vocab": [
+    {
+     "word": "cryptobiosis",
+     "meaning": "a state where life processes almost completely stop"
+    },
+    {
+     "word": "metabolism",
+     "meaning": "the chemical processes that keep a body alive"
+    },
+    {
+     "word": "matrix",
+     "meaning": "a material in which other things are held"
+    }
+   ],
+   "question": "If something stops all life processes and later resumes, was it alive in between?"
+  },
+  {
+   "id": "SC016",
+   "cat": "SCIENCE",
+   "title": "The Wood Wide Web",
+   "hook": "Beneath a quiet forest floor, trees are sending each other food, warnings, and sometimes sabotage.",
+   "enriched": true,
+   "summary": "Fungal threads called mycorrhizae connect the roots of trees across a forest, forming a network. Through it, trees exchange carbon, nitrogen, and water. Older 'hub' trees have been observed passing nutrients to shaded seedlings, including their own offspring. Trees under insect attack appear to release chemical signals that neighbours respond to by raising their defences. Some plants also use the network competitively, releasing compounds that suppress rivals.",
+   "facts": [
+    "A single forest network can link hundreds of trees across several species.",
+    "Dying trees have been recorded transferring their remaining carbon into the network.",
+    "The fungi are not doing this for free — they take sugars from the trees in exchange."
+   ],
+   "vocab": [
+    {
+     "word": "network",
+     "meaning": "a system of connected things working together"
+    },
+    {
+     "word": "seedling",
+     "meaning": "a very young plant grown from a seed"
+    },
+    {
+     "word": "suppress",
+     "meaning": "to hold back or prevent something from growing"
+    }
+   ],
+   "question": "Does cooperation in nature mean kindness, or just a useful strategy?"
+  },
+  {
+   "id": "SC017",
+   "cat": "SCIENCE",
+   "title": "A Teaspoon of Star",
+   "hook": "Neutron star matter would weigh billions of tons in a single spoon.",
+   "enriched": false
+  },
+  {
+   "id": "SC018",
+   "cat": "SCIENCE",
+   "title": "Cosmic Background",
+   "hook": "Faint radiation from the universe's beginning still hums all around us.",
+   "enriched": false
+  },
+  {
+   "id": "SC019",
+   "cat": "SCIENCE",
+   "title": "Diamond Rain",
+   "hook": "Pressure on Neptune may be enough to turn carbon into falling diamonds.",
+   "enriched": false
+  },
+  {
+   "id": "SC020",
+   "cat": "SCIENCE",
+   "title": "Half Our Oxygen",
+   "hook": "Microscopic ocean plants produce much of the air every one of us breathes.",
+   "enriched": false
+  },
+  {
+   "id": "SC021",
+   "cat": "SCIENCE",
+   "title": "Marine Snow",
+   "hook": "A constant soft drift of particles falls endlessly into the deep.",
+   "enriched": false
+  },
+  {
+   "id": "SC022",
+   "cat": "SCIENCE",
+   "title": "The Axolotl",
+   "hook": "It regrows limbs, spinal cord, and even portions of its own brain.",
+   "enriched": false
+  },
+  {
+   "id": "SC023",
+   "cat": "SCIENCE",
+   "title": "The Floating Planet",
+   "hook": "Saturn is less dense than water — in a big enough ocean, it would float.",
+   "enriched": false
+  },
+  {
+   "id": "SC024",
+   "cat": "SCIENCE",
+   "title": "The Sixth Sense of Sharks",
+   "hook": "They detect the faint electrical fields of living bodies nearby.",
+   "enriched": false
+  },
+  {
+   "id": "SC025",
+   "cat": "SCIENCE",
+   "title": "Three Hearts, Blue Blood",
+   "hook": "An octopus's copper-based blood runs blue, and two hearts pause when it swims.",
+   "enriched": false
+  },
+  {
+   "id": "SC026",
+   "cat": "SCIENCE",
+   "title": "Time Dilation",
+   "hook": "Clocks genuinely tick slower on a fast spacecraft than on the ground.",
+   "enriched": false
+  },
+  {
+   "id": "IN001",
+   "cat": "INVENTIONS",
+   "title": "The Barcode's Beach",
+   "hook": "He drew four lines in the sand with his fingers and pulled them into a circle.",
+   "enriched": true,
+   "summary": "In 1949, Joseph Woodland was thinking about how to encode product information automatically. Sitting on a beach, he traced Morse code dots and dashes in the sand and then drew his fingers downward, stretching them into lines. Realising a circular version could be scanned from any angle, he patented a bullseye design. The technology waited decades for lasers and computing to become cheap enough to use.",
+   "facts": [
+    "The original patent used concentric circles rather than parallel lines.",
+    "The idea sat commercially unused for roughly twenty years.",
+    "The first item scanned in a shop was a packet of chewing gum in 1974."
+   ],
+   "vocab": [
+    {
+     "word": "encode",
+     "meaning": "to convert information into a particular form"
+    },
+    {
+     "word": "patent",
+     "meaning": "a legal right protecting an invention"
+    },
+    {
+     "word": "concentric",
+     "meaning": "circles sharing the same centre"
+    }
+   ],
+   "question": "Why do some good ideas have to wait decades for the world to be ready?"
+  },
+  {
+   "id": "IN002",
+   "cat": "INVENTIONS",
+   "title": "The Corn Flake Accident",
+   "hook": "Two brothers left boiled wheat sitting out for days, then rolled it anyway to avoid the waste.",
+   "enriched": true,
+   "summary": "While running a sanatorium in the 1890s, John and Will Kellogg left a batch of cooked wheat unattended and it went stale. Rather than discard it, they forced it through rollers, expecting sheets of dough. Instead each softened grain flattened into a separate flake. Toasted, the flakes proved popular with patients, and the accident became the foundation of an entire breakfast industry.",
+   "facts": [
+    "The staleness was essential: the moisture had redistributed evenly through each grain.",
+    "The brothers later fell into a long legal dispute over the business.",
+    "The original product was intended as a plain health food, not a sweetened cereal."
+   ],
+   "vocab": [
+    {
+     "word": "sanatorium",
+     "meaning": "a place where people go to recover their health"
+    },
+    {
+     "word": "stale",
+     "meaning": "no longer fresh"
+    },
+    {
+     "word": "redistributed",
+     "meaning": "spread out differently than before"
+    }
+   ],
+   "question": "What separates a mistake from a discovery — the result, or who is watching?"
+  },
+  {
+   "id": "IN003",
+   "cat": "INVENTIONS",
+   "title": "The Microwave Meltdown",
+   "hook": "An engineer walked past a radar tube and noticed the chocolate bar in his pocket had melted.",
+   "enriched": true,
+   "summary": "In 1945, Percy Spencer was working with magnetrons used in radar equipment when he noticed a snack in his pocket had softened. He tested the effect deliberately with popcorn kernels, which popped, and then an egg, which burst. The first commercial microwave oven stood nearly as tall as a person, weighed several hundred kilograms, and required plumbing for water cooling.",
+   "facts": [
+    "Popcorn was the first food intentionally cooked in the experiment.",
+    "The earliest commercial model was around 1.8 metres tall and water-cooled.",
+    "Spencer had almost no formal schooling and was largely self-taught."
+   ],
+   "vocab": [
+    {
+     "word": "magnetron",
+     "meaning": "a device that generates microwave radiation"
+    },
+    {
+     "word": "commercial",
+     "meaning": "made to be sold to the public"
+    },
+    {
+     "word": "deliberately",
+     "meaning": "done on purpose"
+    }
+   ],
+   "question": "What makes one person investigate an odd detail while everyone else ignores it?"
+  },
+  {
+   "id": "IN004",
+   "cat": "INVENTIONS",
+   "title": "The Pacemaker's Mistake",
+   "hook": "He reached for the wrong resistor. Instead of recording heartbeats, the device started producing them.",
+   "enriched": true,
+   "summary": "In 1956, Wilson Greatbatch was building a circuit to record heart sounds and installed a resistor of the wrong value. The circuit began emitting regular electrical pulses instead of listening. He recognised that the rhythm resembled a heartbeat and redirected his work entirely, developing an implantable pacemaker. Earlier devices had been external, bulky, and in some cases mains-powered.",
+   "facts": [
+    "The mistaken component caused the circuit to pulse rather than record.",
+    "Existing pacemakers at the time were external and sometimes required mains electricity.",
+    "He later worked on longer-lasting batteries specifically to reduce repeat surgeries."
+   ],
+   "vocab": [
+    {
+     "word": "resistor",
+     "meaning": "an electrical component that limits current"
+    },
+    {
+     "word": "implantable",
+     "meaning": "able to be placed inside the body"
+    },
+    {
+     "word": "pulse",
+     "meaning": "a single short burst of energy or signal"
+    }
+   ],
+   "question": "Should we design our work to make useful accidents more likely?"
+  },
+  {
+   "id": "IN005",
+   "cat": "INVENTIONS",
+   "title": "The Post-it Failure",
+   "hook": "A chemist spent five years trying to give away an adhesive that everyone agreed was useless.",
+   "enriched": true,
+   "summary": "In 1968, Spencer Silver at 3M produced an adhesive that stuck lightly and peeled away cleanly — the opposite of what he was trying to make. He presented it internally for years with no takers. A colleague, Art Fry, frustrated by bookmarks falling out of his choir hymnal, recognised the application. Even then the product initially sold poorly until free samples were distributed and people discovered they wanted more.",
+   "facts": [
+    "Silver promoted the adhesive internally for around five years before an application emerged.",
+    "The launch initially failed until a mass free-sample campaign changed adoption.",
+    "The adhesive works using tiny spheres that make only partial contact with a surface."
+   ],
+   "vocab": [
+    {
+     "word": "adhesive",
+     "meaning": "a substance used to stick things together"
+    },
+    {
+     "word": "application",
+     "meaning": "a practical use for something"
+    },
+    {
+     "word": "adoption",
+     "meaning": "when people begin using something new"
+    }
+   ],
+   "question": "How many useful things are sitting unused because nobody has found the problem they solve?"
+  },
+  {
+   "id": "IN006",
+   "cat": "INVENTIONS",
+   "title": "The Zipper's Slow Rise",
+   "hook": "It took twenty years and a rebrand by a boot company before anyone would buy it.",
+   "enriched": true,
+   "summary": "Early slide fasteners were patented in the 1890s but jammed and popped open, and the public ignored them. Gideon Sundback redesigned the mechanism in 1913 with interlocking teeth that gripped reliably. Still it did not sell. Adoption came when a rubber boot manufacturer used it and coined a catchy name based on the sound it made. Clothing manufacturers only adopted it widely in the 1930s.",
+   "facts": [
+    "The name comes from the sound, coined by a boot company rather than the inventor.",
+    "Early versions were used mainly for boots and tobacco pouches, not clothing.",
+    "A 1930s fashion campaign for children's clothes helped drive mainstream adoption."
+   ],
+   "vocab": [
+    {
+     "word": "mechanism",
+     "meaning": "the moving parts that make something work"
+    },
+    {
+     "word": "adoption",
+     "meaning": "when people start using something widely"
+    },
+    {
+     "word": "interlocking",
+     "meaning": "fitting together by hooking into each other"
+    }
+   ],
+   "question": "How much of an invention's success is engineering, and how much is naming and timing?"
+  },
+  {
+   "id": "IN007",
+   "cat": "INVENTIONS",
+   "title": "Velcro's Walk",
+   "hook": "An engineer returned from a hunting trip irritated by burrs on his dog. He put one under a microscope.",
+   "enriched": true,
+   "summary": "In 1941, Swiss engineer George de Mestral examined the burdock burrs clinging to his clothes and his dog's fur. Under magnification he found tiny hooks catching on loops of fabric and hair. He spent years developing a synthetic version, eventually settling on nylon, which forms durable hooks when heated. The result was a fastener that needs no buttons, laces or zips.",
+   "facts": [
+    "The name combines the French words for velvet and hook.",
+    "It took roughly a decade to move from idea to a working manufacturing process.",
+    "Nylon was chosen because it holds a hook shape reliably after heat treatment."
+   ],
+   "vocab": [
+    {
+     "word": "magnification",
+     "meaning": "making something appear larger to see detail"
+    },
+    {
+     "word": "synthetic",
+     "meaning": "made by humans rather than found in nature"
+    },
+    {
+     "word": "fastener",
+     "meaning": "something that holds two things together"
+    }
+   ],
+   "question": "How often is nature the engineer, and the inventor only the person who noticed?"
+  },
+  {
+   "id": "IN008",
+   "cat": "INVENTIONS",
+   "title": "Dynamite's Stabilizer",
+   "hook": "Mixing nitroglycerin with an absorbent earth made an explosive safer to handle.",
+   "enriched": false
+  },
+  {
+   "id": "IN009",
+   "cat": "INVENTIONS",
+   "title": "Penicillin's Mold",
+   "hook": "A contaminated petri dish led to one of the most important medicines in history.",
+   "enriched": false
+  },
+  {
+   "id": "IN010",
+   "cat": "INVENTIONS",
+   "title": "Super Glue's Accident",
+   "hook": "A substance too sticky for its intended use became one of the strongest adhesives.",
+   "enriched": false
+  },
+  {
+   "id": "IN011",
+   "cat": "INVENTIONS",
+   "title": "The Ballpoint's Ink",
+   "hook": "A thick ink that wouldn't leak made writing reliable in almost any condition.",
+   "enriched": false
+  },
+  {
+   "id": "IN012",
+   "cat": "INVENTIONS",
+   "title": "The Corn Flake Burn",
+   "hook": "Overcooked wheat led to a breakfast cereal that became a global staple.",
+   "enriched": false
+  },
+  {
+   "id": "IN013",
+   "cat": "INVENTIONS",
+   "title": "The GPS Military Root",
+   "hook": "A navigation system built for weapons became the map in every modern phone.",
+   "enriched": false
+  },
+  {
+   "id": "IN014",
+   "cat": "INVENTIONS",
+   "title": "The Match's Delay",
+   "hook": "An early friction match was so dangerous its inventor kept it secret for years.",
+   "enriched": false
+  },
+  {
+   "id": "IN015",
+   "cat": "INVENTIONS",
+   "title": "The Safety Pin's Debt",
+   "hook": "A man invented it in a few hours to pay off a debt and sold the rights cheaply.",
+   "enriched": false
+  },
+  {
+   "id": "IN016",
+   "cat": "INVENTIONS",
+   "title": "The Silicon Chip's Scale",
+   "hook": "Shrinking transistors onto a single wafer launched the digital age.",
+   "enriched": false
+  },
+  {
+   "id": "IN017",
+   "cat": "INVENTIONS",
+   "title": "The Slinky's Fall",
+   "hook": "A naval engineer was trying to stabilize instruments when a spring fell and walked.",
+   "enriched": false
+  },
+  {
+   "id": "IN018",
+   "cat": "INVENTIONS",
+   "title": "The Telescope's Spyglass",
+   "hook": "A Dutch spectacle-maker's toy became the tool that changed astronomy forever.",
+   "enriched": false
+  },
+  {
+   "id": "IN019",
+   "cat": "INVENTIONS",
+   "title": "The World Wide Web",
+   "hook": "A tool meant to share physics papers quietly became the global information network.",
+   "enriched": false
+  },
+  {
+   "id": "IN020",
+   "cat": "INVENTIONS",
+   "title": "The X-Ray Plate",
+   "hook": "A fluorescent screen left near a cathode tube revealed bones inside a living hand.",
+   "enriched": false
+  },
+  {
+   "id": "IN021",
+   "cat": "INVENTIONS",
+   "title": "Viagra's Original Goal",
+   "hook": "The drug was first tested for heart conditions before its more famous side effect appeared.",
+   "enriched": false
+  },
+  {
+   "id": "LG001",
+   "cat": "LANGUAGE",
+   "title": "Evidential Markers",
+   "hook": "In some languages you cannot say 'it rained' without also stating how you know.",
+   "enriched": true,
+   "summary": "Evidentiality is a grammatical requirement, found in languages such as Tuyuca of the Amazon, to mark the source of information: seen directly, heard, inferred, or reported by someone else. Omitting it is not vague but ungrammatical. Speakers of these languages must continuously track and declare the provenance of what they say, a distinction English can express only by adding extra words.",
+   "facts": [
+    "Tuyuca is often cited as distinguishing several separate evidential categories.",
+    "Leaving the marker out is a grammatical error, not merely imprecise.",
+    "English can express the same ideas, but never requires it."
+   ],
+   "vocab": [
+    {
+     "word": "evidentiality",
+     "meaning": "marking in grammar how you know something"
+    },
+    {
+     "word": "grammatical",
+     "meaning": "following the rules of a language"
+    },
+    {
+     "word": "provenance",
+     "meaning": "where something originally came from"
+    }
+   ],
+   "question": "How would public conversation change if stating your source were grammatically required?"
+  },
+  {
+   "id": "LG002",
+   "cat": "LANGUAGE",
+   "title": "Guugu Yimithirr Directions",
+   "hook": "Speakers never say left or right. They say north, south, east and west — even about the cup on the table.",
+   "enriched": true,
+   "summary": "This Australian language uses absolute cardinal directions instead of body-relative terms. A speaker will describe an ant on their leg as being on the northern side. Maintaining this requires a constant background awareness of orientation, which speakers develop from early childhood. In tests, speakers demonstrate accurate directional sense in unfamiliar places, including indoors and after being transported without seeing the route.",
+   "facts": [
+    "Children acquire reliable absolute orientation by around age seven or eight.",
+    "Speakers stay oriented indoors and in unfamiliar buildings.",
+    "The word for hello in some related contexts effectively asks which way you are heading."
+   ],
+   "vocab": [
+    {
+     "word": "absolute",
+     "meaning": "fixed and not depending on your position"
+    },
+    {
+     "word": "cardinal",
+     "meaning": "the four main compass directions"
+    },
+    {
+     "word": "orientation",
+     "meaning": "knowing which way you are facing"
+    }
+   ],
+   "question": "What abilities might you have if your language had demanded them since childhood?"
+  },
+  {
+   "id": "LG003",
+   "cat": "LANGUAGE",
+   "title": "Silbo Gomero",
+   "hook": "On one Canary island, entire conversations are whistled across valleys three kilometres wide.",
+   "enriched": true,
+   "summary": "Silbo Gomero is a whistled register of Spanish used on La Gomera, where deep ravines make shouting useless but whistles carry extremely well. Speakers reduce vowels and consonants to distinguishable pitch and interruption patterns, allowing full sentences to be transmitted. Use declined sharply in the twentieth century, and it was made a compulsory school subject in 1999 to prevent it disappearing.",
+   "facts": [
+    "Whistles can carry across distances of several kilometres in the island's terrain.",
+    "It is taught compulsorily in La Gomera's schools to keep it alive.",
+    "Brain imaging suggests trained whistlers process it in language regions, not just as sound."
+   ],
+   "vocab": [
+    {
+     "word": "register",
+     "meaning": "a form of language used in a particular situation"
+    },
+    {
+     "word": "ravine",
+     "meaning": "a deep narrow valley with steep sides"
+    },
+    {
+     "word": "compulsory",
+     "meaning": "required, not optional"
+    }
+   ],
+   "question": "If a language can be whistled, what exactly is a language made of?"
+  },
+  {
+   "id": "LG004",
+   "cat": "LANGUAGE",
+   "title": "The Colour Naming Gap",
+   "hook": "Ancient texts describe the sea as wine-dark and honey as green. Their eyes were fine.",
+   "enriched": true,
+   "summary": "Languages divide the colour spectrum differently, and they tend to acquire colour terms in a broadly consistent order, beginning with dark and light, then red. Homeric Greek lacks a dedicated word matching our blue, which produced descriptions that read strangely today. Speakers of languages with separate terms for light and dark blue, such as Russian, distinguish those shades measurably faster in laboratory tests.",
+   "facts": [
+    "Cross-cultural studies found colour terms tend to enter languages in a predictable sequence.",
+    "Russian speakers discriminate light and dark blue faster than English speakers.",
+    "Some languages group what English calls green and blue under a single term."
+   ],
+   "vocab": [
+    {
+     "word": "spectrum",
+     "meaning": "the full range of colours in light"
+    },
+    {
+     "word": "discriminate",
+     "meaning": "to tell the difference between things"
+    },
+    {
+     "word": "sequence",
+     "meaning": "a particular order in which things happen"
+    }
+   ],
+   "question": "Can you fully see something you have no word for?"
+  },
+  {
+   "id": "LG005",
+   "cat": "LANGUAGE",
+   "title": "The Pirahã Counting Gap",
+   "hook": "One Amazonian language appears to have no exact number words at all — not even for one.",
+   "enriched": true,
+   "summary": "Researchers working with the Pirahã of the Amazon reported a counting system limited to approximate quantity terms rather than exact numbers. In experiments, speakers matched small groups reliably but struggled with exact matching as quantities grew. The finding is contested, but it feeds a serious debate: whether exact number is a universal human capacity or a technology that a culture may or may not develop.",
+   "facts": [
+    "Speakers performed well on small quantities and less consistently as amounts increased.",
+    "The claims remain actively disputed among linguists.",
+    "The debate concerns whether counting is innate or a learned cultural tool."
+   ],
+   "vocab": [
+    {
+     "word": "approximate",
+     "meaning": "close to exact but not precise"
+    },
+    {
+     "word": "contested",
+     "meaning": "argued about, not settled"
+    },
+    {
+     "word": "innate",
+     "meaning": "present from birth rather than learned"
+    }
+   ],
+   "question": "Is counting something humans naturally do, or something we invented?"
+  },
+  {
+   "id": "LG006",
+   "cat": "LANGUAGE",
+   "title": "The Sapir-Whorf Idea",
+   "hook": "Some languages have no words for left or right. Their speakers navigate by compass direction — and never get lost.",
+   "enriched": true,
+   "summary": "The linguistic relativity hypothesis proposes that the language you speak influences how you think. Strong versions, claiming language determines thought entirely, are now rejected. But weaker effects are well documented. Speakers of languages that use cardinal directions instead of body-relative terms maintain a constant sense of orientation. Languages that divide the colour spectrum differently affect how quickly speakers distinguish certain shades.",
+   "facts": [
+    "Speakers of some Australian Aboriginal languages describe positions using north, south, east and west.",
+    "Colour-boundary differences produce measurable changes in reaction time during discrimination tasks.",
+    "The strong version of the hypothesis has been rejected; the weak version is broadly supported."
+   ],
+   "vocab": [
+    {
+     "word": "linguistic",
+     "meaning": "relating to language"
+    },
+    {
+     "word": "cardinal directions",
+     "meaning": "north, south, east and west"
+    },
+    {
+     "word": "hypothesis",
+     "meaning": "an idea proposed to be tested"
+    }
+   ],
+   "question": "Does learning a new language give you thoughts you could not have had before?"
+  },
+  {
+   "id": "LG007",
+   "cat": "LANGUAGE",
+   "title": "The Toki Pona Experiment",
+   "hook": "A linguist built a language with only about 120 words to see what thinking would feel like.",
+   "enriched": true,
+   "summary": "Toki Pona was created by Sonja Lang in 2001 as a minimalist constructed language with roughly 120 core words. Complex ideas must be assembled from simple ones, which forces speakers to break concepts down to essentials — a car becomes something like a moving machine. Learners consistently report that the constraint changes how they think about ideas rather than merely how they express them.",
+   "facts": [
+    "Most learners reach basic conversational ability within days rather than months.",
+    "Precise technical vocabulary is deliberately impossible, forcing description instead.",
+    "It was designed partly as a philosophical exercise in simplifying thought."
+   ],
+   "vocab": [
+    {
+     "word": "minimalist",
+     "meaning": "using as little as possible"
+    },
+    {
+     "word": "constructed",
+     "meaning": "deliberately created rather than developed naturally"
+    },
+    {
+     "word": "constraint",
+     "meaning": "a limit that shapes what you can do"
+    }
+   ],
+   "question": "Would having fewer words make your thinking clearer, or poorer?"
+  },
+  {
+   "id": "LG008",
+   "cat": "LANGUAGE",
+   "title": "Absolute Direction",
+   "hook": "A few languages have no words for left or right — only north, south, east, west.",
+   "enriched": false
+  },
+  {
+   "id": "LG009",
+   "cat": "LANGUAGE",
+   "title": "Click Consonants",
+   "hook": "Some languages use tongue clicks as regular speech sounds, not just interjections.",
+   "enriched": false
+  },
+  {
+   "id": "LG010",
+   "cat": "LANGUAGE",
+   "title": "Ideophones",
+   "hook": "Special words that vividly depict sound, motion, or feeling beyond ordinary description.",
+   "enriched": false
+  },
+  {
+   "id": "LG011",
+   "cat": "LANGUAGE",
+   "title": "Isolating Languages",
+   "hook": "Some languages build meaning almost entirely with separate words instead of word endings.",
+   "enriched": false
+  },
+  {
+   "id": "LG012",
+   "cat": "LANGUAGE",
+   "title": "Logographic Density",
+   "hook": "A single Chinese character can carry more meaning than an entire alphabetic word.",
+   "enriched": false
+  },
+  {
+   "id": "LG013",
+   "cat": "LANGUAGE",
+   "title": "Onomatopoeia Abundance",
+   "hook": "Japanese has hundreds of specific sound-words for textures, feelings, and actions.",
+   "enriched": false
+  },
+  {
+   "id": "LG014",
+   "cat": "LANGUAGE",
+   "title": "The Color Naming Gap",
+   "hook": "Not every language divides the color spectrum the same way English does.",
+   "enriched": false
+  },
+  {
+   "id": "LG015",
+   "cat": "LANGUAGE",
+   "title": "The Dual Number",
+   "hook": "Certain languages have a special grammatical form just for talking about exactly two things.",
+   "enriched": false
+  },
+  {
+   "id": "LG016",
+   "cat": "LANGUAGE",
+   "title": "The Honorific Maze",
+   "hook": "Korean and Japanese change verb forms based on the relative status of the people speaking.",
+   "enriched": false
+  },
+  {
+   "id": "LG017",
+   "cat": "LANGUAGE",
+   "title": "The Passive Preference",
+   "hook": "Some languages make it easier to avoid naming who did an action.",
+   "enriched": false
+  },
+  {
+   "id": "LG018",
+   "cat": "LANGUAGE",
+   "title": "The Rosetta Stone",
+   "hook": "One carved slab with three scripts unlocked the meaning of Egyptian hieroglyphs.",
+   "enriched": false
+  },
+  {
+   "id": "LG019",
+   "cat": "LANGUAGE",
+   "title": "The Untranslatable Hygge",
+   "hook": "Danish has a word for a particular kind of cozy contentment that resists exact translation.",
+   "enriched": false
+  },
+  {
+   "id": "LG020",
+   "cat": "LANGUAGE",
+   "title": "The Whistled Language",
+   "hook": "Entire conversations can be carried across deep valleys using only whistled tones.",
+   "enriched": false
+  },
+  {
+   "id": "LG021",
+   "cat": "LANGUAGE",
+   "title": "Untranslatable Saudade",
+   "hook": "Portuguese has a single word for a deep nostalgic longing that has no exact English match.",
+   "enriched": false
+  },
+  {
+   "id": "SE001",
+   "cat": "SECRETS",
+   "title": "Number Stations",
+   "hook": "Somewhere on shortwave radio right now, a voice is reading strings of numbers to nobody who will admit listening.",
+   "enriched": true,
+   "summary": "Since the early twentieth century, shortwave broadcasts have transmitted sequences of numbers, letters or tones, often introduced by distinctive music. They are widely understood to be one-way intelligence communications using one-time pads, a cipher that is mathematically unbreakable if the key is truly random and used once. Governments rarely acknowledge them. Some stations have broadcast continuously for decades.",
+   "facts": [
+    "One-time pad encryption cannot be broken by computing power if used correctly.",
+    "One-way broadcasting means a recipient needs no transmitter and cannot be located.",
+    "Several stations have run for decades with recognisable interval signals."
+   ],
+   "vocab": [
+    {
+     "word": "shortwave",
+     "meaning": "radio frequencies that travel very long distances"
+    },
+    {
+     "word": "cipher",
+     "meaning": "a system for disguising a message"
+    },
+    {
+     "word": "transmit",
+     "meaning": "to send out a signal"
+    }
+   ],
+   "question": "Why would anyone still use radio when the internet exists?"
+  },
+  {
+   "id": "SE002",
+   "cat": "SECRETS",
+   "title": "The Beale Ciphers",
+   "hook": "Three coded papers claim to reveal a buried fortune. One was solved. The other two never have been.",
+   "enriched": true,
+   "summary": "Published in an 1885 pamphlet, three ciphertexts allegedly describe a treasure, its location, and the heirs entitled to it. The second was decoded using the Declaration of Independence as a key, and describes the contents. The first and third, presumably naming the location, remain unsolved despite enormous effort. Many analysts believe the whole story is a nineteenth-century hoax built to sell pamphlets.",
+   "facts": [
+    "The solved cipher numbers correspond to words in the Declaration of Independence.",
+    "Statistical analysis of the unsolved texts has produced no agreed conclusion.",
+    "The pamphlet's own account contains internal inconsistencies and anachronisms."
+   ],
+   "vocab": [
+    {
+     "word": "ciphertext",
+     "meaning": "a message that has been put into code"
+    },
+    {
+     "word": "anachronism",
+     "meaning": "something that does not belong to its stated time"
+    },
+    {
+     "word": "pamphlet",
+     "meaning": "a short printed booklet"
+    }
+   ],
+   "question": "Why do people keep working on a puzzle that may have no answer at all?"
+  },
+  {
+   "id": "SE003",
+   "cat": "SECRETS",
+   "title": "The Bloop",
+   "hook": "In 1997, microphones thousands of kilometres apart picked up the same sound. Nothing known was large enough to make it.",
+   "enriched": true,
+   "summary": "Hydrophones monitoring the Pacific detected an extraordinarily powerful low-frequency sound, loud enough to be recorded by sensors over 5,000 kilometres apart. Speculation about an unknown giant animal followed. Years of further monitoring in Antarctic waters eventually matched the acoustic signature to icequakes — the cracking and fracturing of large ice masses. The mystery is solved, but it stands as a reminder of how little of the ocean's sound we had catalogued.",
+   "facts": [
+    "The sound was detected by a network originally built to listen for submarines.",
+    "It was louder than any known animal call ever recorded.",
+    "The explanation came from comparing it to confirmed recordings of ice fracturing."
+   ],
+   "vocab": [
+    {
+     "word": "hydrophone",
+     "meaning": "a microphone designed to listen underwater"
+    },
+    {
+     "word": "frequency",
+     "meaning": "how high or low a sound is"
+    },
+    {
+     "word": "signature",
+     "meaning": "a distinctive pattern that identifies something"
+    }
+   ],
+   "question": "Why are we often disappointed when a mystery finally gets an ordinary explanation?"
+  },
+  {
+   "id": "SE004",
+   "cat": "SECRETS",
+   "title": "The Hessdalen Lights",
+   "hook": "In one Norwegian valley, glowing lights appear so reliably that scientists built a permanent station to watch them.",
+   "enriched": true,
+   "summary": "Since the early 1980s, unusual luminous phenomena have been recorded in the Hessdalen valley — floating white or yellow lights lasting up to an hour, sometimes moving rapidly. Because they recur, researchers installed automated cameras and instruments, making this one of very few such phenomena studied with continuous monitoring. Leading hypotheses involve ionised gas and unusual local mineralogy, but no explanation is settled.",
+   "facts": [
+    "An automated monitoring station has operated in the valley since 1998.",
+    "Sightings were most frequent in the 1980s and have since become less common.",
+    "The valley's mineral deposits are a central element in leading hypotheses."
+   ],
+   "vocab": [
+    {
+     "word": "luminous",
+     "meaning": "giving off light"
+    },
+    {
+     "word": "hypothesis",
+     "meaning": "a proposed explanation to be tested"
+    },
+    {
+     "word": "ionised",
+     "meaning": "electrically charged by losing or gaining electrons"
+    }
+   ],
+   "question": "What makes an unexplained thing worth serious scientific attention rather than dismissal?"
+  },
+  {
+   "id": "SE005",
+   "cat": "SECRETS",
+   "title": "The Phantom Time Theory",
+   "hook": "One historian argued that roughly three centuries of the Middle Ages were simply invented.",
+   "enriched": true,
+   "summary": "In the 1990s, Heribert Illig proposed that the years 614 to 911 never occurred and were fabricated to place rulers at symbolically important dates. The claim rests on gaps in the archaeological record and calendar discrepancies. It is comprehensively rejected: tree-ring dating, independent records from China and the Islamic world, and recorded eclipses all align with the standard chronology. It remains a useful lesson in how to test a bold claim.",
+   "facts": [
+    "Tree-ring sequences run continuously through the disputed period.",
+    "Chinese and Islamic records independently document the same years.",
+    "Recorded solar eclipses match astronomical calculation for the period."
+   ],
+   "vocab": [
+    {
+     "word": "chronology",
+     "meaning": "the order in which events happened in time"
+    },
+    {
+     "word": "fabricated",
+     "meaning": "made up or invented"
+    },
+    {
+     "word": "discrepancy",
+     "meaning": "a difference between things that should match"
+    }
+   ],
+   "question": "What is the strongest possible evidence that a particular year really happened?"
+  },
+  {
+   "id": "SE006",
+   "cat": "SECRETS",
+   "title": "The Taos Hum",
+   "hook": "A low drone that only some residents can hear, that no instrument has reliably captured.",
+   "enriched": true,
+   "summary": "Since the early 1990s, a minority of people in Taos, New Mexico have reported a persistent low-frequency hum. Investigations by university teams found no consistent external acoustic source. Similar reports come from Bristol, Windsor and elsewhere. Explanations range from industrial infrasound and distant machinery to otoacoustic phenomena generated within the ear itself. No single cause accounts for every case.",
+   "facts": [
+    "Typically only a small percentage of a local population reports hearing it.",
+    "Formal investigations have not identified a consistent external sound source.",
+    "Hums have been reported independently in several countries."
+   ],
+   "vocab": [
+    {
+     "word": "infrasound",
+     "meaning": "sound too low in pitch for most people to hear"
+    },
+    {
+     "word": "acoustic",
+     "meaning": "relating to sound"
+    },
+    {
+     "word": "persistent",
+     "meaning": "continuing for a long time"
+    }
+   ],
+   "question": "How do you investigate something that only some people can perceive?"
+  },
+  {
+   "id": "SE007",
+   "cat": "SECRETS",
+   "title": "The Zone of Silence",
+   "hook": "A stretch of Mexican desert where radios reportedly fail — and where a stray missile once landed.",
+   "enriched": true,
+   "summary": "The Mapimí Silent Zone gained its reputation partly after an American test missile went off course and crashed there in 1970. Local lore holds that radio signals die and compasses spin. Scientific investigation has found no anomalous magnetic or radio behaviour; the region is simply remote, sparsely covered by transmitters, and rich in meteorite fragments. It is now a biosphere reserve, and the legend outlasts the debunking.",
+   "facts": [
+    "The area is a designated biosphere reserve with unusually high endemic species.",
+    "Measurements have found no unusual magnetic or radio interference.",
+    "Its meteorite density is genuinely notable, which fed the mythology."
+   ],
+   "vocab": [
+    {
+     "word": "anomalous",
+     "meaning": "different from what is normal or expected"
+    },
+    {
+     "word": "biosphere",
+     "meaning": "the parts of Earth where living things exist"
+    },
+    {
+     "word": "endemic",
+     "meaning": "found naturally in only one place"
+    }
+   ],
+   "question": "Why do legends about a place survive long after they are disproven?"
+  },
+  {
+   "id": "SE008",
+   "cat": "SECRETS",
+   "title": "The Cipher of the Beale",
+   "hook": "Three coded texts allegedly describe a buried treasure; only one has been solved.",
+   "enriched": false
+  },
+  {
+   "id": "SE009",
+   "cat": "SECRETS",
+   "title": "The Circleville Letters",
+   "hook": "Anonymous threatening letters terrorized a small town for years; the writer was never proven.",
+   "enriched": false
+  },
+  {
+   "id": "SE010",
+   "cat": "SECRETS",
+   "title": "The Dyatlov Pass",
+   "hook": "Nine hikers died under strange circumstances in the Ural Mountains; the full cause remains debated.",
+   "enriched": false
+  },
+  {
+   "id": "SE011",
+   "cat": "SECRETS",
+   "title": "The Lost Cosmonauts",
+   "hook": "Rumors persist of unacknowledged early space deaths, though evidence remains disputed.",
+   "enriched": false
+  },
+  {
+   "id": "SE012",
+   "cat": "SECRETS",
+   "title": "The Max Headroom Signal",
+   "hook": "In 1987 an unknown person hijacked two Chicago television signals for a brief bizarre broadcast.",
+   "enriched": false
+  },
+  {
+   "id": "SE013",
+   "cat": "SECRETS",
+   "title": "The Phantom Time",
+   "hook": "A fringe theory claims nearly three centuries of the early Middle Ages were invented.",
+   "enriched": false
+  },
+  {
+   "id": "SE014",
+   "cat": "SECRETS",
+   "title": "The Silent Zone",
+   "hook": "One region of the ocean is so quiet that unusual sounds travel for thousands of miles.",
+   "enriched": false
+  },
+  {
+   "id": "OD001",
+   "cat": "ODDITIES",
+   "title": "Ant Megacolonies",
+   "hook": "One ant colony stretches across three continents, and its members refuse to fight each other.",
+   "enriched": true,
+   "summary": "Argentine ants introduced worldwide have formed supercolonies whose members recognise each other as nestmates despite being separated by oceans. Ants taken from Europe, Japan and California have been placed together in laboratory tests and did not fight, while both attacked ants from other colonies. Their chemical identity markers are nearly identical, effectively making them one enormous colony.",
+   "facts": [
+    "The European supercolony alone extends for thousands of kilometres along the coast.",
+    "Ants from different continents placed together showed no aggression.",
+    "In their native range in Argentina, colonies are smaller and fight each other normally."
+   ],
+   "vocab": [
+    {
+     "word": "colony",
+     "meaning": "a group of animals of one kind living together"
+    },
+    {
+     "word": "nestmate",
+     "meaning": "a member of the same nest or colony"
+    },
+    {
+     "word": "aggression",
+     "meaning": "hostile or attacking behaviour"
+    }
+   ],
+   "question": "Is a group spread across three continents still one community?"
+  },
+  {
+   "id": "OD002",
+   "cat": "ODDITIES",
+   "title": "Coral Spawning",
+   "hook": "On one night a year, an entire reef releases at once, and the sea turns to snow.",
+   "enriched": true,
+   "summary": "Many coral species across whole reef systems release eggs and sperm in a single synchronised event, typically keyed to lunar cycle, water temperature and time after sunset. The synchrony overwhelms predators and maximises fertilisation. For a few hours the water fills with drifting bundles. Researchers now use the predictability to collect material for reef restoration work.",
+   "facts": [
+    "Timing is cued primarily by the lunar cycle combined with water temperature.",
+    "Hundreds of species can spawn within the same few nights on one reef.",
+    "Restoration programmes now schedule collection around the predicted event."
+   ],
+   "vocab": [
+    {
+     "word": "synchronised",
+     "meaning": "happening at the same time as each other"
+    },
+    {
+     "word": "lunar",
+     "meaning": "relating to the moon"
+    },
+    {
+     "word": "fertilisation",
+     "meaning": "when egg and sperm join to begin new life"
+    }
+   ],
+   "question": "How do organisms with no eyes or brains agree on a single night?"
+  },
+  {
+   "id": "OD003",
+   "cat": "ODDITIES",
+   "title": "Sea Silk",
+   "hook": "A golden cloth was woven from the anchor threads of a giant clam. Almost nobody alive can still make it.",
+   "enriched": true,
+   "summary": "Byssus, the fibres a pen shell uses to attach itself to the seabed, was spun into an extremely fine golden-brown fabric in the Mediterranean for centuries. Collecting it required free diving, and processing was slow and secretive. The pen shell is now critically endangered and harvesting is prohibited. Knowledge of the full technique survives with only a very small number of practitioners.",
+   "facts": [
+    "The fibres take a golden colour after treatment and hold it permanently.",
+    "The pen shell that produces it is now critically endangered and protected.",
+    "Historical examples survive in only a small number of museum collections."
+   ],
+   "vocab": [
+    {
+     "word": "byssus",
+     "meaning": "the strong threads some shellfish use to anchor themselves"
+    },
+    {
+     "word": "endangered",
+     "meaning": "at serious risk of dying out"
+    },
+    {
+     "word": "practitioner",
+     "meaning": "someone who actively performs a skill or craft"
+    }
+   ],
+   "question": "What is lost when a craft survives in only one or two pairs of hands?"
+  },
+  {
+   "id": "OD004",
+   "cat": "ODDITIES",
+   "title": "Sleeping With One Eye",
+   "hook": "Some animals shut down half the brain to sleep, keeping the other half awake and one eye open.",
+   "enriched": true,
+   "summary": "Unihemispheric slow-wave sleep allows one cerebral hemisphere to rest while the other stays alert, with the eye opposite the sleeping half closed. Dolphins rely on it because they must surface to breathe and cannot afford full unconsciousness. Many birds use it too; ducks at the edge of a sleeping group keep the outward-facing eye open, while those in the middle sleep with both hemispheres.",
+   "facts": [
+    "Dolphins alternate hemispheres, so both halves of the brain get rest over time.",
+    "Ducks on the outside of a group keep the outward eye open; those in the centre do not.",
+    "Some migrating birds appear to use it to rest during long flights."
+   ],
+   "vocab": [
+    {
+     "word": "hemisphere",
+     "meaning": "one of the two halves of the brain"
+    },
+    {
+     "word": "unconsciousness",
+     "meaning": "the state of not being awake or aware"
+    },
+    {
+     "word": "alternate",
+     "meaning": "to switch back and forth between two things"
+    }
+   ],
+   "question": "If half a brain can stay alert while the other rests, what does that say about consciousness?"
+  },
+  {
+   "id": "OD005",
+   "cat": "ODDITIES",
+   "title": "The Dolphin's Name",
+   "hook": "Each dolphin invents a sound for itself as a calf — and others call it by that sound for life.",
+   "enriched": true,
+   "summary": "Bottlenose dolphins develop a signature whistle in their first year, a unique pattern that identifies them individually. Other dolphins copy it to address them directly, and will produce it when separated, apparently calling for a specific individual. Studies show dolphins respond to recordings of their own signature whistle but not to those of strangers. Some recognise the whistles of companions they have not encountered for over twenty years.",
+   "facts": [
+    "Signature whistles are largely invented rather than inherited from parents.",
+    "Dolphins have been recorded copying another's whistle in what appears to be direct address.",
+    "Recognition has been demonstrated after separations exceeding two decades."
+   ],
+   "vocab": [
+    {
+     "word": "signature",
+     "meaning": "something unique that identifies an individual"
+    },
+    {
+     "word": "individual",
+     "meaning": "one single member of a group"
+    },
+    {
+     "word": "companion",
+     "meaning": "someone you spend time with regularly"
+    }
+   ],
+   "question": "What does it change to learn that another species gives each other names?"
+  },
+  {
+   "id": "OD006",
+   "cat": "ODDITIES",
+   "title": "The Honeyguide Bird",
+   "hook": "A wild bird calls to a human, waits to be followed, and leads them straight to a hidden beehive.",
+   "enriched": true,
+   "summary": "In parts of Africa, the greater honeyguide actively seeks out human honey-hunters, calls to attract their attention, and flies ahead in stages toward a bee colony. The humans open the hive and take the honey; the bird eats the wax and larvae it cannot reach alone. Research has shown the birds respond specifically to traditional human calls used by hunters in that region, and that the partnership significantly raises success rates for both.",
+   "facts": [
+    "Following the bird raises hunters' chances of finding a hive dramatically compared to searching alone.",
+    "The birds respond more strongly to the specific calls used locally than to other human sounds.",
+    "This is one of very few documented cooperative partnerships between humans and a wild animal."
+   ],
+   "vocab": [
+    {
+     "word": "cooperative",
+     "meaning": "working together toward a shared benefit"
+    },
+    {
+     "word": "larvae",
+     "meaning": "young insects before they become adults"
+    },
+    {
+     "word": "partnership",
+     "meaning": "a relationship where both sides gain something"
+    }
+   ],
+   "question": "What is lost when traditional practices like this disappear from a community?"
+  },
+  {
+   "id": "OD007",
+   "cat": "ODDITIES",
+   "title": "The Immortal Sponge",
+   "hook": "Somewhere on the seafloor sits an animal that was already ancient when the pyramids were new.",
+   "enriched": true,
+   "summary": "Certain deep-sea glass sponges grow extraordinarily slowly in cold, still water with almost no predators. Estimates based on growth rates suggest some individuals are many thousands of years old, making them among the longest-lived animals known. They have no brain, no heart, and no muscles; they simply filter water and continue. Their skeletons are built from silica — essentially glass — in intricate lattice structures.",
+   "facts": [
+    "Some estimates place individual sponges at over ten thousand years old.",
+    "Their glass-like skeletons have inspired research into stronger, lighter engineering materials.",
+    "They can filter thousands of litres of water per day without moving at all."
+   ],
+   "vocab": [
+    {
+     "word": "silica",
+     "meaning": "the mineral that glass and sand are mostly made from"
+    },
+    {
+     "word": "lattice",
+     "meaning": "a structure of crossing strips or lines with gaps between"
+    },
+    {
+     "word": "predator",
+     "meaning": "an animal that hunts and eats other animals"
+    }
+   ],
+   "question": "Is a life without movement, thought, or change still a life worth calling long?"
+  },
+  {
+   "id": "OD008",
+   "cat": "ODDITIES",
+   "title": "The Lyrebird",
+   "hook": "Deep in an Australian forest, a bird perfectly imitates a chainsaw, a car alarm, and a camera shutter.",
+   "enriched": true,
+   "summary": "The superb lyrebird has one of the most sophisticated vocal systems of any bird. Males mimic the calls of dozens of other species with such accuracy that the copied birds respond. In forests near human activity, they have been recorded reproducing mechanical sounds. Some imitations are passed down between generations, meaning a lyrebird may reproduce a sound its own ancestors heard decades ago from something no longer present.",
+   "facts": [
+    "A single male's song can include imitations of more than twenty other bird species.",
+    "The mimicry is used to attract mates — the wider the repertoire, the more impressive the display.",
+    "Some populations still carry sounds learned from equipment that has long since left the area."
+   ],
+   "vocab": [
+    {
+     "word": "mimicry",
+     "meaning": "copying the sounds or appearance of something else"
+    },
+    {
+     "word": "repertoire",
+     "meaning": "the full collection of things someone can perform"
+    },
+    {
+     "word": "generations",
+     "meaning": "groups of individuals born and living around the same time"
+    }
+   ],
+   "question": "If a sound outlives the machine that made it, what exactly is being remembered?"
+  },
+  {
+   "id": "OD009",
+   "cat": "ODDITIES",
+   "title": "The Milky Sea",
+   "hook": "Sailors described the ocean glowing white to the horizon for nights on end. Nobody believed them for two hundred years.",
+   "enriched": true,
+   "summary": "Mariners have long reported vast stretches of ocean emitting a steady, pale glow bright enough to read by, sometimes lasting for days. Unlike the flashing bioluminescence of disturbed plankton, this light is continuous and enormous. Satellite imagery has now confirmed events covering areas larger than some countries. The leading explanation involves colonies of bioluminescent bacteria glowing in unison, though the trigger is not fully understood.",
+   "facts": [
+    "One confirmed event covered an area larger than many countries and lasted several nights.",
+    "Satellites with low-light sensors were needed to verify accounts sailors had given for centuries.",
+    "Unlike disturbed plankton, the glow is steady rather than flashing."
+   ],
+   "vocab": [
+    {
+     "word": "bioluminescence",
+     "meaning": "light produced by a living organism"
+    },
+    {
+     "word": "mariner",
+     "meaning": "a sailor or someone who works at sea"
+    },
+    {
+     "word": "verify",
+     "meaning": "to prove something is true"
+    }
+   ],
+   "question": "How many dismissed eyewitness accounts might be waiting for technology to catch up?"
+  },
+  {
+   "id": "OD010",
+   "cat": "ODDITIES",
+   "title": "The Naked Mole Rat",
+   "hook": "It barely feels pain, almost never develops cancer, and can survive conditions that would kill most mammals.",
+   "enriched": true,
+   "summary": "The naked mole rat is a nearly hairless burrowing rodent that lives in large underground colonies in East Africa. It shows remarkable resistance to certain cancers, appears insensitive to some kinds of pain, and can survive extended periods with very little oxygen by switching its metabolism to run on fructose. Unusually for a mammal, its colonies are organised around a single breeding queen, more like bees than like other rodents.",
+   "facts": [
+    "It can survive around eighteen minutes in near-zero oxygen conditions.",
+    "Colonies are eusocial, centred on one breeding female — extremely rare among mammals.",
+    "Its risk of death does not appear to rise with age in the way it does for most animals."
+   ],
+   "vocab": [
+    {
+     "word": "metabolism",
+     "meaning": "the chemical processes that keep a body running"
+    },
+    {
+     "word": "eusocial",
+     "meaning": "living in a colony with one breeder and many helpers"
+    },
+    {
+     "word": "resistance",
+     "meaning": "the ability to not be harmed by something"
+    }
+   ],
+   "question": "If one small animal solved problems we cannot, what does that say about how we search for answers?"
+  },
+  {
+   "id": "OD011",
+   "cat": "ODDITIES",
+   "title": "The Overview Effect",
+   "hook": "Astronauts describe seeing Earth whole and never being able to think the same way again.",
+   "enriched": true,
+   "summary": "Coined by writer Frank White, the overview effect describes a cognitive shift reported by many who have seen Earth from orbit: a sudden felt understanding of the planet as a single fragile system without visible borders. Reports frequently include a lasting change in priorities and heightened environmental concern. Researchers have studied whether elements can be induced with virtual reality.",
+   "facts": [
+    "The term was coined by Frank White after interviewing numerous astronauts.",
+    "Reports commonly include lasting changes in personal priorities.",
+    "Studies have tested whether virtual reality can produce similar shifts."
+   ],
+   "vocab": [
+    {
+     "word": "cognitive",
+     "meaning": "relating to thinking and understanding"
+    },
+    {
+     "word": "induced",
+     "meaning": "caused to happen"
+    },
+    {
+     "word": "fragile",
+     "meaning": "easily damaged or broken"
+    }
+   ],
+   "question": "Do you need to physically leave a place to understand it properly?"
+  },
+  {
+   "id": "OD012",
+   "cat": "ODDITIES",
+   "title": "The Walking Fish",
+   "hook": "It breathes air, climbs trees, and would drown if you kept it underwater too long.",
+   "enriched": true,
+   "summary": "Mudskippers spend much of their lives out of water on tidal mudflats, moving with muscular pectoral fins and climbing roots and low branches. They breathe partly through skin and mouth lining, which must stay moist, and carry water in their gill chambers like a held breath. They dig burrows in the mud and defend territory, and males signal to mates by leaping.",
+   "facts": [
+    "They can absorb oxygen through skin and mouth lining as long as these remain wet.",
+    "They dig burrows and actively defend territory on the mudflats.",
+    "Some species climb mangrove roots and low branches above the waterline."
+   ],
+   "vocab": [
+    {
+     "word": "tidal",
+     "meaning": "affected by the rise and fall of the sea"
+    },
+    {
+     "word": "pectoral",
+     "meaning": "relating to the chest area"
+    },
+    {
+     "word": "territory",
+     "meaning": "an area an animal defends as its own"
+    }
+   ],
+   "question": "Where exactly is the line between a fish and a land animal?"
+  },
+  {
+   "id": "OD013",
+   "cat": "ODDITIES",
+   "title": "Whale Fall",
+   "hook": "When a whale dies, it sinks — and its body feeds an entire ecosystem for the next fifty years.",
+   "enriched": true,
+   "summary": "A large whale carcass reaching the deep seafloor delivers an enormous, sudden supply of food to an environment where food is normally scarce. Scavengers strip the flesh within months. Then worms and crustaceans work through the remains for years. Finally, bacteria break down the fats inside the bones, supporting chemical-feeding communities for decades. Some species are known only from whale falls and appear to live nowhere else.",
+   "facts": [
+    "A single carcass can sustain deep-sea communities for fifty years or more.",
+    "Certain bone-eating worms have no mouth or gut and rely on bacteria to digest for them.",
+    "Several species have never been found anywhere except on whale falls."
+   ],
+   "vocab": [
+    {
+     "word": "ecosystem",
+     "meaning": "a community of living things and their environment"
+    },
+    {
+     "word": "scavenger",
+     "meaning": "an animal that feeds on dead remains"
+    },
+    {
+     "word": "carcass",
+     "meaning": "the body of a dead animal"
+    }
+   ],
+   "question": "Does knowing that death sustains other life change how you think about endings?"
+  },
+  {
+   "id": "OD014",
+   "cat": "ODDITIES",
+   "title": "A Flamboyance",
+   "hook": "The real collective noun for flamingos, and a doorway into stranger ones.",
+   "enriched": false
+  },
+  {
+   "id": "OD015",
+   "cat": "ODDITIES",
+   "title": "Holding Hands Asleep",
+   "hook": "Sea otters clasp paws while sleeping so the current can't separate them.",
+   "enriched": false
+  },
+  {
+   "id": "OD016",
+   "cat": "ODDITIES",
+   "title": "Tasting With Feet",
+   "hook": "Landing on a flower is how a butterfly first learns whether it's food.",
+   "enriched": false
+  },
+  {
+   "id": "OD017",
+   "cat": "ODDITIES",
+   "title": "The Giraffe's Tongue",
+   "hook": "Nearly two feet long and blue-black — likely to guard against sunburn.",
+   "enriched": false
+  },
+  {
+   "id": "OD018",
+   "cat": "ODDITIES",
+   "title": "The Kangaroo's Limit",
+   "hook": "Their legs and tail make walking backward nearly physically impossible.",
+   "enriched": false
+  },
+  {
+   "id": "OD019",
+   "cat": "ODDITIES",
+   "title": "The Pebble Proposal",
+   "hook": "Some penguins court a mate by offering a single smooth stone.",
+   "enriched": false
+  },
+  {
+   "id": "OD020",
+   "cat": "ODDITIES",
+   "title": "The Pregnant Father",
+   "hook": "Male seahorses carry and deliver the young — the only animals that do.",
+   "enriched": false
+  },
+  {
+   "id": "OD021",
+   "cat": "ODDITIES",
+   "title": "The Three-Year Sleep",
+   "hook": "In drought, some snails stay dormant for years and simply wait.",
+   "enriched": false
+  }
+ ]
+}
