@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: unprompted
+    runtime: static
+    plan: free
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    pullRequestPreviewsEnabled: true
+
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.1
+
+    # Single-page app: every route must fall through to index.html.
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+    headers:
+      # Hashed build assets are immutable and safe to cache hard.
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+
+      # index.html must never be cached, or users get stale builds.
+      - path: /index.html
+        name: Cache-Control
+        value: no-cache
+
+      # The microphone is required for recording; everything else is denied.
+      - path: /*
+        name: Permissions-Policy
+        value: microphone=(self), camera=(), geolocation=()
+
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
