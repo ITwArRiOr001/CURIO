@@ -1,6 +1,6 @@
 import React from "react";
 
-import Unprompted from "./Unprompted.jsx";
+import Curio from "./Curio.jsx";
 
 /**
  * Catches render-time errors so a single failure never leaves the user
@@ -18,7 +18,7 @@ class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, info) {
     // Replace with your error reporting service when you add one.
-    console.error("Unprompted crashed:", error, info);
+    console.error("Curio crashed:", error, info);
   }
 
   handleReload = () => {
@@ -45,7 +45,7 @@ class ErrorBoundary extends React.Component {
 export default function App() {
   return (
     <ErrorBoundary>
-      <Unprompted />
+      <Curio />
     </ErrorBoundary>
   );
 }
