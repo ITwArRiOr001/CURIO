@@ -1,0 +1,3527 @@
+{
+ "shard": "000001-000100.json",
+ "idRange": [
+  "C000001",
+  "C000100"
+ ],
+ "count": 100,
+ "topics": [
+  {
+   "id": "C000001",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Chesterton's Fence",
+   "hook": "You find a fence in the middle of a field with no clear purpose. The wise move is not to remove it.",
+   "prediction_prompt": "You find a gate standing in the middle of an empty field. No fence, no animals, no path. Should you take it down? Say what you'd do and why.",
+   "misconception": "An obstacle with no visible purpose is obviously safe to remove — if it mattered, the reason would be apparent.",
+   "briefing": "The writer G. K. Chesterton proposed a rule for reform: if you come across a fence across a road and cannot see why it is there, do not tear it down until you know. The point is not that old things should be preserved. It is that not understanding a rule is not the same as the rule being pointless, and the cost of removing a protection you did not understand can be severe. The principle is now widely applied in engineering, policy, and software.",
+   "reference_material": {
+    "names": [
+     "G. K. Chesterton",
+     "The Thing (1929)"
+    ],
+    "timeline": [
+     "1929 — essay published"
+    ],
+    "terms": [
+     "reform",
+     "precautionary principle",
+     "institutional memory",
+     "Occam's razor"
+    ],
+    "research_threads": [
+     "Where is this principle applied in software or law today?",
+     "When does the reverse error — keeping useless rules — become the bigger risk?"
+    ]
+   },
+   "discussion_prompt": "What is a rule in your own life that you follow without knowing where it came from?",
+   "family": "we-were-confidently-wrong",
+   "legacy_id": "EC001",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000002",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Newcomb's Boxes",
+   "hook": "A predictor who has never been wrong has already filled the boxes. Does your choice still matter?",
+   "prediction_prompt": "A predictor who has never once been wrong has already sealed two boxes based on what it thinks you'll pick. Would you take one box or both? Commit to an answer before reading on.",
+   "misconception": "The boxes are already filled, so your choice cannot possibly affect what's inside — take both.",
+   "briefing": "You may take one opaque box or both boxes. A highly reliable predictor placed a large sum in the opaque box only if it predicted you would take one. Evidential reasoning says take one, since one-boxers reliably do better. Causal reasoning says take both, since the contents are already fixed and your choice cannot change them. Both arguments appear sound and they conflict.",
+   "reference_material": {
+    "names": [
+     "William Newcomb",
+     "Robert Nozick",
+     "Robert Nozick 1969 paper"
+    ],
+    "timeline": [
+     "1960s — devised",
+     "1969 — popularised"
+    ],
+    "terms": [
+     "decision theory",
+     "evidential vs causal reasoning",
+     "dominance principle",
+     "expected utility"
+    ],
+    "research_threads": [
+     "What do one-boxers and two-boxers each assume about causation?",
+     "How does this connect to predictive algorithms today?"
+    ]
+   },
+   "discussion_prompt": "If someone could reliably predict your choices, would they still be choices?",
+   "family": "boundaries-that-dissolve",
+   "legacy_id": "EC002",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000003",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Schrödinger's Cat",
+   "hook": "A physicist invented this scenario to show how absurd quantum theory sounded. It became its most famous image.",
+   "prediction_prompt": "Why do you think a physicist would invent a scenario about a cat in a sealed box? Guess what he was trying to achieve.",
+   "misconception": "Schrödinger invented it to explain quantum physics — it's the standard teaching illustration.",
+   "briefing": "Erwin Schrödinger described a sealed box containing a cat and a mechanism triggered by a random quantum event. If the standard interpretation were taken literally, the cat would be in a combined state of both outcomes until observed. Schrödinger's intent was satirical — he meant to show that applying quantum rules to everyday objects produces nonsense. The thought experiment is now used to introduce the very ideas he was criticising.",
+   "reference_material": {
+    "names": [
+     "Erwin Schrödinger",
+     "Albert Einstein",
+     "Niels Bohr"
+    ],
+    "timeline": [
+     "1935 — proposed in correspondence"
+    ],
+    "terms": [
+     "superposition",
+     "Copenhagen interpretation",
+     "decoherence",
+     "thought experiment"
+    ],
+    "research_threads": [
+     "What was Schrödinger arguing against?",
+     "Why do large objects not show quantum behaviour?"
+    ]
+   },
+   "discussion_prompt": "Why do arguments meant as criticism sometimes become the most famous version of an idea?",
+   "family": "boundaries-that-dissolve",
+   "legacy_id": "EC003",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000004",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Survivorship Bias",
+   "hook": "Engineers armoured the bullet holes on returning planes. A statistician told them they had it exactly backwards.",
+   "prediction_prompt": "Aircraft come back from missions covered in bullet holes, mapped carefully across the fuselage. You have limited armour. Where would you put it?",
+   "misconception": "Reinforce the places where returning planes were hit — that's clearly where the damage happens.",
+   "briefing": "During the Second World War, analysts examined returning aircraft and mapped where they had been hit, planning to reinforce those areas. Statistician Abraham Wald pointed out the flaw: they were only studying planes that made it back. The undamaged areas on survivors were precisely the areas where a hit meant the plane never returned. The armour belonged where the holes were not. The lesson generalises: studying only successes teaches the wrong lesson.",
+   "reference_material": {
+    "names": [
+     "Abraham Wald",
+     "Statistical Research Group",
+     "Columbia University"
+    ],
+    "timeline": [
+     "1943 — Wald's memoranda"
+    ],
+    "terms": [
+     "selection bias",
+     "non-random sample",
+     "censored data"
+    ],
+    "research_threads": [
+     "What data was never collected, and why?",
+     "Where does business advice suffer the same flaw?"
+    ]
+   },
+   "discussion_prompt": "Whose stories are missing from the advice you have been given about success?",
+   "family": "we-were-confidently-wrong",
+   "legacy_id": "EC004",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000005",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Birthday Paradox",
+   "hook": "In a room of just 23 people, it is more likely than not that two share a birthday. Most people guess 180.",
+   "prediction_prompt": "How many people do you think need to be in a room before it's more likely than not that two share a birthday? Say a number out loud before checking.",
+   "misconception": "You'd need around 180 people — about half of 365 — before a shared birthday becomes likely.",
+   "briefing": "The result feels wrong because people instinctively ask how many others share their own birthday. The actual question is whether any pair among the group matches. With 23 people there are 253 possible pairs, and the probability that none of them match falls below one half. At 50 people the probability of a shared birthday exceeds 97 percent. Our intuition badly underestimates how quickly combinations grow.",
+   "reference_material": {
+    "names": [
+     "Richard von Mises"
+    ],
+    "timeline": [
+     "1930s — early formulations"
+    ],
+    "terms": [
+     "combinations",
+     "complementary probability",
+     "pigeonhole principle",
+     "birthday attack"
+    ],
+    "research_threads": [
+     "Why does the number of pairs matter more than the number of people?",
+     "How is this used to attack cryptographic hashes?"
+    ]
+   },
+   "discussion_prompt": "Why does human intuition fail so badly when numbers start multiplying?",
+   "family": "boundaries-that-dissolve",
+   "legacy_id": "EC005",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000006",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Infinite Hotel",
+   "hook": "A hotel with endless rooms is completely full. A new guest arrives — and there is still space.",
+   "prediction_prompt": "A hotel has infinitely many rooms and every single one is occupied. One more guest arrives. Can they be given a room? Explain your reasoning.",
+   "misconception": "A hotel that is completely full has no room for anyone else — that's what 'full' means.",
+   "briefing": "Mathematician David Hilbert imagined a hotel with infinitely many rooms, all occupied. When one guest arrives, the manager asks everyone to move one room along: room 1 to room 2, room 2 to room 3, and so on. Room 1 is now free, though nobody left. If infinitely many guests arrive, everyone moves to double their room number, freeing every odd-numbered room. The thought experiment shows that infinity does not behave like an ordinary large number.",
+   "reference_material": {
+    "names": [
+     "David Hilbert",
+     "Georg Cantor"
+    ],
+    "timeline": [
+     "1920s — Hilbert's lectures"
+    ],
+    "terms": [
+     "countable infinity",
+     "bijection",
+     "cardinality",
+     "aleph-null"
+    ],
+    "research_threads": [
+     "How can a set be the same size as part of itself?",
+     "Are some infinities genuinely larger than others?"
+    ]
+   },
+   "discussion_prompt": "Can something be completely full and still have room? What does 'full' really mean?",
+   "family": "boundaries-that-dissolve",
+   "legacy_id": "EC006",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000007",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Monty Hall Problem",
+   "hook": "Switching doors doubles your chance of winning. Thousands of mathematicians insisted this was wrong.",
+   "prediction_prompt": "You pick one of three doors. The host, who knows what's behind each, opens another to reveal a goat, then offers you the swap. Should you switch? Say why.",
+   "misconception": "Two doors remain, so it's a coin flip — switching makes no difference.",
+   "briefing": "You pick one of three doors. The host, who knows what is behind each, opens a different door revealing a goat, then offers you the swap. Switching wins two times in three, because your first pick was right only one time in three, and the host's constrained choice concentrates the remaining probability. When Marilyn vos Savant published the correct answer in 1990, she received thousands of letters insisting she was mistaken.",
+   "reference_material": {
+    "names": [
+     "Marilyn vos Savant",
+     "Monty Hall",
+     "Steve Selvin"
+    ],
+    "timeline": [
+     "1975 — Selvin's letter",
+     "1990 — vos Savant column"
+    ],
+    "terms": [
+     "conditional probability",
+     "Bayes' theorem",
+     "host knowledge"
+    ],
+    "research_threads": [
+     "What changes if the host opens a door at random?",
+     "Why did so many mathematicians get it wrong?"
+    ]
+   },
+   "discussion_prompt": "What should you do when the correct answer feels obviously wrong?",
+   "family": "boundaries-that-dissolve",
+   "legacy_id": "EC007",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000008",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Observer Effect",
+   "hook": "In one famous experiment, particles behaved one way when measured — and completely differently when no one was watching.",
+   "prediction_prompt": "In one famous experiment, particles behave differently when measured. What do you think 'measuring' actually does to them?",
+   "misconception": "It's about consciousness — a mind watching somehow changes physical reality.",
+   "briefing": "In the double-slit experiment, particles fired at a barrier with two openings produce an interference pattern, behaving like waves. But when detectors are placed to record which slit each particle passes through, the pattern disappears and they behave like ordinary particles. The act of measuring changes the result. This is not about human consciousness watching; it is about the physical interaction any measurement requires. It remains one of the strangest confirmed results in physics.",
+   "reference_material": {
+    "names": [
+     "Thomas Young",
+     "Claus Jönsson"
+    ],
+    "timeline": [
+     "1801 — Young's double slit",
+     "1961 — electron version"
+    ],
+    "terms": [
+     "interference pattern",
+     "wavefunction collapse",
+     "measurement problem",
+     "decoherence"
+    ],
+    "research_threads": [
+     "Is a 'measurement' the same as a person watching?",
+     "What happens when particles are fired one at a time?"
+    ]
+   },
+   "discussion_prompt": "Can anything ever be studied without the study itself changing it?",
+   "family": "measurement-changes-the-thing",
+   "legacy_id": "EC008",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000009",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Sleeping Beauty Problem",
+   "hook": "You wake with no memory of waking before. What odds should you give a coin you never saw flipped?",
+   "prediction_prompt": "She's woken once if a fair coin lands heads, twice if tails, with no memory between wakings. On waking, what odds should she give heads? Commit to a number.",
+   "misconception": "The coin was fair, so the answer is obviously one half — waking up tells her nothing new.",
+   "briefing": "A participant is put to sleep. A fair coin is flipped. On heads she is woken once; on tails she is woken twice, with memory of the first waking erased. On waking, what probability should she assign to heads? Halfers say one half, since the coin is fair and she has learned nothing. Thirders say one third, since two of three possible wakings follow tails. The disagreement remains unresolved.",
+   "reference_material": {
+    "names": [
+     "Adam Elga",
+     "Arnold Zuboff",
+     "David Lewis"
+    ],
+    "timeline": [
+     "2000 — Elga's paper"
+    ],
+    "terms": [
+     "halfer",
+     "thirder",
+     "anthropic reasoning",
+     "self-locating belief"
+    ],
+    "research_threads": [
+     "What does simply existing tell you about probability?",
+     "Where does this appear in cosmology?"
+    ]
+   },
+   "discussion_prompt": "Does simply existing to ask a question count as evidence about the answer?",
+   "family": "boundaries-that-dissolve",
+   "legacy_id": "EC009",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000010",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Trolley Problem",
+   "hook": "Pull a lever and one person is harmed. Do nothing and five are. Almost every room splits in half.",
+   "prediction_prompt": "Most people say they'd pull a lever to redirect harm from five people to one. Fewer would push a person to achieve the same result. Why do you think the answers differ?",
+   "misconception": "It's a puzzle about arithmetic — five lives outweigh one, and that settles it.",
+   "briefing": "Philosopher Philippa Foot introduced this thought experiment to expose a gap in how we reason about harm. Most people say they would pull the lever, choosing the smaller loss. But in a variant where saving the five requires physically pushing one person, most refuse — even though the arithmetic is identical. The difference reveals that we distinguish between causing harm and allowing it, and that proximity changes our moral intuitions.",
+   "reference_material": {
+    "names": [
+     "Philippa Foot",
+     "Judith Jarvis Thomson"
+    ],
+    "timeline": [
+     "1967 — Foot's paper",
+     "1985 — Thomson's variants"
+    ],
+    "terms": [
+     "doctrine of double effect",
+     "deontology",
+     "consequentialism",
+     "moral intuition"
+    ],
+    "research_threads": [
+     "Why does pushing feel different from pulling a lever?",
+     "How are self-driving cars forced to answer this?"
+    ]
+   },
+   "discussion_prompt": "Should a machine ever be programmed to decide who gets harmed?",
+   "family": "boundaries-that-dissolve",
+   "legacy_id": "EC010",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000011",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Unexpected Hanging",
+   "hook": "A judge promises a surprise event next week. Perfect logic proves it cannot happen — and then it does.",
+   "prediction_prompt": "A prisoner is told an event will occur on a weekday next week, and that the day will be a surprise. He proves by logic it can't happen at all. Where do you think his reasoning goes wrong?",
+   "misconception": "The reasoning is flawless, so the surprise genuinely cannot happen.",
+   "briefing": "A prisoner is told he will be executed on a weekday next week, and that the day will be a surprise. He reasons it cannot be Friday, since by Thursday evening it would be predictable; that eliminates Thursday for the same reason, and so on until no day remains. Reassured, he is genuinely surprised when it occurs. The paradox exposes something unresolved about self-referential knowledge and prediction.",
+   "reference_material": {
+    "names": [
+     "Martin Gardner",
+     "D. J. O'Connor"
+    ],
+    "timeline": [
+     "1948 — first published discussion"
+    ],
+    "terms": [
+     "backward induction",
+     "epistemic paradox",
+     "self-reference"
+    ],
+    "research_threads": [
+     "At which step does the prisoner's reasoning break?",
+     "What does this reveal about knowing your own future knowledge?"
+    ]
+   },
+   "discussion_prompt": "Can a chain of reasoning be flawless at every step and still reach a wrong answer?",
+   "family": "boundaries-that-dissolve",
+   "legacy_id": "EC011",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000012",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Cargo Cults",
+   "hook": "They built runways from bamboo and control towers from wood, then waited for planes that never came.",
+   "prediction_prompt": "After the war ended, some Pacific communities built runways and control towers from bamboo. What do you think they were actually trying to do?",
+   "misconception": "The people involved were simply confused about technology and didn't understand where goods came from.",
+   "briefing": "During the Second World War, remote Pacific islands saw sudden enormous influxes of aircraft, supplies, and personnel. When the war ended and the forces withdrew, some communities constructed replicas of runways, radios, and control towers, reproducing the visible activities that had preceded the arrival of goods. The physicist Richard Feynman later borrowed the term to criticise research that copies the outward form of science without its substance.",
+   "reference_material": {
+    "names": [
+     "Richard Feynman",
+     "John Frum movement",
+     "Tanna, Vanuatu"
+    ],
+    "timeline": [
+     "1940s — wartime occupation",
+     "1974 — Feynman's Caltech address"
+    ],
+    "terms": [
+     "cargo cult science",
+     "ritual",
+     "anthropological critique"
+    ],
+    "research_threads": [
+     "Why do anthropologists object to the term?",
+     "Where does 'cargo cult' thinking appear in modern institutions?"
+    ]
+   },
+   "discussion_prompt": "Where do you see people copying the appearance of success without its substance?",
+   "family": "small-cause-vast-effect",
+   "legacy_id": "HI001",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000013",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Kowloon Walled City",
+   "hook": "A single block held 33,000 people, had almost no laws, and worked anyway.",
+   "prediction_prompt": "33,000 people lived in a single block that fell outside almost all government authority. How do you think daily life — water, post, rubbish — actually worked?",
+   "misconception": "With almost no law enforcement and extreme density, it must have collapsed into chaos.",
+   "briefing": "Through a quirk of treaty history, this densely built settlement in Hong Kong fell outside effective jurisdiction of both the British administration and mainland authorities. Buildings grew organically upward and into each other until sunlight never reached the lower alleys. Residents ran unlicensed clinics, factories and schools, and organised their own utilities and waste collection. It was demolished in the 1990s and is now a park.",
+   "reference_material": {
+    "names": [
+     "Hong Kong",
+     "Greg Girard",
+     "Ian Lambot"
+    ],
+    "timeline": [
+     "1898 — treaty anomaly",
+     "1987 — demolition announced",
+     "1994 — demolished"
+    ],
+    "terms": [
+     "jurisdiction",
+     "population density",
+     "informal settlement",
+     "self-organisation"
+    ],
+    "research_threads": [
+     "Who provided water, post and refuse collection?",
+     "What does it suggest about whether order needs authority?"
+    ]
+   },
+   "discussion_prompt": "What does this place prove about whether order requires authority?",
+   "family": "small-cause-vast-effect",
+   "legacy_id": "HI002",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000014",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Operation Paul Bunyan",
+   "hook": "To cut down one tree, two nations assembled bombers, helicopters and artillery — and said nothing.",
+   "prediction_prompt": "To cut down one poplar tree, two nations assembled bombers, helicopters and artillery. Why do you think such overwhelming force was used for something so small?",
+   "misconception": "Assembling bombers and artillery around a tree was an escalation that risked war.",
+   "briefing": "In 1976, a poplar tree in the Korean Demilitarised Zone blocked a line of sight between observation posts. An attempt to trim it ended in violence. Three days later, the trimming was completed under the cover of an enormous show of force: convoys, attack helicopters, B-52s at altitude, and artillery on alert. The tree was cut. No shots were fired. The operation is studied as a case of overwhelming deterrence used to avoid escalation.",
+   "reference_material": {
+    "names": [
+     "Korean Demilitarized Zone",
+     "Joint Security Area"
+    ],
+    "timeline": [
+     "18 August 1976 — incident",
+     "21 August 1976 — operation"
+    ],
+    "terms": [
+     "deterrence",
+     "escalation",
+     "show of force",
+     "armistice"
+    ],
+    "research_threads": [
+     "Why display force rather than use it?",
+     "When does deterrence increase risk instead of reducing it?"
+    ]
+   },
+   "discussion_prompt": "Is showing overwhelming strength a way of avoiding conflict, or of inviting it?",
+   "family": "small-cause-vast-effect",
+   "legacy_id": "HI003",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000015",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Roanoke Colony",
+   "hook": "The ship returned after three years. Every one of the 115 settlers was gone — no bodies, no struggle, one word carved into a post.",
+   "prediction_prompt": "115 settlers vanished, leaving dismantled houses, no bodies, no graves, no sign of struggle, and one word carved into a post. What do you think happened?",
+   "misconception": "Something violent happened — a massacre, a raid, or starvation.",
+   "briefing": "In 1587 more than a hundred English settlers established a colony on Roanoke Island. Their governor sailed back to England for supplies and was delayed for three years by war. When he finally returned, the settlement was empty and dismantled, with no sign of violence and no graves. The only clue was the word CROATOAN carved into a post — the name of a nearby island and the people who lived there. A storm prevented him from sailing to check. No one has ever confirmed what happened.",
+   "reference_material": {
+    "names": [
+     "John White",
+     "Virginia Dare",
+     "Croatoan",
+     "Sir Walter Raleigh"
+    ],
+    "timeline": [
+     "1587 — colony founded",
+     "1590 — White returns"
+    ],
+    "terms": [
+     "colony",
+     "Croatoan",
+     "dismantled structures"
+    ],
+    "research_threads": [
+     "What does the careful dismantling suggest?",
+     "Why has integration with local peoples been hard to prove?"
+    ]
+   },
+   "discussion_prompt": "Why do unsolved disappearances hold our attention far longer than solved ones?",
+   "family": "small-cause-vast-effect",
+   "legacy_id": "HI004",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000016",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Bone Wars",
+   "hook": "Two scientists hated each other so much they dynamited fossil sites rather than let the other have them.",
+   "prediction_prompt": "Two palaeontologists spent twenty years trying to outdo each other. Between them they named over a hundred species. Do you think the rivalry helped or harmed the science? Say why.",
+   "misconception": "Competition between two rival scientists must have accelerated the science.",
+   "briefing": "Between the 1870s and 1890s, palaeontologists Othniel Marsh and Edward Cope competed ferociously to name new dinosaur species. They bribed crews, spied on each other's digs, published hastily, and reportedly destroyed sites to deny their rival. Between them they named over a hundred species. Many names later had to be corrected, and both men ended their careers financially and professionally damaged.",
+   "reference_material": {
+    "names": [
+     "Othniel Charles Marsh",
+     "Edward Drinker Cope",
+     "Como Bluff"
+    ],
+    "timeline": [
+     "1870s–1890s"
+    ],
+    "terms": [
+     "palaeontology",
+     "priority in naming",
+     "taxonomy",
+     "Brontosaurus dispute"
+    ],
+    "research_threads": [
+     "How much of their output had to be corrected later?",
+     "Does competition help or harm science?"
+    ]
+   },
+   "discussion_prompt": "Can competition speed up discovery and damage it at the same time?",
+   "family": "small-cause-vast-effect",
+   "legacy_id": "HI005",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000017",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Christmas Truce",
+   "hook": "On one night in 1914, soldiers climbed out of the trenches, exchanged gifts and sang together.",
+   "prediction_prompt": "On one night in 1914, soldiers climbed out of the trenches and exchanged gifts with the enemy. How do you think their commanders reacted?",
+   "misconception": "Commanders welcomed it as a humane moment in a brutal war.",
+   "briefing": "Along parts of the Western Front in December 1914, unofficial ceasefires broke out. Soldiers from opposing trenches met in no man's land to bury the dead, exchange food and tobacco, and in some places play football. Commands on both sides discouraged repetition, and orders in later years explicitly prohibited fraternisation. It was never repeated on the same scale.",
+   "reference_material": {
+    "names": [
+     "Western Front",
+     "Ypres Salient"
+    ],
+    "timeline": [
+     "December 1914",
+     "1915 onward — orders forbidding it"
+    ],
+    "terms": [
+     "truce",
+     "fraternisation",
+     "no man's land"
+    ],
+    "research_threads": [
+     "Why did commanders act to prevent a repeat?",
+     "How did letters home change public perception?"
+    ]
+   },
+   "discussion_prompt": "Why did the people in charge work so hard to prevent it happening again?",
+   "family": "small-cause-vast-effect",
+   "legacy_id": "HI006",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000018",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Dancing Plague",
+   "hook": "One woman began dancing in the street. Within a month, hundreds had joined her — and none of them could stop.",
+   "prediction_prompt": "In 1518 hundreds of people in one town danced for days and could not stop. What do you think caused it — and what do you think the authorities did about it?",
+   "misconception": "It was mass poisoning, or a straightforward hoax.",
+   "briefing": "In Strasbourg in 1518, a woman started dancing and did not stop for days. Others joined, and within weeks accounts describe hundreds of people dancing continuously, many collapsing from exhaustion. City authorities, believing the cure was more dancing, hired musicians and cleared halls, which appears to have made it worse. Historians now generally treat it as a case of mass psychogenic illness — real physical symptoms spreading through a population under extreme stress.",
+   "reference_material": {
+    "names": [
+     "Frau Troffea",
+     "Strasbourg",
+     "John Waller"
+    ],
+    "timeline": [
+     "July 1518 — outbreak begins"
+    ],
+    "terms": [
+     "mass psychogenic illness",
+     "choreomania",
+     "ergotism hypothesis"
+    ],
+    "research_threads": [
+     "What did the authorities do, and why did it worsen matters?",
+     "What was happening in the region beforehand?"
+    ]
+   },
+   "discussion_prompt": "How much of what we feel is genuinely our own, and how much is caught from the people around us?",
+   "family": "small-cause-vast-effect",
+   "legacy_id": "HI007",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000019",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Dreadnought Hoax",
+   "hook": "Six people in costume and stage makeup were given a full royal tour of Britain's most secret warship.",
+   "prediction_prompt": "Six people in costume were given a full royal tour of Britain's most secret warship. What do you think made the Navy believe them?",
+   "misconception": "They must have used expert disguises and convincing forged documents.",
+   "briefing": "In 1910, a small group including the writer Virginia Woolf disguised themselves as an Abyssinian royal delegation and requested to inspect HMS Dreadnought. The Navy laid on a formal reception with an honour guard. The group communicated in improvised nonsense, and the officers, including a relative of one of the hoaxers, did not recognise them. The subsequent embarrassment prompted questions about how identity was verified at all.",
+   "reference_material": {
+    "names": [
+     "Horace de Vere Cole",
+     "Virginia Woolf",
+     "HMS Dreadnought"
+    ],
+    "timeline": [
+     "7 February 1910"
+    ],
+    "terms": [
+     "hoax",
+     "delegation",
+     "protocol",
+     "identity verification"
+    ],
+    "research_threads": [
+     "What did the Navy verify, and what did it assume?",
+     "How much of authority rests on looking the part?"
+    ]
+   },
+   "discussion_prompt": "How much of who we are accepted as depends on simply looking the part?",
+   "family": "small-cause-vast-effect",
+   "legacy_id": "HI008",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000020",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Great Molasses Flood",
+   "hook": "A storage tank burst in Boston and sent a wave of syrup through the streets at 55 kilometres an hour.",
+   "prediction_prompt": "A storage tank of molasses burst in Boston in 1919. How fast do you think the wave moved, and how much damage could syrup really do?",
+   "misconception": "A syrup spill would be slow and mostly harmless — sticky, not dangerous.",
+   "briefing": "In January 1919, a large tank of molasses in Boston's North End failed catastrophically, releasing millions of litres. The resulting wave moved fast enough to shift buildings off foundations and buckle railway supports. Residents had complained for years that the tank leaked; the company had painted it brown, which disguised the seepage. The subsequent legal case led to significantly stricter engineering oversight and certification rules.",
+   "reference_material": {
+    "names": [
+     "Purity Distilling Company",
+     "Boston North End"
+    ],
+    "timeline": [
+     "15 January 1919"
+    ],
+    "terms": [
+     "structural failure",
+     "corporate liability",
+     "engineering certification"
+    ],
+    "research_threads": [
+     "What warnings existed beforehand, and why were they missed?",
+     "What regulations followed the court case?"
+    ]
+   },
+   "discussion_prompt": "Why are warnings so often ignored until after something goes wrong?",
+   "family": "small-cause-vast-effect",
+   "legacy_id": "HI009",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000021",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Radium Girls",
+   "hook": "They were told the paint was harmless, and encouraged to point the brushes with their lips.",
+   "prediction_prompt": "Young women painted glowing watch dials, shaping the brushes with their lips because they were told the paint was harmless. When they began falling ill, what do you think the companies did?",
+   "misconception": "Once the danger was known, the companies would have acted to protect their workers.",
+   "briefing": "In the 1910s and 1920s, young women painted glowing radium dial faces on watches and instruments. Instructed to shape their brushes with their mouths, they ingested radium daily, and some painted their nails and teeth with it for fun. As they fell seriously ill, the companies denied responsibility. The workers' lawsuits established that employers could be held liable for occupational disease, and directly shaped modern workplace safety law.",
+   "reference_material": {
+    "names": [
+     "United States Radium Corporation",
+     "Grace Fryer",
+     "Catherine Donohue",
+     "Marie Curie"
+    ],
+    "timeline": [
+     "1917–1926 — dial painting",
+     "1928 — settlement"
+    ],
+    "terms": [
+     "radioluminescence",
+     "occupational disease",
+     "liability",
+     "bone-seeking isotope"
+    ],
+    "research_threads": [
+     "Why does radium accumulate in bone?",
+     "Which modern workplace protections trace back to this case?"
+    ]
+   },
+   "discussion_prompt": "Who should carry the cost when a workplace danger is discovered too late?",
+   "family": "small-cause-vast-effect",
+   "legacy_id": "HI010",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000022",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Streisand Effect",
+   "hook": "A single photograph had been downloaded six times. Then someone tried to have it removed.",
+   "prediction_prompt": "A photograph sat almost unnoticed in a public survey — downloaded six times. Then someone sued to have it removed. What do you think happened next?",
+   "misconception": "Suppressing an embarrassing image is the sensible way to limit how many people see it.",
+   "briefing": "In 2003, an aerial photograph of the California coastline sat almost unnoticed in a public erosion survey. A lawsuit demanding its removal drew enormous attention, and within a month it had been viewed hundreds of thousands of times. The pattern now has a name: attempts to suppress information frequently guarantee its spread, because the suppression itself becomes the story and signals that the material must be worth seeing.",
+   "reference_material": {
+    "names": [
+     "Barbra Streisand",
+     "Kenneth Adelman",
+     "California Coastal Records Project",
+     "Mike Masnick"
+    ],
+    "timeline": [
+     "2003 — lawsuit",
+     "2005 — term coined"
+    ],
+    "terms": [
+     "suppression",
+     "information cascade",
+     "reputational risk"
+    ],
+    "research_threads": [
+     "When is silence the stronger response to criticism?",
+     "Find two other cases with the same shape."
+    ]
+   },
+   "discussion_prompt": "When is staying silent about criticism stronger than responding to it?",
+   "family": "small-cause-vast-effect",
+   "legacy_id": "HI011",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000023",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Tanganyika Laughter",
+   "hook": "It started with three schoolgirls laughing. Within months, thousands were affected and schools closed.",
+   "prediction_prompt": "In 1962 an outbreak of uncontrollable laughter began at a school and spread across villages for over a year. What do you think was actually happening?",
+   "misconception": "It was a prank, or something in the food or water at the school.",
+   "briefing": "In 1962, an outbreak of uncontrollable laughter began at a mission school in what is now Tanzania. Affected students could not stop for hours or days at a time, and the school was forced to close. As pupils returned home, it spread to their villages and other schools, ultimately affecting around a thousand people over months. It is now classified as mass psychogenic illness, linked to the acute stress of a society undergoing rapid change.",
+   "reference_material": {
+    "names": [
+     "Kashasha",
+     "Bukoba",
+     "Tanganyika"
+    ],
+    "timeline": [
+     "30 January 1962 — outbreak begins",
+     "1962–63 — spread"
+    ],
+    "terms": [
+     "mass psychogenic illness",
+     "somatisation",
+     "social contagion"
+    ],
+    "research_threads": [
+     "What was happening politically in the region that year?",
+     "Why do schools appear so often in these outbreaks?"
+    ]
+   },
+   "discussion_prompt": "What does it mean that a society's stress can appear as a physical symptom?",
+   "family": "small-cause-vast-effect",
+   "legacy_id": "HI012",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000024",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Year Without Summer",
+   "hook": "In 1816, snow fell in June across New England. The cause was a volcano on the other side of the world.",
+   "prediction_prompt": "In 1816, frost killed crops in June across Europe and North America. What single event do you think caused it — and where?",
+   "misconception": "Snow in June across New England must have had a local or regional cause.",
+   "briefing": "The eruption of Mount Tambora in Indonesia in April 1815 threw enormous quantities of sulphate aerosols into the stratosphere, dimming sunlight worldwide. The following year brought frost in summer, failed harvests across Europe and North America, and widespread food shortages. One indirect consequence: a group of writers trapped indoors by relentless rain at Lake Geneva held a ghost-story contest, which produced Frankenstein.",
+   "reference_material": {
+    "names": [
+     "Mount Tambora",
+     "Mary Shelley",
+     "Lake Geneva",
+     "Sumbawa"
+    ],
+    "timeline": [
+     "April 1815 — eruption",
+     "1816 — the year without summer"
+    ],
+    "terms": [
+     "stratospheric aerosols",
+     "volcanic winter",
+     "Volcanic Explosivity Index"
+    ],
+    "research_threads": [
+     "How do aerosols cool a planet?",
+     "What cultural works came out of that summer?"
+    ]
+   },
+   "discussion_prompt": "How should a world this interconnected prepare for a single event that affects everyone?",
+   "family": "small-cause-vast-effect",
+   "legacy_id": "HI013",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000025",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Tulip Mania",
+   "hook": "At its peak, one flower bulb was worth more than a house on an Amsterdam canal.",
+   "prediction_prompt": "In 1630s Holland a single flower bulb briefly cost more than a house. What do you think made one bulb worth that much?",
+   "misconception": "Prices rose because tulips were genuinely rare and beautiful.",
+   "briefing": "In the 1630s, rare tulip bulbs in the Dutch Republic became objects of intense speculation. Prices for the most prized varieties climbed to extraordinary levels, driven largely by contracts to buy bulbs still in the ground. In early 1637 buyers stopped appearing at auction and prices collapsed within weeks. Modern historians argue the economic damage was far narrower than the legend suggests, but the episode remains the standard shorthand for speculative bubbles.",
+   "reference_material": {
+    "names": [
+     "Semper Augustus",
+     "Dutch Republic",
+     "Anne Goldgar"
+    ],
+    "timeline": [
+     "1634–1637",
+     "February 1637 — collapse"
+    ],
+    "terms": [
+     "speculation",
+     "futures contract",
+     "asset bubble",
+     "tulip breaking virus"
+    ],
+    "research_threads": [
+     "How much of the popular story do modern historians dispute?",
+     "What made the striped bulbs unpredictable to reproduce?"
+    ]
+   },
+   "discussion_prompt": "What decides the value of something — what it does, or what people believe about it?",
+   "family": "small-cause-vast-effect",
+   "legacy_id": "HI014",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000026",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Göbekli Tepe",
+   "hook": "Hunter-gatherers built a temple complex 6,000 years before Stonehenge — then deliberately buried the whole thing.",
+   "prediction_prompt": "Massive carved stone pillars were raised 11,000 years ago by people with no pottery, no writing and no farming. What does that tell you about the order in which civilisation developed?",
+   "misconception": "Farming came first, then settlements, then temples — you need agriculture before monuments.",
+   "briefing": "On a hilltop in southeastern Turkey stand massive carved limestone pillars arranged in rings, raised around 9500 BCE by people who had not yet invented pottery, writing, or farming. Textbooks held that agriculture produced settlement, which produced religion and monuments. Göbekli Tepe reverses the order. Stranger still, the builders methodically backfilled the enclosures with rubble, sealing them.",
+   "reference_material": {
+    "names": [
+     "Klaus Schmidt",
+     "Şanlıurfa",
+     "Karahan Tepe"
+    ],
+    "timeline": [
+     "c. 9500 BCE — construction",
+     "1994 — excavation begins"
+    ],
+    "terms": [
+     "Pre-Pottery Neolithic",
+     "megalith",
+     "backfilling",
+     "Neolithic Revolution"
+    ],
+    "research_threads": [
+     "Why was the site deliberately buried?",
+     "What does it imply about the order of farming and religion?"
+    ]
+   },
+   "discussion_prompt": "If belief came before farming, what does that say about what humans need most?",
+   "family": "we-were-confidently-wrong",
+   "legacy_id": "CV001",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000027",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Phoenician Purple",
+   "hook": "It took twelve thousand sea snails to dye a single robe. Only emperors were allowed to wear it.",
+   "prediction_prompt": "In the ancient world, one particular purple was worth more than gold and eventually restricted by law. What do you think made it so costly?",
+   "misconception": "Purple was reserved for emperors because rulers simply preferred that colour.",
+   "briefing": "Tyrian purple was extracted from a gland in certain predatory sea snails, requiring enormous quantities for a small amount of dye. The process was foul-smelling and laborious, which made the colour extraordinarily expensive. Rome eventually restricted its use by law to the imperial household. When Constantinople fell, the technique was effectively lost, and cardinals switched to a scarlet dye instead.",
+   "reference_material": {
+    "names": [
+     "Tyre",
+     "Murex",
+     "Byzantium"
+    ],
+    "timeline": [
+     "c. 1500 BCE — production",
+     "1453 — Constantinople falls"
+    ],
+    "terms": [
+     "Tyrian purple",
+     "sumptuary law",
+     "mollusc gland",
+     "mordant"
+    ],
+    "research_threads": [
+     "Why did the technique disappear rather than spread?",
+     "What replaced it for cardinals' robes?"
+    ]
+   },
+   "discussion_prompt": "Why do societies keep inventing ways to make status visible?",
+   "family": "what-survived",
+   "legacy_id": "CV002",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000028",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Cucuteni Burnings",
+   "hook": "Every sixty to eighty years, these people burned their entire town to the ground — on purpose.",
+   "prediction_prompt": "Every sixty to eighty years, this culture's entire town burned to the ground, then was rebuilt on the ashes. The fires were hot enough to turn clay glassy. What do you think was happening?",
+   "misconception": "The settlements burned by accident, or were destroyed by attackers.",
+   "briefing": "The Cucuteni-Trypillia culture of Neolithic Eastern Europe built some of the largest settlements of their era, housing thousands. Archaeological layers show that at regular intervals the inhabitants deliberately burned every house, then rebuilt on the ashes. The fires were hot enough to vitrify clay, meaning they were deliberately fuelled, not accidental. No agreed explanation exists.",
+   "reference_material": {
+    "names": [
+     "Cucuteni-Trypillia culture",
+     "Talianki",
+     "Maidanetske"
+    ],
+    "timeline": [
+     "c. 5000–3000 BCE"
+    ],
+    "terms": [
+     "vitrification",
+     "Neolithic settlement",
+     "ritual destruction"
+    ],
+    "research_threads": [
+     "What evidence shows the fires were deliberate?",
+     "What competing explanations do archaeologists offer?"
+    ]
+   },
+   "discussion_prompt": "What kind of belief would make a community destroy everything it built, over and over?",
+   "family": "what-survived",
+   "legacy_id": "CV003",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000029",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Harappan Drains",
+   "hook": "Four thousand years ago, ordinary houses had private bathrooms connected to covered city sewers.",
+   "prediction_prompt": "Four thousand years ago, ordinary houses in this civilisation had private toilets connected to covered street sewers. What do you think their palaces looked like?",
+   "misconception": "Ancient cities had grand palaces and royal tombs, with sanitation coming much later in history.",
+   "briefing": "Mohenjo-daro and Harappa were laid out on grids with brick-lined drainage running beneath the streets, fitted with inspection covers for maintenance. Individual homes had bathing platforms and toilets that connected to the network. This level of household sanitation would not be matched in many European cities until the nineteenth century. Notably, the cities show few grand palaces or obvious royal tombs.",
+   "reference_material": {
+    "names": [
+     "Mohenjo-daro",
+     "Harappa",
+     "Indus Valley Civilisation"
+    ],
+    "timeline": [
+     "c. 2600–1900 BCE"
+    ],
+    "terms": [
+     "sanitation",
+     "standardised brick ratio",
+     "urban grid",
+     "citadel"
+    ],
+    "research_threads": [
+     "Why have no clear royal burials been found?",
+     "What does spending on drains rather than palaces suggest?"
+    ]
+   },
+   "discussion_prompt": "What does it say about a society when it spends its wealth on drains instead of palaces?",
+   "family": "what-survived",
+   "legacy_id": "CV004",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000030",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Inca Quipu",
+   "hook": "An empire ran without writing. Its records were kept in knots on coloured string.",
+   "prediction_prompt": "The Inca ran a state spanning thousands of kilometres with no writing system we recognise. How do you think they kept records?",
+   "misconception": "An empire that size could not be administered without writing.",
+   "briefing": "The Inca administered a state spanning thousands of kilometres using quipu — arrangements of knotted cords where colour, ply, knot type and position all carried meaning. Numerical quipu are well understood and used a decimal system. But some appear to encode more than numbers, possibly names, events or narrative. Specialists called quipucamayocs trained for years to read them, and most were destroyed after the Spanish conquest.",
+   "reference_material": {
+    "names": [
+     "Quipucamayoc",
+     "Tawantinsuyu",
+     "Gary Urton"
+    ],
+    "timeline": [
+     "c. 1400–1532",
+     "1532 — Spanish conquest"
+    ],
+    "terms": [
+     "khipu",
+     "decimal place value",
+     "ply",
+     "cord colour"
+    ],
+    "research_threads": [
+     "Which quipu are understood and which are not?",
+     "Can a society be sophisticated without writing?"
+    ]
+   },
+   "discussion_prompt": "Does a society need writing to be sophisticated, or just a reliable way to remember?",
+   "family": "what-survived",
+   "legacy_id": "CV005",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000031",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Indus Script",
+   "hook": "A city of a million people left thousands of inscriptions. Not one has ever been read.",
+   "prediction_prompt": "A civilisation larger than Egypt and Mesopotamia combined left thousands of inscriptions. Why do you think none of them have ever been read?",
+   "misconception": "With thousands of samples and modern computing, it must be close to being decoded.",
+   "briefing": "The Indus Valley Civilisation built sophisticated planned cities across what is now Pakistan and northwest India, complete with drainage, standardised bricks and weights. They left behind thousands of short inscriptions on seals and tablets. Despite more than a century of effort, the script remains undeciphered — partly because the inscriptions are extremely short, and no bilingual key like the Rosetta Stone has ever been found.",
+   "reference_material": {
+    "names": [
+     "Asko Parpola",
+     "Iravatham Mahadevan",
+     "Rosetta Stone (as contrast)"
+    ],
+    "timeline": [
+     "c. 2600–1900 BCE — inscriptions",
+     "1875 — first seal published"
+    ],
+    "terms": [
+     "undeciphered script",
+     "bilingual key",
+     "sign frequency",
+     "logogram"
+    ],
+    "research_threads": [
+     "Why does inscription length make decipherment so hard?",
+     "Is it certain the script encodes a spoken language?"
+    ]
+   },
+   "discussion_prompt": "How much of a civilisation can we truly know if we cannot read its words?",
+   "family": "what-survived",
+   "legacy_id": "CV006",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000032",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Songlines",
+   "hook": "Entire continents were memorised as songs. Sing the verses in order and you can navigate a thousand kilometres.",
+   "prediction_prompt": "Aboriginal Australian songlines encode journeys across the continent as sung sequences. How do you think a song can work as a map?",
+   "misconception": "They're traditional songs about the land — cultural, but not practically useful for navigation.",
+   "briefing": "Aboriginal Australian songlines encode routes across country in sung sequences, where the order of verses corresponds to the order of landmarks, waterholes and features along a path. They function simultaneously as maps, law, history and ceremony. Some tracks cross language groups, with each community holding a section, so travelling the full route requires cooperation between peoples who speak differently.",
+   "reference_material": {
+    "names": [
+     "Bruce Chatwin",
+     "Lynne Kelly",
+     "Dreaming tracks"
+    ],
+    "timeline": [
+     "Tens of thousands of years — oral continuity"
+    ],
+    "terms": [
+     "oral tradition",
+     "mnemonic",
+     "country",
+     "sequence"
+    ],
+    "research_threads": [
+     "How can a melody encode terrain?",
+     "Why does knowledge in song outlast knowledge in writing?"
+    ]
+   },
+   "discussion_prompt": "Why does information stored in song survive so much longer than information written down?",
+   "family": "what-survived",
+   "legacy_id": "CV007",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000033",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Viking Sunstone",
+   "hook": "Sagas describe a stone that found the sun through thick cloud. Physicists eventually proved it could work.",
+   "prediction_prompt": "Norse sagas describe a stone used to navigate when the sun was hidden. Do you think such a thing could physically work? Say how, or why not.",
+   "misconception": "A stone that finds the sun through thick cloud is clearly a legend.",
+   "briefing": "Norse texts mention a sólarsteinn used for navigation when the sun was hidden. For a long time this was treated as legend. Then researchers showed that certain birefringent crystals, such as Iceland spar, split light according to its polarisation, producing a pattern that reveals the sun's position even under overcast skies. A crystal of this type was later recovered from a sixteenth-century shipwreck.",
+   "reference_material": {
+    "names": [
+     "Iceland spar",
+     "Alderney wreck",
+     "Rørvik"
+    ],
+    "timeline": [
+     "c. 900–1200 — Norse voyages",
+     "2013 — Alderney crystal published"
+    ],
+    "terms": [
+     "birefringence",
+     "polarisation",
+     "calcite",
+     "dead reckoning"
+    ],
+    "research_threads": [
+     "How does polarised light reveal the sun's position?",
+     "What accuracy did the experiments achieve?"
+    ]
+   },
+   "discussion_prompt": "How many other old stories are waiting for science to catch up with them?",
+   "family": "we-were-confidently-wrong",
+   "legacy_id": "CV008",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000034",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Voynich Manuscript",
+   "hook": "For six hundred years, the best codebreakers alive have opened this book, studied it, and admitted defeat.",
+   "prediction_prompt": "A 240-page illustrated book, written in an unknown script, has defeated professional codebreakers for six hundred years. What do you think it is?",
+   "misconception": "With six centuries of effort, someone must have decoded at least part of it.",
+   "briefing": "The Voynich Manuscript is a 240-page illustrated book written in an unknown script, filled with drawings of plants that match no known species, astronomical charts, and unexplained diagrams. Carbon dating places the vellum in the early 1400s. Professional cryptographers from both World Wars, including teams who broke military codes, have failed to decipher a single confirmed sentence. Arguments continue over whether it is a lost language, an elaborate cipher, or a beautiful hoax.",
+   "reference_material": {
+    "names": [
+     "Wilfrid Voynich",
+     "Yale Beinecke Library",
+     "William Friedman"
+    ],
+    "timeline": [
+     "c. 1404–1438 — vellum dated",
+     "1912 — acquired by Voynich"
+    ],
+    "terms": [
+     "cipher",
+     "vellum",
+     "Zipf's law",
+     "hoax hypothesis"
+    ],
+    "research_threads": [
+     "What does statistical analysis suggest about the text?",
+     "How would you tell a language from an elaborate hoax?"
+    ]
+   },
+   "discussion_prompt": "What would it take to convince you that a book is meaningless rather than simply unsolved?",
+   "family": "what-survived",
+   "legacy_id": "CV009",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000035",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Baader-Meinhof",
+   "hook": "You learn a new word today. By tomorrow it is everywhere — and it was always there.",
+   "prediction_prompt": "You learn a new word today, and by tomorrow it seems to be everywhere. What do you think actually changed?",
+   "misconception": "The thing genuinely is appearing more often — you've noticed a real change.",
+   "briefing": "Also called the frequency illusion, this is the experience of noticing something constantly right after first encountering it. Two effects combine: selective attention, where your brain now flags the thing it has just filed as significant, and confirmation bias, where each new sighting reinforces the sense that something has genuinely changed. Nothing about the world's frequency has altered. Only your filter has.",
+   "reference_material": {
+    "names": [
+     "Terry Mullen",
+     "Arnold Zwicky"
+    ],
+    "timeline": [
+     "1994 — term coined",
+     "2005 — 'frequency illusion' named"
+    ],
+    "terms": [
+     "selective attention",
+     "confirmation bias",
+     "recency illusion"
+    ],
+    "research_threads": [
+     "What actually changed — the world or your filter?",
+     "How do advertisers exploit this?"
+    ]
+   },
+   "discussion_prompt": "How much of what you believe about the world is really just what you have been noticing?",
+   "family": "mind-deceiving-itself",
+   "legacy_id": "MN001",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000036",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Change Blindness",
+   "hook": "A stranger asking directions was swapped for a different person mid-conversation. Half the people never noticed.",
+   "prediction_prompt": "Mid-conversation, a stranger asking you for directions is replaced by a different person while workers carry a door between you. Do you think you'd notice? Say how confident you are.",
+   "misconception": "You'd obviously notice if the person you were talking to was swapped for someone else.",
+   "briefing": "In a classic experiment, an experimenter asking for directions was replaced by a different person while workers carrying a door passed between them. Roughly half of participants failed to notice. Change blindness shows that we retain far less visual detail than we assume; we hold the gist and re-sample the world as needed, trusting that it will stay put while we look away.",
+   "reference_material": {
+    "names": [
+     "Daniel Simons",
+     "Daniel Levin",
+     "Ronald Rensink"
+    ],
+    "timeline": [
+     "1998 — the door study"
+    ],
+    "terms": [
+     "visual short-term memory",
+     "gist",
+     "saccadic masking"
+    ],
+    "research_threads": [
+     "Why is film editing able to hide so much?",
+     "What does this imply about eyewitness testimony?"
+    ]
+   },
+   "discussion_prompt": "How much of what you think you saw today did you actually see?",
+   "family": "mind-deceiving-itself",
+   "legacy_id": "MN002",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000037",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Chronostasis",
+   "hook": "Glance at a clock and the first second seems to last too long. Your brain has been editing the tape.",
+   "prediction_prompt": "Glance at a clock and the first second seems to last too long. What do you think your brain is doing?",
+   "misconception": "The clock's second hand really did pause — or the clock is faulty.",
+   "briefing": "When your eyes make a rapid movement called a saccade, vision is briefly suppressed to avoid a blur. To hide the gap, the brain backfills the missing interval with the image that arrives after the movement ends. The result is that the first perceived moment feels stretched — the stopped-clock illusion. It demonstrates that our sense of now is constructed slightly after the fact.",
+   "reference_material": {
+    "names": [
+     "Kielan Yarrow",
+     "John Wearden"
+    ],
+    "timeline": [
+     "2001 — stopped-clock study"
+    ],
+    "terms": [
+     "saccade",
+     "saccadic suppression",
+     "postdiction",
+     "temporal binding"
+    ],
+    "research_threads": [
+     "Why must the brain fill in the gap at all?",
+     "Does the same effect occur in hearing and touch?"
+    ]
+   },
+   "discussion_prompt": "If the present moment is reconstructed by your brain, what are you actually experiencing?",
+   "family": "mind-deceiving-itself",
+   "legacy_id": "MN003",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000038",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Dunning-Kruger",
+   "hook": "The less someone knows about a subject, the more confident they often are that they've mastered it.",
+   "prediction_prompt": "Who do you think is most likely to overestimate their own ability at something — and why would that be?",
+   "misconception": "It means unintelligent people are overconfident, and clever people are not.",
+   "briefing": "Psychologists David Dunning and Justin Kruger found that people who performed worst on tests of logic, grammar, and humour consistently rated their own ability well above average. The reason is that the skills needed to perform well are the same skills needed to recognise poor performance. If you do not know the rules, you also cannot see where you broke them. Notably, genuine experts often underrate themselves, assuming that what feels easy to them must be easy for everyone.",
+   "reference_material": {
+    "names": [
+     "David Dunning",
+     "Justin Kruger",
+     "Cornell University"
+    ],
+    "timeline": [
+     "1999 — original paper"
+    ],
+    "terms": [
+     "metacognition",
+     "calibration",
+     "self-assessment",
+     "regression to the mean"
+    ],
+    "research_threads": [
+     "Why do genuine experts often underrate themselves?",
+     "What do critics say the original data actually shows?"
+    ]
+   },
+   "discussion_prompt": "In which part of your own life might you currently be overestimating yourself?",
+   "family": "mind-deceiving-itself",
+   "legacy_id": "MN004",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000039",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Déjà Vu",
+   "hook": "A moment arrives that you are certain you have lived before — and you know for a fact that you have not.",
+   "prediction_prompt": "A moment arrives that you're certain you've lived before, while knowing you haven't. What do you think is happening in your brain?",
+   "misconception": "It's a genuine memory surfacing — you really did experience something like this before.",
+   "briefing": "Déjà vu is the sudden, powerful sense that a present moment is a repetition of a past one, combined with the simultaneous knowledge that it cannot be. Leading explanations point to a brief mismatch in memory processing: the brain's familiarity signal fires without the corresponding recollection, so the scene feels retrieved rather than newly experienced. It occurs most often in younger people, when tired, and in unfamiliar surroundings.",
+   "reference_material": {
+    "names": [
+     "Émile Boirac",
+     "Alan Brown",
+     "Chris Moulin"
+    ],
+    "timeline": [
+     "1876 — term coined"
+    ],
+    "terms": [
+     "familiarity",
+     "recollection",
+     "temporal lobe",
+     "dual-process theory"
+    ],
+    "research_threads": [
+     "Why does it become less common with age?",
+     "How has epilepsy research helped study it?"
+    ]
+   },
+   "discussion_prompt": "If your memory can be confidently wrong, how much should you trust it?",
+   "family": "mind-deceiving-itself",
+   "legacy_id": "MN005",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000040",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Hedonic Adaptation",
+   "hook": "The thing you most wanted last year stopped making you happy about three months after you got it.",
+   "prediction_prompt": "Think of something you wanted badly and eventually got. How long do you think the happiness from it actually lasted? Say a number before reading on.",
+   "misconception": "Getting the thing you badly want produces a lasting increase in happiness.",
+   "briefing": "Hedonic adaptation describes the tendency to return to a stable baseline level of happiness after major positive or negative events. Research on lottery winners and on people who suffered serious injury found that both groups drifted back toward their previous baseline over time, though the extent varies. The effect explains why acquisitions deliver shorter-lived satisfaction than expected, and it also means people recover from setbacks better than they predict.",
+   "reference_material": {
+    "names": [
+     "Philip Brickman",
+     "Donald Campbell",
+     "Sonja Lyubomirsky"
+    ],
+    "timeline": [
+     "1971 — hedonic treadmill named",
+     "1978 — lottery winners study"
+    ],
+    "terms": [
+     "set point",
+     "adaptation",
+     "affective forecasting"
+    ],
+    "research_threads": [
+     "Which life events show weak adaptation, and why?",
+     "Do experiences resist adaptation better than possessions?"
+    ]
+   },
+   "discussion_prompt": "If new things stop satisfying us, what actually makes life feel better over time?",
+   "family": "mind-deceiving-itself",
+   "legacy_id": "MN006",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000041",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Inattentional Blindness",
+   "hook": "Count the passes carefully and you will very likely miss the person in a gorilla suit walking through.",
+   "prediction_prompt": "Viewers were asked to count basketball passes. A person in a gorilla suit walked through the middle of the game. What proportion do you think noticed?",
+   "misconception": "Something as obvious as a person in a gorilla suit could never be missed.",
+   "briefing": "In the well-known selective attention study, viewers asked to count basketball passes frequently failed to notice a person in a gorilla costume walk into frame, pause, and leave. Roughly half missed it entirely. Attention is a limited resource that actively excludes, not a passive window. The finding has serious implications for driving, radiology, and any task requiring vigilance during focus.",
+   "reference_material": {
+    "names": [
+     "Daniel Simons",
+     "Christopher Chabris",
+     "Trafton Drew"
+    ],
+    "timeline": [
+     "1999 — gorilla study",
+     "2013 — radiologist study"
+    ],
+    "terms": [
+     "selective attention",
+     "attentional capacity",
+     "vigilance"
+    ],
+    "research_threads": [
+     "What are the implications for driving and medicine?",
+     "Why do people refuse to believe they missed it?"
+    ]
+   },
+   "discussion_prompt": "What is the cost of concentration, and when is that cost too high?",
+   "family": "mind-deceiving-itself",
+   "legacy_id": "MN007",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000042",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Prosopagnosia",
+   "hook": "Some people cannot recognise their own family's faces — or their own in a mirror.",
+   "prediction_prompt": "Some people cannot recognise their own family's faces, or their own in a mirror, while their eyesight and memory are completely normal. How do you think that's possible?",
+   "misconception": "Failing to recognise faces would mean something is wrong with a person's vision or memory generally.",
+   "briefing": "Face blindness is the inability to recognise faces despite normal vision and intelligence. It can follow brain injury or be present from birth, and the developmental form may affect around two percent of people. Many who have it never realise, assuming everyone relies on voice, hair or gait. It is dissociable from object recognition, which suggests the brain has dedicated machinery for faces specifically.",
+   "reference_material": {
+    "names": [
+     "Joachim Bodamer",
+     "Oliver Sacks",
+     "Brad Duchaine"
+    ],
+    "timeline": [
+     "1947 — term coined"
+    ],
+    "terms": [
+     "fusiform face area",
+     "developmental vs acquired",
+     "dissociation"
+    ],
+    "research_threads": [
+     "What strategies do people use to compensate?",
+     "What does a dedicated face area suggest about our species?"
+    ]
+   },
+   "discussion_prompt": "If faces need their own brain machinery, what does that say about how social we are?",
+   "family": "hidden-machinery",
+   "legacy_id": "MN008",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000043",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Barnum Effect",
+   "hook": "A psychologist gave every student in his class the exact same personality profile. Nearly all of them called it accurate.",
+   "prediction_prompt": "A psychologist handed every student in his class what he called an individual personality profile. Nearly all rated it highly accurate. What do you think he'd actually given them?",
+   "misconception": "A personality description that feels accurate must have been written about you specifically.",
+   "briefing": "In 1948, Bertram Forer handed his students what he said were individual personality analyses. Every student received identical text, assembled from a newsstand astrology column. Asked to rate its accuracy, the class averaged well above four out of five. The statements worked because they were broad, mildly flattering, and contained gentle contradictions, allowing anyone to recognise themselves. The effect underpins astrology, cold reading, and many personality quizzes.",
+   "reference_material": {
+    "names": [
+     "Bertram Forer",
+     "P. T. Barnum",
+     "Paul Meehl"
+    ],
+    "timeline": [
+     "1948 — Forer's classroom study"
+    ],
+    "terms": [
+     "Forer effect",
+     "cold reading",
+     "subjective validation"
+    ],
+    "research_threads": [
+     "What makes a statement feel personal but apply to everyone?",
+     "Where does this operate commercially today?"
+    ]
+   },
+   "discussion_prompt": "Why is it so satisfying to be told something specific about yourself, even when it isn't?",
+   "family": "mind-deceiving-itself",
+   "legacy_id": "MN009",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000044",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Rubber Hand Illusion",
+   "hook": "Watch a fake hand being stroked in time with your own, and within minutes your brain adopts it.",
+   "prediction_prompt": "Your real hand is hidden while a rubber hand is stroked in time with it. After a few minutes, do you think you'd feel anything in the rubber hand? Say what you'd expect.",
+   "misconception": "You always know exactly which body is yours — that's not something that can be tricked.",
+   "briefing": "A participant's real hand is hidden while a visible rubber hand is stroked simultaneously with it. Within a few minutes, most people report feeling touch located in the rubber hand and describe it as their own. If it is then threatened, they flinch and show a measurable stress response. Body ownership turns out to be a continuously updated inference from combined senses, not a fixed fact.",
+   "reference_material": {
+    "names": [
+     "Matthew Botvinick",
+     "Jonathan Cohen"
+    ],
+    "timeline": [
+     "1998 — Nature paper"
+    ],
+    "terms": [
+     "multisensory integration",
+     "proprioception",
+     "body ownership",
+     "synchrony"
+    ],
+    "research_threads": [
+     "Why does asynchronous stroking break the illusion?",
+     "How is it used to treat phantom limb pain?"
+    ]
+   },
+   "discussion_prompt": "If your body's boundaries can be redrawn in minutes, how fixed is your sense of self?",
+   "family": "boundaries-that-dissolve",
+   "legacy_id": "MN010",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000045",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Spotlight Effect",
+   "hook": "Everyone remembers your embarrassing moment far less clearly than you do — usually not at all.",
+   "prediction_prompt": "Think of something embarrassing you did recently. What proportion of the people present do you think still remember it?",
+   "misconception": "People noticed your embarrassing moment about as clearly as you remember it.",
+   "briefing": "People consistently overestimate how much others notice their appearance, mistakes and behaviour. In one study, participants asked to wear an embarrassing shirt predicted about twice as many observers would recall it as actually did. The cause is anchoring: we experience ourselves as the centre of our own attention and cannot fully discount that when estimating others' attention.",
+   "reference_material": {
+    "names": [
+     "Thomas Gilovich",
+     "Kenneth Savitsky",
+     "Victoria Medvec"
+    ],
+    "timeline": [
+     "2000 — t-shirt study"
+    ],
+    "terms": [
+     "egocentric bias",
+     "anchoring and adjustment",
+     "illusion of transparency"
+    ],
+    "research_threads": [
+     "By roughly what factor do people overestimate?",
+     "Does knowing about the effect reduce it?"
+    ]
+   },
+   "discussion_prompt": "What would you attempt if you truly believed nobody was watching closely?",
+   "family": "mind-deceiving-itself",
+   "legacy_id": "MN011",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000046",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Ball Lightning",
+   "hook": "Pilots, sailors and farmers have reported glowing spheres drifting through storms for centuries. Science still cannot reliably reproduce one.",
+   "prediction_prompt": "Pilots, sailors and farmers have described glowing spheres during thunderstorms for centuries. Why do you think science has struggled to study it?",
+   "misconception": "Glowing spheres drifting through storms are misidentified ordinary lightning, or invention.",
+   "briefing": "Ball lightning is described as a luminous sphere, typically the size of a grapefruit, that appears during thunderstorms, drifts for seconds, and sometimes passes through windows before vanishing or bursting. Reports span centuries and cultures. Because it is rare, brief, and unpredictable, controlled observation is extremely difficult; one Chinese research team captured a spectrum by chance in 2012, suggesting vaporised soil. No theory yet explains all reported behaviour.",
+   "reference_material": {
+    "names": [
+     "Ping Yuan",
+     "Northwest Normal University",
+     "Nikola Tesla"
+    ],
+    "timeline": [
+     "2012 — accidental spectrum recorded",
+     "2014 — published"
+    ],
+    "terms": [
+     "spectrum",
+     "plasma",
+     "vaporised silicon hypothesis"
+    ],
+    "research_threads": [
+     "What elements appeared in the recorded spectrum?",
+     "How many eyewitness reports should science require?"
+    ]
+   },
+   "discussion_prompt": "How many eyewitness reports should it take before science treats something as real?",
+   "family": "things-we-still-dont-know",
+   "legacy_id": "WD001",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000047",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Fairy Circles",
+   "hook": "Perfect bare circles cover the desert in a repeating pattern, spaced as evenly as if someone measured them.",
+   "prediction_prompt": "Millions of bare circles dot the desert grassland in an evenly spaced grid. What do you think produces a pattern that regular?",
+   "misconception": "A pattern that regular across a whole landscape must have been made by something deliberate.",
+   "briefing": "Across parts of the Namib Desert and Western Australia, the grassland is interrupted by millions of circular bare patches, each a few metres across, arranged in a strikingly regular grid. Two main explanations compete: termite colonies clearing vegetation to preserve water beneath them, and plants self-organising by competing for scarce moisture until an even spacing emerges. Evidence supports both in different locations, and the debate remains open.",
+   "reference_material": {
+    "names": [
+     "Norbert Jürgens",
+     "Stephan Getzin",
+     "Namib Desert",
+     "Pilbara"
+    ],
+    "timeline": [
+     "2013 — termite hypothesis",
+     "2016 — Australian circles found"
+    ],
+    "terms": [
+     "self-organisation",
+     "Turing pattern",
+     "sand termite",
+     "resource competition"
+    ],
+    "research_threads": [
+     "What evidence supports each competing explanation?",
+     "How do mathematical models produce the same spacing?"
+    ]
+   },
+   "discussion_prompt": "When a pattern looks designed, what evidence should convince us that nothing designed it?",
+   "family": "order-without-designer",
+   "legacy_id": "WD002",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000048",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Lake Hillier",
+   "hook": "An Australian lake is bubblegum pink. Scoop it into a glass and it stays pink.",
+   "prediction_prompt": "An Australian lake is bubblegum pink. If you scooped some into a glass, what colour do you think it would be?",
+   "misconception": "The lake looks pink because of how light hits the water — take a glassful and it would be clear.",
+   "briefing": "Lake Hillier on Middle Island in Western Australia holds a permanently pink colour that persists even when the water is removed. Genetic sampling has found the lake dominated by salt-tolerant organisms including Dunaliella salina and purple sulphur bacteria, which produce red and pink pigments. The lake is extremely saline, and the colour does not vary seasonally as it does in some other pink lakes.",
+   "reference_material": {
+    "names": [
+     "Middle Island",
+     "Recherche Archipelago",
+     "Dunaliella salina"
+    ],
+    "timeline": [
+     "1802 — recorded by Matthew Flinders",
+     "2022 — metagenomic study"
+    ],
+    "terms": [
+     "halophile",
+     "carotenoid",
+     "purple sulphur bacteria",
+     "salinity"
+    ],
+    "research_threads": [
+     "Why does the colour persist when water is removed?",
+     "How does this differ from seasonal pink lakes?"
+    ]
+   },
+   "discussion_prompt": "Why does an unusual colour in nature grab our attention so strongly?",
+   "family": "order-without-designer",
+   "legacy_id": "WD003",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000049",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Boiling River",
+   "hook": "Geologists said it was impossible. A boy who grew up hearing the legend spent years proving them wrong.",
+   "prediction_prompt": "A stretch of Amazon river runs hot enough to scald, hundreds of kilometres from the nearest volcano. Where do you think the heat comes from?",
+   "misconception": "A river hot enough to kill must sit near a volcano — there's no other source for that heat.",
+   "briefing": "Deep in the Peruvian Amazon runs a four-kilometre stretch of river hot enough to kill anything that falls in. Volcanic rivers exist, but this one sits hundreds of kilometres from the nearest volcano, which is why scientists long dismissed the local stories as myth. A geoscientist who had heard the legend from his grandfather went looking for it, found it, and spent years explaining how water heated far underground rises through a fault to reach the surface still scalding.",
+   "reference_material": {
+    "names": [
+     "Andrés Ruzo",
+     "Mayantuyacu",
+     "Shanay-timpishka"
+    ],
+    "timeline": [
+     "2011 — first scientific visit",
+     "2016 — book published"
+    ],
+    "terms": [
+     "geothermal gradient",
+     "fault",
+     "hydrothermal circulation",
+     "non-volcanic"
+    ],
+    "research_threads": [
+     "How can water be heated far from any volcano?",
+     "What did local communities know before scientists arrived?"
+    ]
+   },
+   "discussion_prompt": "When local knowledge and official science disagree, who should be believed first, and why?",
+   "family": "we-were-confidently-wrong",
+   "legacy_id": "WD004",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000050",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Door to Hell",
+   "hook": "Engineers set a gas crater alight expecting it to burn out in weeks. That was over fifty years ago.",
+   "prediction_prompt": "Engineers set a collapsed gas crater alight expecting the fuel to run out quickly. How long do you think it burned?",
+   "misconception": "A gas fire that size would burn itself out within days or weeks.",
+   "briefing": "In the Karakum Desert of Turkmenistan, a wide crater has burned continuously for decades. The widely told account is that a Soviet drilling operation collapsed into a gas cavern, and the escaping methane was deliberately ignited to burn it off safely, with engineers assuming the fuel would be exhausted within weeks. The gas has not run out. The site has become an unlikely tourist destination, and the government has repeatedly announced plans to extinguish it.",
+   "reference_material": {
+    "names": [
+     "Darvaza",
+     "Karakum Desert",
+     "Turkmenistan"
+    ],
+    "timeline": [
+     "1971 — commonly cited ignition date",
+     "2022 — closure announced"
+    ],
+    "terms": [
+     "methane",
+     "gas crater",
+     "Soviet-era records"
+    ],
+    "research_threads": [
+     "Why are the origin details disputed?",
+     "What would extinguishing it actually require?"
+    ]
+   },
+   "discussion_prompt": "How should we judge a decision that seemed sensible at the time but lasted for generations?",
+   "family": "order-without-designer",
+   "legacy_id": "WD005",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000051",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Unmapped Majority",
+   "hook": "We have better maps of the surface of Mars than of the floor of our own ocean.",
+   "prediction_prompt": "How much of the ocean floor do you think humans have actually observed directly? Compare it to how much of Mars we've mapped.",
+   "misconception": "With modern satellites and submarines, most of the ocean floor has surely been seen by now.",
+   "briefing": "Roughly 95 percent of the ocean has never been directly observed by humans or robots. We have mapped its shape from satellites at low resolution, but seeing it — actually looking at the seafloor — remains rare. The pressure at depth crushes most equipment, sunlight vanishes within a few hundred metres, and each expedition costs enormous amounts. As a result, new species are found on almost every serious deep-sea voyage.",
+   "reference_material": {
+    "names": [
+     "NOAA",
+     "Seabed 2030",
+     "Victor Vescovo"
+    ],
+    "timeline": [
+     "1960 — Trieste dive",
+     "2018–2019 — Five Deeps Expedition"
+    ],
+    "terms": [
+     "bathymetry",
+     "multibeam sonar",
+     "hadal zone",
+     "resolution"
+    ],
+    "research_threads": [
+     "What does 'mapped' actually mean at different resolutions?",
+     "Why is direct observation so much rarer than mapping?"
+    ]
+   },
+   "discussion_prompt": "Why do humans invest so much more in exploring space than exploring our own ocean?",
+   "family": "order-without-designer",
+   "legacy_id": "WD006",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000052",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Sailing Stones",
+   "hook": "Heavy rocks leave long trails across a dry lakebed. For decades, nobody could catch them moving.",
+   "prediction_prompt": "Heavy rocks leave long trails across a dry lakebed, and for decades nobody caught them moving. What do you think moves them?",
+   "misconception": "Someone is moving them, or strong desert winds push them across the ground.",
+   "briefing": "On a flat desert playa in Death Valley, stones weighing up to fifteen kilograms sit at the end of long tracks carved into the ground, as though dragged. Theories ranged from wind to magnetism to hoaxes. In 2014, researchers finally recorded the process with time-lapse cameras and GPS: a thin sheet of water freezes overnight into panes of ice, the ice breaks up in the morning sun, and a light breeze pushes the floating ice sheets, which shove the stones along at a few centimetres per second.",
+   "reference_material": {
+    "names": [
+     "Richard Norris",
+     "James Norris",
+     "Racetrack Playa",
+     "Death Valley"
+    ],
+    "timeline": [
+     "2013 — motion recorded",
+     "2014 — published"
+    ],
+    "terms": [
+     "playa",
+     "ice sheet",
+     "time-lapse",
+     "GPS tracking"
+    ],
+    "research_threads": [
+     "What precise conditions are required?",
+     "Why did it take decades to observe directly?"
+    ]
+   },
+   "discussion_prompt": "Why do we find slow, invisible processes harder to believe than dramatic ones?",
+   "family": "things-we-still-dont-know",
+   "legacy_id": "WD007",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000053",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Singing Sand",
+   "hook": "Some dunes emit a deep sustained note loud enough to be heard kilometres away.",
+   "prediction_prompt": "Some dunes emit a deep sustained note loud enough to hear kilometres away. What do you think produces it?",
+   "misconception": "The sound comes from wind blowing across the dune's surface.",
+   "briefing": "Booming dunes produce low-frequency sound, sometimes near a recognisable musical pitch, when a sufficiently large mass of dry sand avalanches down a slip face. The effect requires narrow grain size distribution, roundness, and dryness. The whole avalanching layer appears to vibrate coherently, acting as a large loudspeaker. Only a limited number of dune fields worldwide reliably produce it.",
+   "reference_material": {
+    "names": [
+     "Marco Polo",
+     "Nathalie Vriend",
+     "Stéphane Douady"
+    ],
+    "timeline": [
+     "13th century — earliest accounts",
+     "2000s — modern field studies"
+    ],
+    "terms": [
+     "avalanche",
+     "grain size distribution",
+     "resonance",
+     "frequency"
+    ],
+    "research_threads": [
+     "What determines the pitch produced?",
+     "Why does washed sand often stop working?"
+    ]
+   },
+   "discussion_prompt": "How many natural sounds have we never heard simply because we were not standing there?",
+   "family": "order-without-designer",
+   "legacy_id": "WD008",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000054",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Sixth Ocean",
+   "hook": "Hundreds of kilometres beneath your feet, there may be more water than in every ocean on the surface.",
+   "prediction_prompt": "Where do you think most of Earth's water is? Say your answer before reading on.",
+   "misconception": "All of Earth's water is at or near the surface — oceans, ice and atmosphere.",
+   "briefing": "In 2014, researchers studying a rare mineral called ringwoodite found in a diamond discovered it contained water locked within its crystal structure. Ringwoodite forms in the transition zone of Earth's mantle, roughly 400 to 660 kilometres down. If the water content of that sample is typical, the mantle may hold water equivalent to several times all the surface oceans combined — not as liquid, but chemically bound inside rock.",
+   "reference_material": {
+    "names": [
+     "Graham Pearson",
+     "Steven Jacobsen",
+     "ringwoodite"
+    ],
+    "timeline": [
+     "2014 — diamond inclusion published"
+    ],
+    "terms": [
+     "mantle transition zone",
+     "hydroxide",
+     "olivine polymorph",
+     "inclusion"
+    ],
+    "research_threads": [
+     "In what form does the water actually exist?",
+     "How much should a single sample change our beliefs?"
+    ]
+   },
+   "discussion_prompt": "How should we treat scientific claims that rest on a single rare sample?",
+   "family": "order-without-designer",
+   "legacy_id": "WD009",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000055",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Hydrothermal Vents",
+   "hook": "We assumed all life needed sunlight. Then we found thriving cities in total darkness, feeding on chemicals.",
+   "prediction_prompt": "In 1977 scientists found dense communities of animals thriving on the pitch-dark seafloor. What do you think they were living on?",
+   "misconception": "All life ultimately depends on sunlight, so nothing substantial could live in total darkness.",
+   "briefing": "In 1977, scientists exploring the Galápagos Rift found dense communities of tube worms, clams, and crabs clustered around superheated mineral-rich water venting from the seafloor. Nothing there depends on sunlight. Bacteria convert chemicals from the vent fluid into energy through chemosynthesis, and everything else feeds on them. The discovery rewrote assumptions about where life can exist and reshaped how scientists search for it on other worlds.",
+   "reference_material": {
+    "names": [
+     "Robert Ballard",
+     "Alvin",
+     "Galápagos Rift",
+     "Riftia"
+    ],
+    "timeline": [
+     "1977 — discovery"
+    ],
+    "terms": [
+     "chemosynthesis",
+     "black smoker",
+     "symbiosis",
+     "extremophile"
+    ],
+    "research_threads": [
+     "What sits at the base of the food web here?",
+     "How did this change the search for life on icy moons?"
+    ]
+   },
+   "discussion_prompt": "What else might we be assuming about life simply because it is true here?",
+   "family": "we-were-confidently-wrong",
+   "legacy_id": "SC001",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000056",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Rogue Planets",
+   "hook": "Some worlds have no sun at all. They drift through the galaxy in permanent darkness, and there may be billions.",
+   "prediction_prompt": "Do you think there are worlds drifting through the galaxy attached to no star at all? If so, how would anyone ever detect one?",
+   "misconception": "Planets orbit stars — that's essentially what makes something a planet.",
+   "briefing": "Rogue or free-floating planets are worlds not gravitationally bound to any star, most likely ejected from their systems by gravitational interactions early in their formation. They are extremely difficult to detect, since they emit almost no light; astronomers find them mainly through microlensing, when a rogue planet passes in front of a distant star and briefly bends its light. Estimates suggest they may be remarkably common.",
+   "reference_material": {
+    "names": [
+     "OGLE survey",
+     "Takahiro Sumi",
+     "Roman Space Telescope"
+    ],
+    "timeline": [
+     "2011 — first population estimates"
+    ],
+    "terms": [
+     "microlensing",
+     "gravitational ejection",
+     "free-floating planet"
+    ],
+    "research_threads": [
+     "How is something that emits no light detected?",
+     "Could life persist beneath ice without a sun?"
+    ]
+   },
+   "discussion_prompt": "Could life exist somewhere that has never seen a sunrise?",
+   "family": "we-were-confidently-wrong",
+   "legacy_id": "SC002",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000057",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Slime Mould Maps",
+   "hook": "Researchers gave a brainless organism a map of Tokyo. It rebuilt the rail network almost exactly.",
+   "prediction_prompt": "Researchers laid food at points matching the cities around Tokyo and let a brainless single-celled organism grow across it. What do you think it produced?",
+   "misconception": "Solving a network problem requires planning, and planning requires a brain.",
+   "briefing": "Physarum polycephalum is a single-celled organism with no brain and no nervous system. Researchers placed food at points matching the cities around Tokyo and let it grow. It extended tubes in all directions, then reinforced the efficient routes and abandoned the rest, producing a network closely resembling the real rail system engineers had designed. It has since been used to solve mazes and model other transport problems.",
+   "reference_material": {
+    "names": [
+     "Toshiyuki Nakagaki",
+     "Atsushi Tero",
+     "Physarum polycephalum"
+    ],
+    "timeline": [
+     "2000 — maze solving",
+     "2010 — Tokyo rail network study"
+    ],
+    "terms": [
+     "reinforcement",
+     "network optimisation",
+     "protist",
+     "tube thickening"
+    ],
+    "research_threads": [
+     "What mechanism replaces planning here?",
+     "What does this suggest about the nature of intelligence?"
+    ]
+   },
+   "discussion_prompt": "How much of what we call intelligence is really just trying, failing, and adjusting?",
+   "family": "order-without-designer",
+   "legacy_id": "SC003",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000058",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Spaghettification",
+   "hook": "Physicists needed a word for what a black hole does to matter. They settled on the least serious one available.",
+   "prediction_prompt": "What do you think actually happens to an object falling into a black hole — and why would physicists name that process after pasta?",
+   "misconception": "A black hole crushes everything inward equally, compressing it to a point.",
+   "briefing": "Near a black hole, gravity pulls far more strongly on the near side of an object than the far side. This difference, called a tidal force, stretches the object lengthwise while compressing it sideways, drawing it into a long thin stream. Physicists adopted the informal name spaghettification, and it stuck as the standard term. For very large black holes the effect at the horizon is gentler, since the gradient is spread over a greater distance.",
+   "reference_material": {
+    "names": [
+     "Stephen Hawking",
+     "event horizon"
+    ],
+    "timeline": [
+     "1988 — term popularised",
+     "2020 — tidal disruption event observed"
+    ],
+    "terms": [
+     "tidal force",
+     "gravitational gradient",
+     "event horizon",
+     "tidal disruption"
+    ],
+    "research_threads": [
+     "Why is the effect gentler at a supermassive black hole?",
+     "How does this relate to ocean tides on Earth?"
+    ]
+   },
+   "discussion_prompt": "Does giving something a funny name make it easier to understand, or harder to take seriously?",
+   "family": "we-were-confidently-wrong",
+   "legacy_id": "SC004",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000059",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Looking Backwards in Time",
+   "hook": "Some stars you can see tonight burned out long before anyone alive was born.",
+   "prediction_prompt": "You look up at a star two hundred light years away. What are you actually seeing — and is it necessarily still there?",
+   "misconception": "When you look at a star, you're seeing it as it is right now.",
+   "briefing": "Light travels fast but not instantly. When you look at a star hundreds of light years away, you are seeing light that left it hundreds of years ago. For distant stars, that gap can exceed their remaining lifespan, meaning the object you are looking at may no longer exist. For most stars visible to the naked eye the distances are modest enough that they are probably still there — but the principle holds: the night sky is a record of the past, not the present.",
+   "reference_material": {
+    "names": [
+     "Ole Rømer",
+     "Betelgeuse",
+     "James Webb Space Telescope"
+    ],
+    "timeline": [
+     "1676 — speed of light measured"
+    ],
+    "terms": [
+     "light year",
+     "lookback time",
+     "simultaneity",
+     "redshift"
+    ],
+    "research_threads": [
+     "How far away must a star be for this to matter?",
+     "What does 'now' mean across cosmic distances?"
+    ]
+   },
+   "discussion_prompt": "If we can only ever see the past, what does it mean to say something is happening 'now'?",
+   "family": "we-were-confidently-wrong",
+   "legacy_id": "SC005",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000060",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Boötes Void",
+   "hook": "There is a region of space so empty that if we lived at its centre, we might not have known other galaxies existed.",
+   "prediction_prompt": "There's a region of space hundreds of millions of light years across containing far fewer galaxies than it should. If a civilisation lived at its centre, what do you think they'd conclude about the universe?",
+   "misconception": "Space is fairly evenly filled with galaxies at large scales.",
+   "briefing": "The Boötes Void is a roughly spherical region about 330 million light years across containing far fewer galaxies than expected. It is not entirely empty — dozens have been found within it — but the density is dramatically below average. Astronomer Greg Aldering noted that a civilisation at its centre would have discovered other galaxies only quite late in its development, because the nearest ones would be too faint to notice easily.",
+   "reference_material": {
+    "names": [
+     "Robert Kirshner",
+     "Greg Aldering"
+    ],
+    "timeline": [
+     "1981 — discovered"
+    ],
+    "terms": [
+     "cosmic void",
+     "large-scale structure",
+     "galaxy filament",
+     "void merger"
+    ],
+    "research_threads": [
+     "How many galaxies does it contain versus the prediction?",
+     "How would astronomy develop for a civilisation inside it?"
+    ]
+   },
+   "discussion_prompt": "How much of what we know depends on simply happening to be somewhere we could see it?",
+   "family": "we-were-confidently-wrong",
+   "legacy_id": "SC006",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000061",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Golden Record",
+   "hook": "Humanity chose what to say to whoever finds us. Greetings in 55 languages, a heartbeat, and the sound of rain.",
+   "prediction_prompt": "Humanity attached a message to a spacecraft leaving the solar system. If you had to choose what goes on it, what would you send?",
+   "misconception": "It carries scientific data and mathematics — the things aliens would most reliably understand.",
+   "briefing": "Attached to both Voyager spacecraft is a gold-plated disc carrying a portrait of Earth: greetings in dozens of languages, music from many cultures, natural sounds including surf, wind, and animals, and encoded photographs. A committee chaired by Carl Sagan selected the contents, knowing the chance of anyone ever finding it is vanishingly small. It also carries the recorded brainwaves of a woman thinking about what it means to be human.",
+   "reference_material": {
+    "names": [
+     "Carl Sagan",
+     "Ann Druyan",
+     "Frank Drake",
+     "Voyager 1 and 2"
+    ],
+    "timeline": [
+     "1977 — launch"
+    ],
+    "terms": [
+     "hydrogen hyperfine transition",
+     "encoded imagery",
+     "pulsar map"
+    ],
+    "research_threads": [
+     "How do the cover instructions work without shared language?",
+     "What would you add, and what would you leave out?"
+    ]
+   },
+   "discussion_prompt": "If you could add one sound to that record, what would you choose, and why?",
+   "family": "we-were-confidently-wrong",
+   "legacy_id": "SC007",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000062",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Great Attractor",
+   "hook": "Our entire galaxy is being pulled toward something enormous — and the Milky Way itself blocks our view of it.",
+   "prediction_prompt": "Our entire galaxy is being pulled toward something enormous. Why do you think we can't see what it is?",
+   "misconception": "We can see anything that large — nothing that massive could be hidden from us.",
+   "briefing": "The Milky Way and thousands of neighbouring galaxies are moving toward a region roughly 250 million light years away at a considerable speed. The trouble is that this direction lies behind the dense dust and stars of our own galaxy's disc, a region astronomers call the Zone of Avoidance. X-ray and infrared observations have revealed massive galaxy clusters there, though astronomers still debate how much of the pull they fully account for.",
+   "reference_material": {
+    "names": [
+     "Alan Dressler",
+     "Laniakea",
+     "Norma Cluster"
+    ],
+    "timeline": [
+     "1986 — identified",
+     "2014 — Laniakea mapped"
+    ],
+    "terms": [
+     "Zone of Avoidance",
+     "peculiar velocity",
+     "supercluster",
+     "infrared survey"
+    ],
+    "research_threads": [
+     "Why can't we see through our own galaxy?",
+     "Will we ever reach it, given cosmic expansion?"
+    ]
+   },
+   "discussion_prompt": "How does it feel to know we are moving somewhere we can never see and never reach?",
+   "family": "we-were-confidently-wrong",
+   "legacy_id": "SC008",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000063",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Great Dying",
+   "hook": "Long before the dinosaurs vanished, life on Earth came within a fraction of ending completely.",
+   "prediction_prompt": "Which extinction event do you think was the most severe in Earth's history — and what caused it?",
+   "misconception": "The extinction that killed the dinosaurs was the largest in Earth's history.",
+   "briefing": "About 252 million years ago, the end-Permian extinction eliminated the overwhelming majority of marine species and a large share of land species — a far greater loss than the extinction that ended the dinosaurs. The leading explanation is enormous volcanic activity in what is now Siberia, releasing gases that acidified oceans, stripped oxygen from the water, and drove severe warming. Ecosystems took millions of years to recover.",
+   "reference_material": {
+    "names": [
+     "Siberian Traps",
+     "Permian-Triassic boundary"
+    ],
+    "timeline": [
+     "c. 252 million years ago"
+    ],
+    "terms": [
+     "mass extinction",
+     "ocean acidification",
+     "anoxia",
+     "large igneous province"
+    ],
+    "research_threads": [
+     "How does it compare in scale to the dinosaur extinction?",
+     "How long did ecosystems take to recover?"
+    ]
+   },
+   "discussion_prompt": "What can an event from 252 million years ago reasonably teach us about today?",
+   "family": "we-were-confidently-wrong",
+   "legacy_id": "SC009",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000064",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Immortal Jellyfish",
+   "hook": "Everything alive grows old and dies. One creature in the ocean seems never to have received the message.",
+   "prediction_prompt": "One small jellyfish appears not to die of old age. How do you think an animal could possibly avoid ageing?",
+   "misconception": "Ageing is unavoidable — every living thing grows old and eventually dies of it.",
+   "briefing": "Turritopsis dohrnii is a jellyfish barely larger than a fingernail. When injured, starving, or simply old, it can collapse its body and revert to the polyp stage — the earliest phase of its own life — then grow up all over again. In principle it can repeat this indefinitely, which is why biologists describe it as biologically immortal. It still gets eaten and still gets sick, so it does die; it just does not appear to die of age.",
+   "reference_material": {
+    "names": [
+     "Turritopsis dohrnii",
+     "Shin Kubota",
+     "Ferdinando Boero"
+    ],
+    "timeline": [
+     "1990s — reversal documented"
+    ],
+    "terms": [
+     "transdifferentiation",
+     "polyp stage",
+     "biological immortality",
+     "medusa"
+    ],
+    "research_threads": [
+     "How does transdifferentiation differ from ordinary healing?",
+     "Does 'immortal' mean it cannot die?"
+    ]
+   },
+   "discussion_prompt": "If humans could reset their bodies to youth, would that be a gift or a problem?",
+   "family": "boundaries-that-dissolve",
+   "legacy_id": "SC010",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000065",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Mpemba Effect",
+   "hook": "A schoolboy claimed hot water freezes faster than cold. His teacher laughed. The debate is still running.",
+   "prediction_prompt": "Put two containers in a freezer, one hot and one cold. Which do you think freezes first? Commit before reading on.",
+   "misconception": "Cold water freezes faster than hot water — it starts closer to freezing.",
+   "briefing": "In 1963, Tanzanian student Erasto Mpemba noticed that hotter ice cream mixture froze sooner and was ridiculed for saying so. A visiting physicist tested it and co-published with him. Since then results have been inconsistent, and proposed mechanisms include evaporation, dissolved gases, convection and supercooling. Some researchers argue the effect is an artefact of how freezing is defined and measured.",
+   "reference_material": {
+    "names": [
+     "Erasto Mpemba",
+     "Denis Osborne",
+     "Aristotle",
+     "Francis Bacon"
+    ],
+    "timeline": [
+     "1963 — observation",
+     "1969 — paper published"
+    ],
+    "terms": [
+     "supercooling",
+     "convection",
+     "evaporation",
+     "dissolved gases"
+    ],
+    "research_threads": [
+     "Which explanations have been proposed and tested?",
+     "Why do careful modern experiments often fail to reproduce it?"
+    ]
+   },
+   "discussion_prompt": "How should science treat an observation that keeps appearing but resists explanation?",
+   "family": "we-were-confidently-wrong",
+   "legacy_id": "SC011",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000066",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Pale Blue Dot",
+   "hook": "A spacecraft turned its camera around one last time. Everyone you will ever know fits inside a single pixel.",
+   "prediction_prompt": "As Voyager left the solar system it turned its camera back toward Earth. Why do you think anyone bothered?",
+   "misconception": "It was taken for its scientific value, like every other space photograph.",
+   "briefing": "In 1990, as Voyager 1 left the solar system, it turned back and photographed Earth from roughly six billion kilometres away. In the image, Earth is less than one pixel wide, caught in a band of scattered sunlight. The photograph has no scientific value. It was taken because Carl Sagan argued that seeing ourselves at that scale would change how we think about our arguments, our borders, and our importance.",
+   "reference_material": {
+    "names": [
+     "Carl Sagan",
+     "Voyager 1",
+     "Candy Hansen"
+    ],
+    "timeline": [
+     "14 February 1990 — image taken"
+    ],
+    "terms": [
+     "scattered light",
+     "family portrait",
+     "perspective"
+    ],
+    "research_threads": [
+     "Why was the photograph nearly cancelled?",
+     "Does scale diminish meaning, or create it?"
+    ]
+   },
+   "discussion_prompt": "Does knowing how small we are make life feel less meaningful, or more?",
+   "family": "we-were-confidently-wrong",
+   "legacy_id": "SC012",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000067",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Pistol Shrimp's Bubble",
+   "hook": "Its claw snaps so fast the water tears open, and for an instant the flash inside is hotter than lava.",
+   "prediction_prompt": "A shrimp snaps its claw and stuns prey nearby without touching them. What do you think actually does the damage?",
+   "misconception": "It stuns prey by striking them with the claw itself.",
+   "briefing": "The snapping shrimp closes its claw at extraordinary speed, driving a jet of water that drops local pressure enough to form a cavitation bubble. When the bubble collapses it produces a shockwave loud enough to stun prey, plus a brief flash of light — a phenomenon called sonoluminescence. Colonies are loud enough to interfere with sonar.",
+   "reference_material": {
+    "names": [
+     "Alpheidae",
+     "Detlef Lohse",
+     "Barbara Schmitz"
+    ],
+    "timeline": [
+     "2001 — sonoluminescence reported"
+    ],
+    "terms": [
+     "cavitation",
+     "shockwave",
+     "sonoluminescence",
+     "snapper claw"
+    ],
+    "research_threads": [
+     "What actually stuns the prey?",
+     "How do shrimp colonies interfere with sonar?"
+    ]
+   },
+   "discussion_prompt": "Why do the most extreme forces in nature so often come in the smallest packages?",
+   "family": "hidden-machinery",
+   "legacy_id": "SC013",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000068",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Quantum Zeno Effect",
+   "hook": "Measure an unstable particle often enough and it stops decaying. Watching genuinely freezes it.",
+   "prediction_prompt": "An unstable particle is measured over and over, very rapidly. What do you think happens to its rate of decay?",
+   "misconception": "Watching something decay can't change whether or when it decays.",
+   "briefing": "In quantum mechanics, a system that is repeatedly measured can be prevented from evolving. Each measurement collapses the system back toward its initial state, and if measurements come fast enough relative to the decay process, the transition is suppressed. It is named after Zeno's paradoxes of motion, and it has been demonstrated experimentally in trapped ions and other systems.",
+   "reference_material": {
+    "names": [
+     "George Sudarshan",
+     "Baidyanath Misra",
+     "David Wineland"
+    ],
+    "timeline": [
+     "1977 — named",
+     "1990 — demonstrated in trapped ions"
+    ],
+    "terms": [
+     "wavefunction collapse",
+     "measurement frequency",
+     "anti-Zeno effect"
+    ],
+    "research_threads": [
+     "What counts as a measurement here?",
+     "Under what conditions does decay accelerate instead?"
+    ]
+   },
+   "discussion_prompt": "Is there a real difference between observing something and interfering with it?",
+   "family": "measurement-changes-the-thing",
+   "legacy_id": "SC014",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000069",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Tun State",
+   "hook": "A tardigrade can expel almost all its water, curl into a grain-like husk, and wait for decades.",
+   "prediction_prompt": "A tardigrade can expel nearly all its water, curl into a husk, survive the vacuum of space, and revive years later. During that time, would you say it was alive? Say why.",
+   "misconception": "An animal that stops all metabolic activity is simply dead.",
+   "briefing": "Under drying conditions, tardigrades enter cryptobiosis, contracting into a barrel shape called a tun and reducing metabolism to nearly undetectable levels. In this state they tolerate temperatures near absolute zero, immense pressure, and hard radiation. Specialised proteins form a glass-like matrix inside their cells, physically holding delicate structures in place until water returns.",
+   "reference_material": {
+    "names": [
+     "Tardigrada",
+     "Thomas Boothby",
+     "FOTON-M3 mission"
+    ],
+    "timeline": [
+     "2007 — space exposure experiment"
+    ],
+    "terms": [
+     "cryptobiosis",
+     "anhydrobiosis",
+     "vitrification",
+     "intrinsically disordered proteins"
+    ],
+    "research_threads": [
+     "What protects cell structures during desiccation?",
+     "Is an organism in cryptobiosis alive?"
+    ]
+   },
+   "discussion_prompt": "If something stops all life processes and later resumes, was it alive in between?",
+   "family": "boundaries-that-dissolve",
+   "legacy_id": "SC015",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000070",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Wood Wide Web",
+   "hook": "Beneath a quiet forest floor, trees are sending each other food, warnings, and sometimes sabotage.",
+   "prediction_prompt": "Trees in a forest are connected underground by fungal threads. What do you think travels along them?",
+   "misconception": "Trees compete for light and nutrients — they don't interact beneath the soil.",
+   "briefing": "Fungal threads called mycorrhizae connect the roots of trees across a forest, forming a network. Through it, trees exchange carbon, nitrogen, and water. Older 'hub' trees have been observed passing nutrients to shaded seedlings, including their own offspring. Trees under insect attack appear to release chemical signals that neighbours respond to by raising their defences. Some plants also use the network competitively, releasing compounds that suppress rivals.",
+   "reference_material": {
+    "names": [
+     "Suzanne Simard",
+     "Merlin Sheldrake",
+     "mycorrhizae"
+    ],
+    "timeline": [
+     "1997 — Nature paper",
+     "2020s — critical re-examination"
+    ],
+    "terms": [
+     "mycorrhizal network",
+     "hub tree",
+     "allelopathy",
+     "carbon transfer"
+    ],
+    "research_threads": [
+     "What do the fungi gain from the arrangement?",
+     "What do sceptics say the evidence actually supports?"
+    ]
+   },
+   "discussion_prompt": "Does cooperation in nature mean kindness, or just a useful strategy?",
+   "family": "order-without-designer",
+   "legacy_id": "SC016",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000071",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Barcode's Beach",
+   "hook": "He drew four lines in the sand with his fingers and pulled them into a circle.",
+   "prediction_prompt": "The barcode was invented in 1949, sitting on a beach, decades before it was ever used. What do you think the first design looked like?",
+   "misconception": "Barcodes were invented once computers and lasers made scanning practical.",
+   "briefing": "In 1949, Joseph Woodland was thinking about how to encode product information automatically. Sitting on a beach, he traced Morse code dots and dashes in the sand and then drew his fingers downward, stretching them into lines. Realising a circular version could be scanned from any angle, he patented a bullseye design. The technology waited decades for lasers and computing to become cheap enough to use.",
+   "reference_material": {
+    "names": [
+     "Joseph Woodland",
+     "Bernard Silver",
+     "Wrigley's gum"
+    ],
+    "timeline": [
+     "1949 — patent filed",
+     "1974 — first retail scan"
+    ],
+    "terms": [
+     "bullseye code",
+     "Morse code",
+     "UPC",
+     "laser scanning"
+    ],
+    "research_threads": [
+     "Why did the idea wait twenty years?",
+     "Why did circular give way to linear?"
+    ]
+   },
+   "discussion_prompt": "Why do some good ideas have to wait decades for the world to be ready?",
+   "family": "accidents-that-worked",
+   "legacy_id": "IN001",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000072",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Corn Flake Accident",
+   "hook": "Two brothers left boiled wheat sitting out for days, then rolled it anyway to avoid the waste.",
+   "prediction_prompt": "Two brothers left cooked wheat sitting out for days until it went stale, then rolled it anyway rather than waste it. What do you think came out of the rollers?",
+   "misconception": "Cereal flakes were the result of a deliberate recipe, developed on purpose.",
+   "briefing": "While running a sanatorium in the 1890s, John and Will Kellogg left a batch of cooked wheat unattended and it went stale. Rather than discard it, they forced it through rollers, expecting sheets of dough. Instead each softened grain flattened into a separate flake. Toasted, the flakes proved popular with patients, and the accident became the foundation of an entire breakfast industry.",
+   "reference_material": {
+    "names": [
+     "John Harvey Kellogg",
+     "Will Keith Kellogg",
+     "Battle Creek Sanitarium"
+    ],
+    "timeline": [
+     "1894 — the stale batch",
+     "1906 — company founded"
+    ],
+    "terms": [
+     "tempering",
+     "sanitarium",
+     "moisture equilibration"
+    ],
+    "research_threads": [
+     "Why was the staleness essential?",
+     "What did the brothers eventually fall out over?"
+    ]
+   },
+   "discussion_prompt": "What separates a mistake from a discovery — the result, or who is watching?",
+   "family": "accidents-that-worked",
+   "legacy_id": "IN002",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000073",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Microwave Meltdown",
+   "hook": "An engineer walked past a radar tube and noticed the chocolate bar in his pocket had melted.",
+   "prediction_prompt": "An engineer walked past radar equipment and noticed the snack in his pocket had melted. What do you think he did next?",
+   "misconception": "The microwave oven was developed deliberately as a cooking appliance.",
+   "briefing": "In 1945, Percy Spencer was working with magnetrons used in radar equipment when he noticed a snack in his pocket had softened. He tested the effect deliberately with popcorn kernels, which popped, and then an egg, which burst. The first commercial microwave oven stood nearly as tall as a person, weighed several hundred kilograms, and required plumbing for water cooling.",
+   "reference_material": {
+    "names": [
+     "Percy Spencer",
+     "Raytheon",
+     "Radarange"
+    ],
+    "timeline": [
+     "1945 — observation",
+     "1947 — first commercial unit"
+    ],
+    "terms": [
+     "magnetron",
+     "dielectric heating",
+     "water-cooled"
+    ],
+    "research_threads": [
+     "Why did a radar tube heat food at all?",
+     "What made early units impractical for homes?"
+    ]
+   },
+   "discussion_prompt": "What makes one person investigate an odd detail while everyone else ignores it?",
+   "family": "accidents-that-worked",
+   "legacy_id": "IN003",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000074",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Pacemaker's Mistake",
+   "hook": "He reached for the wrong resistor. Instead of recording heartbeats, the device started producing them.",
+   "prediction_prompt": "An engineer building a circuit to record heart sounds reached for the wrong component. What do you think the circuit did instead?",
+   "misconception": "A device that regulates the heart would have been designed deliberately from the start.",
+   "briefing": "In 1956, Wilson Greatbatch was building a circuit to record heart sounds and installed a resistor of the wrong value. The circuit began emitting regular electrical pulses instead of listening. He recognised that the rhythm resembled a heartbeat and redirected his work entirely, developing an implantable pacemaker. Earlier devices had been external, bulky, and in some cases mains-powered.",
+   "reference_material": {
+    "names": [
+     "Wilson Greatbatch",
+     "William Chardack",
+     "Buffalo VA Hospital"
+    ],
+    "timeline": [
+     "1956 — the wrong resistor",
+     "1960 — first human implant"
+    ],
+    "terms": [
+     "resistor",
+     "oscillation",
+     "implantable device",
+     "lithium-iodide battery"
+    ],
+    "research_threads": [
+     "What were pacemakers like before this?",
+     "Why did battery chemistry matter so much afterwards?"
+    ]
+   },
+   "discussion_prompt": "Should we design our work to make useful accidents more likely?",
+   "family": "accidents-that-worked",
+   "legacy_id": "IN004",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000075",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Post-it Failure",
+   "hook": "A chemist spent five years trying to give away an adhesive that everyone agreed was useless.",
+   "prediction_prompt": "A chemist accidentally created a glue that stuck lightly and peeled off cleanly. How long do you think it took before anyone found a use for it?",
+   "misconception": "A weak adhesive that barely sticks is a failed product with no use.",
+   "briefing": "In 1968, Spencer Silver at 3M produced an adhesive that stuck lightly and peeled away cleanly — the opposite of what he was trying to make. He presented it internally for years with no takers. A colleague, Art Fry, frustrated by bookmarks falling out of his choir hymnal, recognised the application. Even then the product initially sold poorly until free samples were distributed and people discovered they wanted more.",
+   "reference_material": {
+    "names": [
+     "Spencer Silver",
+     "Art Fry",
+     "3M"
+    ],
+    "timeline": [
+     "1968 — adhesive created",
+     "1974 — bookmark idea",
+     "1980 — national launch"
+    ],
+    "terms": [
+     "microsphere adhesive",
+     "repositionable",
+     "internal seminar"
+    ],
+    "research_threads": [
+     "Why did it take five years to find a use?",
+     "What finally made the product sell?"
+    ]
+   },
+   "discussion_prompt": "How many useful things are sitting unused because nobody has found the problem they solve?",
+   "family": "accidents-that-worked",
+   "legacy_id": "IN005",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000076",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Zipper's Slow Rise",
+   "hook": "It took twenty years and a rebrand by a boot company before anyone would buy it.",
+   "prediction_prompt": "A working zip mechanism existed by 1913 and clothing makers ignored it. What do you think finally made it popular?",
+   "misconception": "Something that useful would have been adopted quickly once it worked properly.",
+   "briefing": "Early slide fasteners were patented in the 1890s but jammed and popped open, and the public ignored them. Gideon Sundback redesigned the mechanism in 1913 with interlocking teeth that gripped reliably. Still it did not sell. Adoption came when a rubber boot manufacturer used it and coined a catchy name based on the sound it made. Clothing manufacturers only adopted it widely in the 1930s.",
+   "reference_material": {
+    "names": [
+     "Whitcomb Judson",
+     "Gideon Sundback",
+     "B.F. Goodrich"
+    ],
+    "timeline": [
+     "1893 — early patent",
+     "1913 — redesign",
+     "1923 — named 'zipper'"
+    ],
+    "terms": [
+     "interlocking teeth",
+     "slide fastener",
+     "adoption curve"
+    ],
+    "research_threads": [
+     "Who coined the name, and why?",
+     "What role did children's clothing play in adoption?"
+    ]
+   },
+   "discussion_prompt": "How much of an invention's success is engineering, and how much is naming and timing?",
+   "family": "accidents-that-worked",
+   "legacy_id": "IN006",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000077",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Velcro's Walk",
+   "hook": "An engineer returned from a hunting trip irritated by burrs on his dog. He put one under a microscope.",
+   "prediction_prompt": "An engineer came back from a hunting trip irritated by burrs stuck to his dog. What do you think he did with one?",
+   "misconception": "It was designed from scratch in a laboratory as a fastening system.",
+   "briefing": "In 1941, Swiss engineer George de Mestral examined the burdock burrs clinging to his clothes and his dog's fur. Under magnification he found tiny hooks catching on loops of fabric and hair. He spent years developing a synthetic version, eventually settling on nylon, which forms durable hooks when heated. The result was a fastener that needs no buttons, laces or zips.",
+   "reference_material": {
+    "names": [
+     "George de Mestral",
+     "burdock",
+     "Velcro SA"
+    ],
+    "timeline": [
+     "1941 — the walk",
+     "1955 — patent granted"
+    ],
+    "terms": [
+     "biomimicry",
+     "hook and loop",
+     "nylon",
+     "burr"
+    ],
+    "research_threads": [
+     "Why was nylon the right material?",
+     "What other inventions came from copying nature?"
+    ]
+   },
+   "discussion_prompt": "How often is nature the engineer, and the inventor only the person who noticed?",
+   "family": "accidents-that-worked",
+   "legacy_id": "IN007",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000078",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Evidential Markers",
+   "hook": "In some languages you cannot say 'it rained' without also stating how you know.",
+   "prediction_prompt": "In some languages you cannot say 'it rained' without also marking how you know. What do you think happens if a speaker leaves that out?",
+   "misconception": "Every language treats how you know something as optional extra detail.",
+   "briefing": "Evidentiality is a grammatical requirement, found in languages such as Tuyuca of the Amazon, to mark the source of information: seen directly, heard, inferred, or reported by someone else. Omitting it is not vague but ungrammatical. Speakers of these languages must continuously track and declare the provenance of what they say, a distinction English can express only by adding extra words.",
+   "reference_material": {
+    "names": [
+     "Tuyuca",
+     "Alexandra Aikhenvald",
+     "Quechua"
+    ],
+    "timeline": [
+     "1980s onward — systematic study"
+    ],
+    "terms": [
+     "evidentiality",
+     "grammatical category",
+     "hearsay marker",
+     "inference"
+    ],
+    "research_threads": [
+     "How many evidential categories do different languages mark?",
+     "How would public debate change if this were required?"
+    ]
+   },
+   "discussion_prompt": "How would public conversation change if stating your source were grammatically required?",
+   "family": "everyday-word",
+   "legacy_id": "LG001",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000079",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Guugu Yimithirr Directions",
+   "hook": "Speakers never say left or right. They say north, south, east and west — even about the cup on the table.",
+   "prediction_prompt": "Some languages have no words for left or right, only north, south, east and west. What do you think that does to their speakers' sense of direction?",
+   "misconception": "Everyone navigates using left and right — it's how human spatial thinking works.",
+   "briefing": "This Australian language uses absolute cardinal directions instead of body-relative terms. A speaker will describe an ant on their leg as being on the northern side. Maintaining this requires a constant background awareness of orientation, which speakers develop from early childhood. In tests, speakers demonstrate accurate directional sense in unfamiliar places, including indoors and after being transported without seeing the route.",
+   "reference_material": {
+    "names": [
+     "Stephen Levinson",
+     "John Haviland",
+     "Cape York"
+    ],
+    "timeline": [
+     "1990s — Levinson's fieldwork"
+    ],
+    "terms": [
+     "absolute frame of reference",
+     "cardinal directions",
+     "dead reckoning"
+    ],
+    "research_threads": [
+     "At what age do children acquire this?",
+     "How is orientation maintained indoors?"
+    ]
+   },
+   "discussion_prompt": "What abilities might you have if your language had demanded them since childhood?",
+   "family": "everyday-word",
+   "legacy_id": "LG002",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000080",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Silbo Gomero",
+   "hook": "On one Canary island, entire conversations are whistled across valleys three kilometres wide.",
+   "prediction_prompt": "On one Canary island people hold full conversations across valleys using only whistles. Do you think that counts as a language? Say why.",
+   "misconception": "Whistling can only carry simple signals, not real conversation.",
+   "briefing": "Silbo Gomero is a whistled register of Spanish used on La Gomera, where deep ravines make shouting useless but whistles carry extremely well. Speakers reduce vowels and consonants to distinguishable pitch and interruption patterns, allowing full sentences to be transmitted. Use declined sharply in the twentieth century, and it was made a compulsory school subject in 1999 to prevent it disappearing.",
+   "reference_material": {
+    "names": [
+     "La Gomera",
+     "Canary Islands",
+     "Manuel Carreiras"
+    ],
+    "timeline": [
+     "1999 — made compulsory in schools",
+     "2009 — UNESCO listing"
+    ],
+    "terms": [
+     "whistled register",
+     "phoneme reduction",
+     "ravine acoustics"
+    ],
+    "research_threads": [
+     "How do brain scans of whistlers differ from non-whistlers?",
+     "What makes something count as a language?"
+    ]
+   },
+   "discussion_prompt": "If a language can be whistled, what exactly is a language made of?",
+   "family": "everyday-word",
+   "legacy_id": "LG003",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000081",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Colour Naming Gap",
+   "hook": "Ancient texts describe the sea as wine-dark and honey as green. Their eyes were fine.",
+   "prediction_prompt": "Homer describes the sea as wine-dark and honey as green. What do you think that tells us — about his eyes, or about his language?",
+   "misconception": "Ancient writers who described the sea as wine-dark must have seen colour differently to us.",
+   "briefing": "Languages divide the colour spectrum differently, and they tend to acquire colour terms in a broadly consistent order, beginning with dark and light, then red. Homeric Greek lacks a dedicated word matching our blue, which produced descriptions that read strangely today. Speakers of languages with separate terms for light and dark blue, such as Russian, distinguish those shades measurably faster in laboratory tests.",
+   "reference_material": {
+    "names": [
+     "Brent Berlin",
+     "Paul Kay",
+     "William Gladstone",
+     "Homer"
+    ],
+    "timeline": [
+     "1858 — Gladstone's observation",
+     "1969 — Berlin and Kay"
+    ],
+    "terms": [
+     "basic colour terms",
+     "grue",
+     "categorical perception",
+     "Russian siniy/goluboy"
+    ],
+    "research_threads": [
+     "In what order do languages acquire colour terms?",
+     "Can you perceive a colour you have no word for?"
+    ]
+   },
+   "discussion_prompt": "Can you fully see something you have no word for?",
+   "family": "everyday-word",
+   "legacy_id": "LG004",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000082",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Pirahã Counting Gap",
+   "hook": "One Amazonian language appears to have no exact number words at all — not even for one.",
+   "prediction_prompt": "One Amazonian language appears to have no exact number words at all. Do you think counting is something humans do naturally, or something a culture invents?",
+   "misconception": "Counting is a basic human universal — every culture has exact numbers.",
+   "briefing": "Researchers working with the Pirahã of the Amazon reported a counting system limited to approximate quantity terms rather than exact numbers. In experiments, speakers matched small groups reliably but struggled with exact matching as quantities grew. The finding is contested, but it feeds a serious debate: whether exact number is a universal human capacity or a technology that a culture may or may not develop.",
+   "reference_material": {
+    "names": [
+     "Daniel Everett",
+     "Peter Gordon",
+     "Amazonas"
+    ],
+    "timeline": [
+     "2004 — Gordon's Science paper",
+     "2005 — Everett's paper"
+    ],
+    "terms": [
+     "numerosity",
+     "approximate number system",
+     "cultural constraint"
+    ],
+    "research_threads": [
+     "What do critics of these claims argue?",
+     "Is exact counting innate or invented?"
+    ]
+   },
+   "discussion_prompt": "Is counting something humans naturally do, or something we invented?",
+   "family": "everyday-word",
+   "legacy_id": "LG005",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000083",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Sapir-Whorf Idea",
+   "hook": "Some languages have no words for left or right. Their speakers navigate by compass direction — and never get lost.",
+   "prediction_prompt": "Do you think the language you speak changes what you're able to think? Give an example before reading on.",
+   "misconception": "Language is just a container for thought — it describes ideas without shaping them.",
+   "briefing": "The linguistic relativity hypothesis proposes that the language you speak influences how you think. Strong versions, claiming language determines thought entirely, are now rejected. But weaker effects are well documented. Speakers of languages that use cardinal directions instead of body-relative terms maintain a constant sense of orientation. Languages that divide the colour spectrum differently affect how quickly speakers distinguish certain shades.",
+   "reference_material": {
+    "names": [
+     "Edward Sapir",
+     "Benjamin Lee Whorf",
+     "Lera Boroditsky"
+    ],
+    "timeline": [
+     "1930s — original formulations",
+     "2000s — modern experiments"
+    ],
+    "terms": [
+     "linguistic relativity",
+     "strong vs weak version",
+     "categorical perception"
+    ],
+    "research_threads": [
+     "Why was the strong version rejected?",
+     "Which experimental effects are well replicated?"
+    ]
+   },
+   "discussion_prompt": "Does learning a new language give you thoughts you could not have had before?",
+   "family": "everyday-word",
+   "legacy_id": "LG006",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000084",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Toki Pona Experiment",
+   "hook": "A linguist built a language with only about 120 words to see what thinking would feel like.",
+   "prediction_prompt": "A linguist built a language with roughly 120 words. What do you think that does to the way its speakers think?",
+   "misconception": "A language with only 120 words would be too crude to express anything real.",
+   "briefing": "Toki Pona was created by Sonja Lang in 2001 as a minimalist constructed language with roughly 120 core words. Complex ideas must be assembled from simple ones, which forces speakers to break concepts down to essentials — a car becomes something like a moving machine. Learners consistently report that the constraint changes how they think about ideas rather than merely how they express them.",
+   "reference_material": {
+    "names": [
+     "Sonja Lang"
+    ],
+    "timeline": [
+     "2001 — created",
+     "2014 — book published"
+    ],
+    "terms": [
+     "constructed language",
+     "minimalism",
+     "semantic primitives",
+     "compositionality"
+    ],
+    "research_threads": [
+     "How are complex ideas built from 120 words?",
+     "Does constraint clarify thought or impoverish it?"
+    ]
+   },
+   "discussion_prompt": "Would having fewer words make your thinking clearer, or poorer?",
+   "family": "everyday-word",
+   "legacy_id": "LG007",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000085",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Number Stations",
+   "hook": "Somewhere on shortwave radio right now, a voice is reading strings of numbers to nobody who will admit listening.",
+   "prediction_prompt": "Somewhere on shortwave right now, a voice is reading strings of numbers to no acknowledged listener. Why do you think anyone still uses radio for this?",
+   "misconception": "Shortwave radio is obsolete — nobody would use it now that the internet exists.",
+   "briefing": "Since the early twentieth century, shortwave broadcasts have transmitted sequences of numbers, letters or tones, often introduced by distinctive music. They are widely understood to be one-way intelligence communications using one-time pads, a cipher that is mathematically unbreakable if the key is truly random and used once. Governments rarely acknowledge them. Some stations have broadcast continuously for decades.",
+   "reference_material": {
+    "names": [
+     "Lincolnshire Poacher",
+     "UVB-76",
+     "The Conet Project"
+    ],
+    "timeline": [
+     "1910s — earliest use",
+     "1990s — recordings compiled"
+    ],
+    "terms": [
+     "one-time pad",
+     "shortwave",
+     "interval signal",
+     "one-way traffic"
+    ],
+    "research_threads": [
+     "Why is a one-time pad mathematically unbreakable?",
+     "What advantage does one-way broadcasting give a recipient?"
+    ]
+   },
+   "discussion_prompt": "Why would anyone still use radio when the internet exists?",
+   "family": "things-we-still-dont-know",
+   "legacy_id": "SE001",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000086",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Beale Ciphers",
+   "hook": "Three coded papers claim to reveal a buried fortune. One was solved. The other two never have been.",
+   "prediction_prompt": "Three coded texts claim to describe a buried fortune. One was solved using a famous document as its key. Why do you think the other two remain unread?",
+   "misconception": "Two unbroken ciphers with modern computing means the encryption is simply very strong.",
+   "briefing": "Published in an 1885 pamphlet, three ciphertexts allegedly describe a treasure, its location, and the heirs entitled to it. The second was decoded using the Declaration of Independence as a key, and describes the contents. The first and third, presumably naming the location, remain unsolved despite enormous effort. Many analysts believe the whole story is a nineteenth-century hoax built to sell pamphlets.",
+   "reference_material": {
+    "names": [
+     "Thomas J. Beale",
+     "Declaration of Independence",
+     "Bedford County"
+    ],
+    "timeline": [
+     "1885 — pamphlet published"
+    ],
+    "terms": [
+     "book cipher",
+     "key text",
+     "anachronism",
+     "statistical analysis"
+    ],
+    "research_threads": [
+     "What key solved the second cipher?",
+     "What internal inconsistencies suggest a hoax?"
+    ]
+   },
+   "discussion_prompt": "Why do people keep working on a puzzle that may have no answer at all?",
+   "family": "things-we-still-dont-know",
+   "legacy_id": "SE002",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000087",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Bloop",
+   "hook": "In 1997, microphones thousands of kilometres apart picked up the same sound. Nothing known was large enough to make it.",
+   "prediction_prompt": "In 1997 microphones 5,000 kilometres apart picked up the same extraordinarily loud low sound. What do you think made it?",
+   "misconception": "A sound that loud, heard across thousands of kilometres, must come from an enormous unknown animal.",
+   "briefing": "Hydrophones monitoring the Pacific detected an extraordinarily powerful low-frequency sound, loud enough to be recorded by sensors over 5,000 kilometres apart. Speculation about an unknown giant animal followed. Years of further monitoring in Antarctic waters eventually matched the acoustic signature to icequakes — the cracking and fracturing of large ice masses. The mystery is solved, but it stands as a reminder of how little of the ocean's sound we had catalogued.",
+   "reference_material": {
+    "names": [
+     "NOAA",
+     "Equatorial Pacific Ocean Autonomous Hydrophone Array"
+    ],
+    "timeline": [
+     "1997 — detected",
+     "2005 — icequake explanation"
+    ],
+    "terms": [
+     "hydrophone",
+     "icequake",
+     "acoustic signature",
+     "SOSUS"
+    ],
+    "research_threads": [
+     "How was the sound eventually matched to a source?",
+     "Why are we disappointed by ordinary explanations?"
+    ]
+   },
+   "discussion_prompt": "Why are we often disappointed when a mystery finally gets an ordinary explanation?",
+   "family": "things-we-still-dont-know",
+   "legacy_id": "SE003",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000088",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Hessdalen Lights",
+   "hook": "In one Norwegian valley, glowing lights appear so reliably that scientists built a permanent station to watch them.",
+   "prediction_prompt": "Strange glowing lights appear so reliably in one Norwegian valley that something unusual was done about it. What do you think researchers did?",
+   "misconception": "Unexplained lights get dismissed by scientists rather than investigated.",
+   "briefing": "Since the early 1980s, unusual luminous phenomena have been recorded in the Hessdalen valley — floating white or yellow lights lasting up to an hour, sometimes moving rapidly. Because they recur, researchers installed automated cameras and instruments, making this one of very few such phenomena studied with continuous monitoring. Leading hypotheses involve ionised gas and unusual local mineralogy, but no explanation is settled.",
+   "reference_material": {
+    "names": [
+     "Erling Strand",
+     "Project Hessdalen",
+     "Østerdalen"
+    ],
+    "timeline": [
+     "1981 — sightings peak",
+     "1998 — automatic station installed"
+    ],
+    "terms": [
+     "plasma hypothesis",
+     "ionisation",
+     "automated monitoring",
+     "mineralogy"
+    ],
+    "research_threads": [
+     "What makes a phenomenon worth systematic study?",
+     "What role do local mineral deposits play in the hypotheses?"
+    ]
+   },
+   "discussion_prompt": "What makes an unexplained thing worth serious scientific attention rather than dismissal?",
+   "family": "things-we-still-dont-know",
+   "legacy_id": "SE004",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000089",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Phantom Time Theory",
+   "hook": "One historian argued that roughly three centuries of the Middle Ages were simply invented.",
+   "prediction_prompt": "Someone claimed three centuries of the Middle Ages never happened. What single piece of evidence would you look for to test that?",
+   "misconception": "If a theory is elaborate enough and cites real gaps in the record, it deserves serious consideration.",
+   "briefing": "In the 1990s, Heribert Illig proposed that the years 614 to 911 never occurred and were fabricated to place rulers at symbolically important dates. The claim rests on gaps in the archaeological record and calendar discrepancies. It is comprehensively rejected: tree-ring dating, independent records from China and the Islamic world, and recorded eclipses all align with the standard chronology. It remains a useful lesson in how to test a bold claim.",
+   "reference_material": {
+    "names": [
+     "Heribert Illig",
+     "Charlemagne",
+     "Otto III"
+    ],
+    "timeline": [
+     "1991 — theory proposed"
+    ],
+    "terms": [
+     "dendrochronology",
+     "chronology",
+     "Gregorian calendar reform",
+     "cross-dating"
+    ],
+    "research_threads": [
+     "Which independent records cover the disputed centuries?",
+     "What single piece of evidence best refutes it?"
+    ]
+   },
+   "discussion_prompt": "What is the strongest possible evidence that a particular year really happened?",
+   "family": "things-we-still-dont-know",
+   "legacy_id": "SE005",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000090",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Taos Hum",
+   "hook": "A low drone that only some residents can hear, that no instrument has reliably captured.",
+   "prediction_prompt": "A minority of residents in one town report a constant low hum that instruments struggle to detect. How would you go about investigating something only some people perceive?",
+   "misconception": "If only some people can hear it, they must be imagining it.",
+   "briefing": "Since the early 1990s, a minority of people in Taos, New Mexico have reported a persistent low-frequency hum. Investigations by university teams found no consistent external acoustic source. Similar reports come from Bristol, Windsor and elsewhere. Explanations range from industrial infrasound and distant machinery to otoacoustic phenomena generated within the ear itself. No single cause accounts for every case.",
+   "reference_material": {
+    "names": [
+     "Joe Mullins",
+     "University of New Mexico",
+     "Bristol Hum",
+     "Windsor Hum"
+    ],
+    "timeline": [
+     "1993 — congressional investigation"
+    ],
+    "terms": [
+     "infrasound",
+     "otoacoustic emission",
+     "low-frequency noise",
+     "perception threshold"
+    ],
+    "research_threads": [
+     "How do you investigate something only some people perceive?",
+     "Why do reports cluster in particular places?"
+    ]
+   },
+   "discussion_prompt": "How do you investigate something that only some people can perceive?",
+   "family": "things-we-still-dont-know",
+   "legacy_id": "SE006",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000091",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Zone of Silence",
+   "hook": "A stretch of Mexican desert where radios reportedly fail — and where a stray missile once landed.",
+   "prediction_prompt": "A stretch of Mexican desert is famous for radios failing and compasses spinning. What do you think measurements actually found there?",
+   "misconception": "A place where radios reportedly fail must have some genuine magnetic or electrical anomaly.",
+   "briefing": "The Mapimí Silent Zone gained its reputation partly after an American test missile went off course and crashed there in 1970. Local lore holds that radio signals die and compasses spin. Scientific investigation has found no anomalous magnetic or radio behaviour; the region is simply remote, sparsely covered by transmitters, and rich in meteorite fragments. It is now a biosphere reserve, and the legend outlasts the debunking.",
+   "reference_material": {
+    "names": [
+     "Mapimí Biosphere Reserve",
+     "Athena missile incident",
+     "Durango"
+    ],
+    "timeline": [
+     "1970 — missile crash",
+     "1979 — reserve established"
+    ],
+    "terms": [
+     "biosphere reserve",
+     "endemism",
+     "meteorite density",
+     "magnetic anomaly"
+    ],
+    "research_threads": [
+     "What did actual measurements find?",
+     "Why do legends outlive their debunking?"
+    ]
+   },
+   "discussion_prompt": "Why do legends about a place survive long after they are disproven?",
+   "family": "things-we-still-dont-know",
+   "legacy_id": "SE007",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000092",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Ant Megacolonies",
+   "hook": "One ant colony stretches across three continents, and its members refuse to fight each other.",
+   "prediction_prompt": "Argentine ants from Europe, Japan and California were placed together in a laboratory. What do you think happened?",
+   "misconception": "Ants from colonies on different continents would fight on sight.",
+   "briefing": "Argentine ants introduced worldwide have formed supercolonies whose members recognise each other as nestmates despite being separated by oceans. Ants taken from Europe, Japan and California have been placed together in laboratory tests and did not fight, while both attacked ants from other colonies. Their chemical identity markers are nearly identical, effectively making them one enormous colony.",
+   "reference_material": {
+    "names": [
+     "Linepithema humile",
+     "Jes Pedersen",
+     "Argentine ant"
+    ],
+    "timeline": [
+     "2002 — European supercolony described",
+     "2009 — intercontinental study"
+    ],
+    "terms": [
+     "cuticular hydrocarbons",
+     "supercolony",
+     "nestmate recognition",
+     "unicoloniality"
+    ],
+    "research_threads": [
+     "What chemical signal marks a nestmate?",
+     "Why do they fight in their native range but not abroad?"
+    ]
+   },
+   "discussion_prompt": "Is a group spread across three continents still one community?",
+   "family": "order-without-designer",
+   "legacy_id": "OD001",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000093",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Coral Spawning",
+   "hook": "On one night a year, an entire reef releases at once, and the sea turns to snow.",
+   "prediction_prompt": "Hundreds of coral species across an entire reef release their eggs within the same few hours, once a year. How do you think creatures with no eyes or brains agree on a night?",
+   "misconception": "Coral reproduction happens gradually, whenever conditions suit each individual colony.",
+   "briefing": "Many coral species across whole reef systems release eggs and sperm in a single synchronised event, typically keyed to lunar cycle, water temperature and time after sunset. The synchrony overwhelms predators and maximises fertilisation. For a few hours the water fills with drifting bundles. Researchers now use the predictability to collect material for reef restoration work.",
+   "reference_material": {
+    "names": [
+     "Great Barrier Reef",
+     "AIMS",
+     "Peter Harrison"
+    ],
+    "timeline": [
+     "1981 — mass spawning first documented"
+    ],
+    "terms": [
+     "broadcast spawning",
+     "lunar cue",
+     "gamete bundle",
+     "predator satiation"
+    ],
+    "research_threads": [
+     "What cues combine to set the night?",
+     "How is this used in reef restoration?"
+    ]
+   },
+   "discussion_prompt": "How do organisms with no eyes or brains agree on a single night?",
+   "family": "order-without-designer",
+   "legacy_id": "OD002",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000094",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Sea Silk",
+   "hook": "A golden cloth was woven from the anchor threads of a giant clam. Almost nobody alive can still make it.",
+   "prediction_prompt": "For centuries a golden cloth was woven in the Mediterranean from a material almost nobody can source today. Where do you think the fibre came from?",
+   "misconception": "A golden fabric that rare must have been woven from a plant fibre or from silkworms.",
+   "briefing": "Byssus, the fibres a pen shell uses to attach itself to the seabed, was spun into an extremely fine golden-brown fabric in the Mediterranean for centuries. Collecting it required free diving, and processing was slow and secretive. The pen shell is now critically endangered and harvesting is prohibited. Knowledge of the full technique survives with only a very small number of practitioners.",
+   "reference_material": {
+    "names": [
+     "Pinna nobilis",
+     "Chiara Vigo",
+     "Sant'Antioco"
+    ],
+    "timeline": [
+     "Antiquity — earliest use",
+     "1992 — species protected"
+    ],
+    "terms": [
+     "byssus",
+     "free diving",
+     "critically endangered",
+     "cloth of gold"
+    ],
+    "research_threads": [
+     "How is the fibre harvested and treated?",
+     "What happens when a craft survives in one pair of hands?"
+    ]
+   },
+   "discussion_prompt": "What is lost when a craft survives in only one or two pairs of hands?",
+   "family": "what-survived",
+   "legacy_id": "OD003",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000095",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Sleeping With One Eye",
+   "hook": "Some animals shut down half the brain to sleep, keeping the other half awake and one eye open.",
+   "prediction_prompt": "Dolphins must surface to breathe, so they can never be fully unconscious. How do you think they sleep at all?",
+   "misconception": "Sleep is all-or-nothing — a brain is either asleep or awake.",
+   "briefing": "Unihemispheric slow-wave sleep allows one cerebral hemisphere to rest while the other stays alert, with the eye opposite the sleeping half closed. Dolphins rely on it because they must surface to breathe and cannot afford full unconsciousness. Many birds use it too; ducks at the edge of a sleeping group keep the outward-facing eye open, while those in the middle sleep with both hemispheres.",
+   "reference_material": {
+    "names": [
+     "Niels Rattenborg",
+     "John Lesku",
+     "frigatebird studies"
+    ],
+    "timeline": [
+     "1999 — mallard edge-of-group study",
+     "2016 — frigatebird flight sleep"
+    ],
+    "terms": [
+     "unihemispheric slow-wave sleep",
+     "cerebral hemisphere",
+     "vigilance"
+    ],
+    "research_threads": [
+     "How do dolphins alternate hemispheres?",
+     "What does this suggest about consciousness?"
+    ]
+   },
+   "discussion_prompt": "If half a brain can stay alert while the other rests, what does that say about consciousness?",
+   "family": "hidden-machinery",
+   "legacy_id": "OD004",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000096",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Dolphin's Name",
+   "hook": "Each dolphin invents a sound for itself as a calf — and others call it by that sound for life.",
+   "prediction_prompt": "Do you think any animal besides humans gives individuals names? Say your answer before reading on.",
+   "misconception": "Names are a human invention — other animals only make general calls.",
+   "briefing": "Bottlenose dolphins develop a signature whistle in their first year, a unique pattern that identifies them individually. Other dolphins copy it to address them directly, and will produce it when separated, apparently calling for a specific individual. Studies show dolphins respond to recordings of their own signature whistle but not to those of strangers. Some recognise the whistles of companions they have not encountered for over twenty years.",
+   "reference_material": {
+    "names": [
+     "Vincent Janik",
+     "Stephanie King",
+     "Laela Sayigh"
+    ],
+    "timeline": [
+     "2006 — signature whistle copying",
+     "2013 — name response study"
+    ],
+    "terms": [
+     "signature whistle",
+     "vocal learning",
+     "individual recognition"
+    ],
+    "research_threads": [
+     "How is a signature whistle acquired?",
+     "How long does recognition persist after separation?"
+    ]
+   },
+   "discussion_prompt": "What does it change to learn that another species gives each other names?",
+   "family": "hidden-machinery",
+   "legacy_id": "OD005",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000097",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Honeyguide Bird",
+   "hook": "A wild bird calls to a human, waits to be followed, and leads them straight to a hidden beehive.",
+   "prediction_prompt": "In parts of Africa a wild bird seeks out human honey-hunters and leads them to hives. What do you think the bird gets out of it?",
+   "misconception": "Wild animals avoid humans; any cooperation would have to be trained.",
+   "briefing": "In parts of Africa, the greater honeyguide actively seeks out human honey-hunters, calls to attract their attention, and flies ahead in stages toward a bee colony. The humans open the hive and take the honey; the bird eats the wax and larvae it cannot reach alone. Research has shown the birds respond specifically to traditional human calls used by hunters in that region, and that the partnership significantly raises success rates for both.",
+   "reference_material": {
+    "names": [
+     "Claire Spottiswoode",
+     "Yao people",
+     "Indicator indicator"
+    ],
+    "timeline": [
+     "2016 — Science paper on specific calls"
+    ],
+    "terms": [
+     "mutualism",
+     "brood parasitism",
+     "specific call",
+     "reciprocal signalling"
+    ],
+    "research_threads": [
+     "What does the bird gain that it cannot get alone?",
+     "What happens to the partnership as traditions fade?"
+    ]
+   },
+   "discussion_prompt": "What is lost when traditional practices like this disappear from a community?",
+   "family": "hidden-machinery",
+   "legacy_id": "OD006",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000098",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Immortal Sponge",
+   "hook": "Somewhere on the seafloor sits an animal that was already ancient when the pyramids were new.",
+   "prediction_prompt": "Some deep-sea animals may have been alive for over ten thousand years. What do you think allows something to live that long?",
+   "misconception": "Animals that live thousands of years would be large, complex and obvious.",
+   "briefing": "Certain deep-sea glass sponges grow extraordinarily slowly in cold, still water with almost no predators. Estimates based on growth rates suggest some individuals are many thousands of years old, making them among the longest-lived animals known. They have no brain, no heart, and no muscles; they simply filter water and continue. Their skeletons are built from silica — essentially glass — in intricate lattice structures.",
+   "reference_material": {
+    "names": [
+     "Monorhaphis chuni",
+     "Hexactinellida",
+     "Scolymastra joubini"
+    ],
+    "timeline": [
+     "2012 — age estimates published"
+    ],
+    "terms": [
+     "silica spicule",
+     "glass sponge",
+     "growth rate dating",
+     "lattice"
+    ],
+    "research_threads": [
+     "How are such ages estimated?",
+     "What have engineers learned from their skeletons?"
+    ]
+   },
+   "discussion_prompt": "Is a life without movement, thought, or change still a life worth calling long?",
+   "family": "hidden-machinery",
+   "legacy_id": "OD007",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000099",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Lyrebird",
+   "hook": "Deep in an Australian forest, a bird perfectly imitates a chainsaw, a car alarm, and a camera shutter.",
+   "prediction_prompt": "A lyrebird can reproduce a chainsaw, a car alarm and a camera shutter. Why do you think it does this?",
+   "misconception": "Birds imitate other birds — mechanical sounds are beyond them.",
+   "briefing": "The superb lyrebird has one of the most sophisticated vocal systems of any bird. Males mimic the calls of dozens of other species with such accuracy that the copied birds respond. In forests near human activity, they have been recorded reproducing mechanical sounds. Some imitations are passed down between generations, meaning a lyrebird may reproduce a sound its own ancestors heard decades ago from something no longer present.",
+   "reference_material": {
+    "names": [
+     "Menura novaehollandiae",
+     "Chook of Adelaide Zoo",
+     "David Attenborough"
+    ],
+    "timeline": [
+     "1969 — flute lyrebird recordings debated"
+    ],
+    "terms": [
+     "vocal mimicry",
+     "syrinx",
+     "repertoire",
+     "cultural transmission"
+    ],
+    "research_threads": [
+     "Why does mimicry help attract a mate?",
+     "Can a sound outlive the machine that made it?"
+    ]
+   },
+   "discussion_prompt": "If a sound outlives the machine that made it, what exactly is being remembered?",
+   "family": "hidden-machinery",
+   "legacy_id": "OD008",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000100",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Milky Sea",
+   "hook": "Sailors described the ocean glowing white to the horizon for nights on end. Nobody believed them for two hundred years.",
+   "prediction_prompt": "For two centuries sailors reported vast stretches of sea glowing steadily white. What do you think finally settled whether it was real?",
+   "misconception": "Sailors describing an ocean glowing white for nights on end were exaggerating.",
+   "briefing": "Mariners have long reported vast stretches of ocean emitting a steady, pale glow bright enough to read by, sometimes lasting for days. Unlike the flashing bioluminescence of disturbed plankton, this light is continuous and enormous. Satellite imagery has now confirmed events covering areas larger than some countries. The leading explanation involves colonies of bioluminescent bacteria glowing in unison, though the trigger is not fully understood.",
+   "reference_material": {
+    "names": [
+     "Steven Miller",
+     "Vibrio harveyi",
+     "SS Lima"
+    ],
+    "timeline": [
+     "1995 — satellite-confirmed event",
+     "2021 — multi-event study"
+    ],
+    "terms": [
+     "bioluminescence",
+     "low-light satellite sensor",
+     "bacterial quorum sensing"
+    ],
+    "research_threads": [
+     "How does steady glow differ from flashing plankton?",
+     "How many dismissed accounts await better instruments?"
+    ]
+   },
+   "discussion_prompt": "How many dismissed eyewitness accounts might be waiting for technology to catch up?",
+   "family": "hidden-machinery",
+   "legacy_id": "OD009",
+   "family_reviewed": false
+  }
+ ]
+}

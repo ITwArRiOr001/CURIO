@@ -1,0 +1,152 @@
+{
+ "shard": "000101-000200.json",
+ "idRange": [
+  "C000101",
+  "C000200"
+ ],
+ "count": 4,
+ "topics": [
+  {
+   "id": "C000101",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Naked Mole Rat",
+   "hook": "It barely feels pain, almost never develops cancer, and can survive conditions that would kill most mammals.",
+   "prediction_prompt": "One small burrowing rodent barely feels certain kinds of pain, rarely develops cancer, and survives with almost no oxygen. What do you think explains it?",
+   "misconception": "A small rodent would have a short life and ordinary biology.",
+   "briefing": "The naked mole rat is a nearly hairless burrowing rodent that lives in large underground colonies in East Africa. It shows remarkable resistance to certain cancers, appears insensitive to some kinds of pain, and can survive extended periods with very little oxygen by switching its metabolism to run on fructose. Unusually for a mammal, its colonies are organised around a single breeding queen, more like bees than like other rodents.",
+   "reference_material": {
+    "names": [
+     "Heterocephalus glaber",
+     "Thomas Park",
+     "Rochelle Buffenstein"
+    ],
+    "timeline": [
+     "2013 — cancer resistance mechanism",
+     "2017 — fructose metabolism paper"
+    ],
+    "terms": [
+     "eusociality",
+     "hyaluronan",
+     "fructose metabolism",
+     "negligible senescence"
+    ],
+    "research_threads": [
+     "How does it survive near-zero oxygen?",
+     "What makes a mammal colony resemble a beehive?"
+    ]
+   },
+   "discussion_prompt": "If one small animal solved problems we cannot, what does that say about how we search for answers?",
+   "family": "hidden-machinery",
+   "legacy_id": "OD010",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000102",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Overview Effect",
+   "hook": "Astronauts describe seeing Earth whole and never being able to think the same way again.",
+   "prediction_prompt": "Astronauts describe a permanent change in how they think after seeing Earth whole. What do you think changes, exactly?",
+   "misconception": "Seeing Earth from space would be striking, but the impression would fade like any view.",
+   "briefing": "Coined by writer Frank White, the overview effect describes a cognitive shift reported by many who have seen Earth from orbit: a sudden felt understanding of the planet as a single fragile system without visible borders. Reports frequently include a lasting change in priorities and heightened environmental concern. Researchers have studied whether elements can be induced with virtual reality.",
+   "reference_material": {
+    "names": [
+     "Frank White",
+     "Edgar Mitchell",
+     "Yuri Gagarin",
+     "Apollo 8 Earthrise"
+    ],
+    "timeline": [
+     "1968 — Earthrise photograph",
+     "1987 — term coined"
+    ],
+    "terms": [
+     "cognitive shift",
+     "self-transcendence",
+     "awe research"
+    ],
+    "research_threads": [
+     "What do astronauts consistently report changing?",
+     "Can virtual reality induce any of it?"
+    ]
+   },
+   "discussion_prompt": "Do you need to physically leave a place to understand it properly?",
+   "family": "hidden-machinery",
+   "legacy_id": "OD011",
+   "family_reviewed": false
+  },
+  {
+   "id": "C000103",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "The Walking Fish",
+   "hook": "It breathes air, climbs trees, and would drown if you kept it underwater too long.",
+   "prediction_prompt": "The mudskipper spends much of its life out of water and would struggle if kept submerged. How do you think it breathes?",
+   "misconception": "A fish out of water is a fish in trouble.",
+   "briefing": "Mudskippers spend much of their lives out of water on tidal mudflats, moving with muscular pectoral fins and climbing roots and low branches. They breathe partly through skin and mouth lining, which must stay moist, and carry water in their gill chambers like a held breath. They dig burrows in the mud and defend territory, and males signal to mates by leaping.",
+   "reference_material": {
+    "names": [
+     "Periophthalmus",
+     "mangrove mudflats"
+    ],
+    "timeline": [
+     "Extant — widely studied since the 1960s"
+    ],
+    "terms": [
+     "cutaneous respiration",
+     "pectoral fin",
+     "territoriality",
+     "intertidal"
+    ],
+    "research_threads": [
+     "How does it breathe out of water?",
+     "Where is the line between fish and land animal?"
+    ]
+   },
+   "discussion_prompt": "Where exactly is the line between a fish and a land animal?",
+   "family": "boundaries-that-dissolve",
+   "legacy_id": "OD012",
+   "family_reviewed": true
+  },
+  {
+   "id": "C000104",
+   "status": "live",
+   "version": 1,
+   "generation": 1,
+   "title": "Whale Fall",
+   "hook": "When a whale dies, it sinks — and its body feeds an entire ecosystem for the next fifty years.",
+   "prediction_prompt": "A large whale dies and sinks to the deep seafloor. How long do you think its body supports life down there?",
+   "misconception": "A dead whale on the seafloor is scavenged quickly and then gone.",
+   "briefing": "A large whale carcass reaching the deep seafloor delivers an enormous, sudden supply of food to an environment where food is normally scarce. Scavengers strip the flesh within months. Then worms and crustaceans work through the remains for years. Finally, bacteria break down the fats inside the bones, supporting chemical-feeding communities for decades. Some species are known only from whale falls and appear to live nowhere else.",
+   "reference_material": {
+    "names": [
+     "Craig Smith",
+     "Osedax",
+     "Santa Catalina Basin"
+    ],
+    "timeline": [
+     "1987 — first whale fall studied",
+     "2002 — Osedax described"
+    ],
+    "terms": [
+     "chemosynthesis",
+     "mobile scavenger stage",
+     "sulphophilic stage",
+     "bone-eating worm"
+    ],
+    "research_threads": [
+     "What are the successive stages of decomposition?",
+     "Which species are found nowhere else?"
+    ]
+   },
+   "discussion_prompt": "Does knowing that death sustains other life change how you think about endings?",
+   "family": "hidden-machinery",
+   "legacy_id": "OD013",
+   "family_reviewed": true
+  }
+ ]
+}
