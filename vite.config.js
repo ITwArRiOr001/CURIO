@@ -9,7 +9,7 @@ export default defineConfig({
   // `stringify: false` keeps named exports available and lets tree-shaking
   // work on the topics file as it grows toward thousands of entries.
   json: {
-    namedExports: true,
+    namedExports: false,
     stringify: false,
   },
 
