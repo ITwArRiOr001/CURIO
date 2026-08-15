@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: unprompted
+    name: curio
     runtime: static
     plan: free
     buildCommand: npm ci && npm run build
