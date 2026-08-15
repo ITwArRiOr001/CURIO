@@ -1,0 +1,185 @@
+{
+ "note": "never deleted; archive entries may reference these",
+ "retired": [
+  {
+   "legacy_id": "CV018",
+   "title": "The Punic Tophet",
+   "reason": "constitutional"
+  },
+  {
+   "legacy_id": "WD010",
+   "title": "Angel Falls",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "WD011",
+   "title": "Blood Falls",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "WD012",
+   "title": "Dust Across an Ocean",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "WD013",
+   "title": "Eight Million Strikes",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "WD015",
+   "title": "Older Than Pyramids",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "WD016",
+   "title": "The Blue Hole",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "WD017",
+   "title": "The Dead Sea",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "WD018",
+   "title": "The Full-Circle Rainbow",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "WD019",
+   "title": "The Glowing Shore",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "WD021",
+   "title": "The Growing Mountain",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "WD022",
+   "title": "The Ice Desert",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "WD023",
+   "title": "The Loudest Sound",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "SC017",
+   "title": "A Teaspoon of Star",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "SC018",
+   "title": "Cosmic Background",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "SC019",
+   "title": "Diamond Rain",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "SC020",
+   "title": "Half Our Oxygen",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "SC021",
+   "title": "Marine Snow",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "SC024",
+   "title": "The Sixth Sense of Sharks",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "SC025",
+   "title": "Three Hearts, Blue Blood",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "LG011",
+   "title": "Isolating Languages",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "LG012",
+   "title": "Logographic Density",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "LG013",
+   "title": "Onomatopoeia Abundance",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "LG015",
+   "title": "The Dual Number",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "LG017",
+   "title": "The Passive Preference",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "SE009",
+   "title": "The Circleville Letters",
+   "reason": "constitutional"
+  },
+  {
+   "legacy_id": "SE010",
+   "title": "The Dyatlov Pass",
+   "reason": "constitutional"
+  },
+  {
+   "legacy_id": "SE011",
+   "title": "The Lost Cosmonauts",
+   "reason": "constitutional"
+  },
+  {
+   "legacy_id": "OD014",
+   "title": "A Flamboyance",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "OD015",
+   "title": "Holding Hands Asleep",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "OD016",
+   "title": "Tasting With Feet",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "OD017",
+   "title": "The Giraffe's Tongue",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "OD018",
+   "title": "The Kangaroo's Limit",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "OD019",
+   "title": "The Pebble Proposal",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "OD020",
+   "title": "The Pregnant Father",
+   "reason": "fails gate 1 or 2"
+  },
+  {
+   "legacy_id": "OD021",
+   "title": "The Three-Year Sleep",
+   "reason": "fails gate 1 or 2"
+  }
+ ]
+}
