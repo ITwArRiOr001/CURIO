@@ -1,0 +1,432 @@
+{
+ "note": "survivors awaiting prediction_prompt + misconception; not live",
+ "count": 71,
+ "topics": [
+  {
+   "legacy_id": "EC012",
+   "title": "Buridan's Donkey",
+   "hook": "Why a perfectly balanced choice can freeze a decision completely.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "EC013",
+   "title": "Ship of Theseus",
+   "hook": "Replace every plank one by one — is it still the same ship?",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "EC014",
+   "title": "The Backfire Effect",
+   "hook": "Being proven wrong sometimes deepens the belief instead.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "EC015",
+   "title": "The Bootstrap Paradox",
+   "hook": "An idea or object that appears to have no origin whatsoever.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "EC016",
+   "title": "The Fermi Paradox",
+   "hook": "In so vast a universe, why have we found no one else at all?",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "EC017",
+   "title": "The Grandfather Paradox",
+   "hook": "Could you exist if you went back and prevented your own birth?",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "EC018",
+   "title": "The Heap Paradox",
+   "hook": "At which exact grain of sand does a heap stop being a heap?",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "EC019",
+   "title": "Zeno's Arrow",
+   "hook": "At every single instant, a flying arrow is technically standing still.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "HI015",
+   "title": "Kaspar Hauser",
+   "hook": "A boy appeared in a German town remembering almost nothing at all.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "HI016",
+   "title": "Prester John",
+   "hook": "A legendary king medieval Europe searched for and never found.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "HI017",
+   "title": "The Antikythera Mechanism",
+   "hook": "A 2,000-year-old shipwreck device that could predict eclipses.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "HI018",
+   "title": "The Berlin Wall",
+   "hook": "For nearly thirty years a single wall split one city in two.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "HI019",
+   "title": "The Emu War",
+   "hook": "In 1932 Australia's army was famously outmatched by thousands of birds.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "HI020",
+   "title": "The Georgia Guidestones",
+   "hook": "A granite monument inscribed with instructions for a distant future.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "HI021",
+   "title": "The Great Fire of London",
+   "hook": "In 1666 fire consumed the city yet claimed remarkably few lives.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "HI022",
+   "title": "The Library of Alexandria",
+   "hook": "One of history's greatest gatherings of knowledge, eventually lost.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "HI023",
+   "title": "The Mary Celeste",
+   "hook": "A ship found sailing, fully stocked, with not one soul aboard.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "HI024",
+   "title": "The Sealed Capsule",
+   "hook": "Some time capsules are not to be opened for hundreds of years.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "HI025",
+   "title": "The South Sea Bubble",
+   "hook": "One of the first stock crashes, built almost entirely on hype.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "HI026",
+   "title": "The Toynbee Tiles",
+   "hook": "Cryptic messages embedded in city streets — the maker still unknown.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "HI027",
+   "title": "The Unsinkable Ship",
+   "hook": "The Titanic's loss wrote the safety rules ships still follow today.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "HI028",
+   "title": "The Wow! Signal",
+   "hook": "A 72-second radio burst from deep space, never once repeated.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "CV011",
+   "title": "The Cucuteni Houses",
+   "hook": "An ancient European culture deliberately burned their entire settlements every few decades.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "CV012",
+   "title": "The Dogon Sirius Knowledge",
+   "hook": "A West African people held detailed knowledge of a star system invisible to the naked eye.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "CV013",
+   "title": "The Khmer Water Cities",
+   "hook": "Angkor's empire managed water on a scale that still impresses modern engineers.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "CV014",
+   "title": "The Lost City of Z",
+   "hook": "An explorer vanished searching for a legendary city in the Amazon.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "CV015",
+   "title": "The Minoan Bull Leap",
+   "hook": "Art from Crete shows athletes vaulting over charging bulls as ritual or sport.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "CV016",
+   "title": "The Nazca Lines",
+   "hook": "Giant geoglyphs in the desert are only fully visible from the air.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "CV017",
+   "title": "The Olmec Colossal Heads",
+   "hook": "Enormous stone faces were carved and moved by a civilization with no wheeled vehicles.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "CV019",
+   "title": "The Rapa Nui Moai",
+   "hook": "Giant stone heads on Easter Island once had bodies buried underground.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "CV020",
+   "title": "The Sumerian King List",
+   "hook": "An ancient list claims some early rulers reigned for tens of thousands of years.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "CV021",
+   "title": "The Terra Cotta Army",
+   "hook": "Thousands of life-sized clay soldiers were buried with a Chinese emperor.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "MN012",
+   "title": "Anton's Syndrome",
+   "hook": "A rare condition where a person cannot perceive their own blindness.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "MN013",
+   "title": "Pareidolia",
+   "hook": "Why we see faces in clouds, sockets, and slices of burnt toast.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "MN014",
+   "title": "Synesthesia",
+   "hook": "Some people taste sounds, or see letters in unchanging colors.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "MN015",
+   "title": "The Bystander Effect",
+   "hook": "Why help becomes less likely as more people stand watching.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "MN016",
+   "title": "The Halo Effect",
+   "hook": "Why we assume confident or attractive people are also kinder and smarter.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "MN017",
+   "title": "The Mandela Effect",
+   "hook": "Why crowds of people share the exact same false memory.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "MN018",
+   "title": "The Nocebo Effect",
+   "hook": "The placebo's mirror image — expecting harm can produce it.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "MN019",
+   "title": "The Paradox of Choice",
+   "hook": "Why more options can leave people less happy with what they picked.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "MN020",
+   "title": "The Phantom Limb",
+   "hook": "Sensation felt clearly in a limb that is no longer there.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "MN021",
+   "title": "The Ringelmann Effect",
+   "hook": "Why people pull less hard on a rope as the team grows larger.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "WD020",
+   "title": "The Green Sahara",
+   "hook": "Thousands of years ago the world's biggest desert was covered in lakes and grass.",
+   "class": "REWRITE"
+  },
+  {
+   "legacy_id": "WD024",
+   "title": "The Weight of a Cloud",
+   "hook": "Despite floating gently overhead, an average cloud is extraordinarily heavy.",
+   "class": "REWRITE"
+  },
+  {
+   "legacy_id": "SC022",
+   "title": "The Axolotl",
+   "hook": "It regrows limbs, spinal cord, and even portions of its own brain.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "SC023",
+   "title": "The Floating Planet",
+   "hook": "Saturn is less dense than water — in a big enough ocean, it would float.",
+   "class": "REWRITE"
+  },
+  {
+   "legacy_id": "SC026",
+   "title": "Time Dilation",
+   "hook": "Clocks genuinely tick slower on a fast spacecraft than on the ground.",
+   "class": "REWRITE"
+  },
+  {
+   "legacy_id": "IN008",
+   "title": "Dynamite's Stabilizer",
+   "hook": "Mixing nitroglycerin with an absorbent earth made an explosive safer to handle.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "IN009",
+   "title": "Penicillin's Mold",
+   "hook": "A contaminated petri dish led to one of the most important medicines in history.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "IN010",
+   "title": "Super Glue's Accident",
+   "hook": "A substance too sticky for its intended use became one of the strongest adhesives.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "IN011",
+   "title": "The Ballpoint's Ink",
+   "hook": "A thick ink that wouldn't leak made writing reliable in almost any condition.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "IN013",
+   "title": "The GPS Military Root",
+   "hook": "A navigation system built for weapons became the map in every modern phone.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "IN014",
+   "title": "The Match's Delay",
+   "hook": "An early friction match was so dangerous its inventor kept it secret for years.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "IN015",
+   "title": "The Safety Pin's Debt",
+   "hook": "A man invented it in a few hours to pay off a debt and sold the rights cheaply.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "IN016",
+   "title": "The Silicon Chip's Scale",
+   "hook": "Shrinking transistors onto a single wafer launched the digital age.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "IN017",
+   "title": "The Slinky's Fall",
+   "hook": "A naval engineer was trying to stabilize instruments when a spring fell and walked.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "IN018",
+   "title": "The Telescope's Spyglass",
+   "hook": "A Dutch spectacle-maker's toy became the tool that changed astronomy forever.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "IN019",
+   "title": "The World Wide Web",
+   "hook": "A tool meant to share physics papers quietly became the global information network.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "IN020",
+   "title": "The X-Ray Plate",
+   "hook": "A fluorescent screen left near a cathode tube revealed bones inside a living hand.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "IN021",
+   "title": "Viagra's Original Goal",
+   "hook": "The drug was first tested for heart conditions before its more famous side effect appeared.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "LG008",
+   "title": "Absolute Direction",
+   "hook": "A few languages have no words for left or right — only north, south, east, west.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "LG009",
+   "title": "Click Consonants",
+   "hook": "Some languages use tongue clicks as regular speech sounds, not just interjections.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "LG010",
+   "title": "Ideophones",
+   "hook": "Special words that vividly depict sound, motion, or feeling beyond ordinary description.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "LG016",
+   "title": "The Honorific Maze",
+   "hook": "Korean and Japanese change verb forms based on the relative status of the people speaking.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "LG018",
+   "title": "The Rosetta Stone",
+   "hook": "One carved slab with three scripts unlocked the meaning of Egyptian hieroglyphs.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "LG019",
+   "title": "The Untranslatable Hygge",
+   "hook": "Danish has a word for a particular kind of cozy contentment that resists exact translation.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "LG020",
+   "title": "The Whistled Language",
+   "hook": "Entire conversations can be carried across deep valleys using only whistled tones.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "LG021",
+   "title": "Untranslatable Saudade",
+   "hook": "Portuguese has a single word for a deep nostalgic longing that has no exact English match.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "SE008",
+   "title": "The Cipher of the Beale",
+   "hook": "Three coded texts allegedly describe a buried treasure; only one has been solved.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "SE012",
+   "title": "The Max Headroom Signal",
+   "hook": "In 1987 an unknown person hijacked two Chicago television signals for a brief bizarre broadcast.",
+   "class": "KEEP"
+  },
+  {
+   "legacy_id": "SE014",
+   "title": "The Silent Zone",
+   "hook": "One region of the ocean is so quiet that unusual sounds travel for thousands of miles.",
+   "class": "KEEP"
+  }
+ ]
+}
