@@ -3,11 +3,13 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Curio is a research-first learning platform that helps users discover topics, investigate them independently, and improve communication through reflection and speaking practice.",
+  "description": "A discovery and speaking-practice app. Draw a topic, research it, speak about it, get feedback.",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview --port 4173"
+    "build": "npm run validate && vite build",
+    "preview": "vite preview --port 4173",
+    "indexes": "node scripts/build-indexes.mjs",
+    "validate": "node scripts/validate-content.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.383.0",
@@ -15,10 +17,12 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "vite": "^5.4.1"
   },
   "engines": {
-    "node": "20.x"
+    "node": ">=18.0.0"
   }
 }
