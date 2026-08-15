@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://curio.app/schemas/topic.schema.json",
+  "title": "Curio Topic Shard",
+  "description": "Validates a topic shard file and every topic entry within it.",
+  "type": "object",
+  "required": ["shard", "idRange", "count", "topics"],
+  "additionalProperties": false,
+  "properties": {
+    "shard": {
+      "type": "string",
+      "pattern": "^[0-9]{6}-[0-9]{6}\\.json$",
+      "description": "File name. Zero-padded 1-based ID range."
+    },
+    "idRange": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": { "type": "string", "pattern": "^C[0-9]{6}$" },
+      "description": "Inclusive first and last ID this shard may contain."
+    },
+    "count": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "topics": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/topic" }
+    }
+  },
+
+  "definitions": {
+    "topic": {
+      "type": "object",
+      "required": [
+        "id", "status", "version", "generation",
+        "title", "hook", "prediction_prompt", "misconception",
+        "briefing", "reference_material", "discussion_prompt", "family"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^C[0-9]{6}$",
+          "description": "Permanent. Never reused, never renumbered. Archive entries reference this for decades."
+        },
+        "status": {
+          "enum": ["draft", "candidate", "live", "flagged", "retired"],
+          "description": "Only 'live' is served."
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Increments on any edit. Revisions do not break archive comparability."
+        },
+        "generation": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Increments ONLY when title, hook, prediction_prompt or misconception change. Attempts are not comparable across generations."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 60,
+          "description": "2-5 words. A museum label, never a sentence."
+        },
+        "hook": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 220,
+          "description": "One sentence. Emotion before information. Must withhold the payload."
+        },
+        "prediction_prompt": {
+          "type": "string",
+          "minLength": 30,
+          "maxLength": 320,
+          "description": "A guessable question whose obvious answer is the misconception."
+        },
+        "misconception": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 260,
+          "description": "The wrong answer that feels right. Admission gate: a topic without one does not belong in Curio."
+        },
+        "briefing": {
+          "type": "string",
+          "minLength": 100,
+          "maxLength": 1400,
+          "description": "Resolves the topic. Rendered ONLY after an explanation exists, or on explicit reveal."
+        },
+        "reference_material": { "$ref": "#/definitions/referenceMaterial" },
+        "discussion_prompt": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 240,
+          "description": "One open question with no single right answer."
+        },
+        "family": {
+          "type": "string",
+          "enum": [
+            "we-were-confidently-wrong",
+            "mind-deceiving-itself",
+            "everyday-word",
+            "accidents-that-worked",
+            "order-without-designer",
+            "measurement-changes-the-thing",
+            "small-cause-vast-effect",
+            "boundaries-that-dissolve",
+            "what-survived",
+            "systems-nobody-designed",
+            "hidden-machinery",
+            "things-we-still-dont-know"
+          ]
+        },
+        "family_reviewed": {
+          "type": "boolean",
+          "description": "False means the family was machine-derived and is provisional."
+        },
+        "legacy_id": {
+          "type": "string",
+          "description": "Pre-migration identifier. Provenance only; never used for lookup."
+        }
+      }
+    },
+
+    "referenceMaterial": {
+      "type": "object",
+      "description": "Research companion, not an answer key. Must not resolve the topic.",
+      "required": ["names", "timeline", "terms", "research_threads"],
+      "additionalProperties": false,
+      "properties": {
+        "names": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "items": { "type": "string", "minLength": 2, "maxLength": 80 },
+          "description": "People, places, organisations, specimens."
+        },
+        "timeline": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "items": { "type": "string", "minLength": 4, "maxLength": 120 },
+          "description": "Dates that anchor a search."
+        },
+        "terms": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": { "type": "string", "minLength": 2, "maxLength": 60 },
+          "description": "Vocabulary to look up."
+        },
+        "research_threads": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "type": "string",
+            "minLength": 15,
+            "maxLength": 200,
+            "pattern": "(\\?\\s*$)|(^(Find|Compare|Look|List|Trace)\\b)"
+          },
+          "description": "Questions or directives only. A statement would resolve the topic."
+        }
+      }
+    }
+  }
+}
