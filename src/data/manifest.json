@@ -1,0 +1,30 @@
+{
+ "schemaVersion": 2,
+ "shardSize": 100,
+ "idPrefix": "C",
+ "shards": [
+  {
+   "file": "topics/000001-000100.json",
+   "idRange": [
+    "C000001",
+    "C000100"
+   ],
+   "count": 100,
+   "sha256": "ac51f114b83beb92"
+  },
+  {
+   "file": "topics/000101-000200.json",
+   "idRange": [
+    "C000101",
+    "C000200"
+   ],
+   "count": 4,
+   "sha256": "e8f0ea74ba6305cd"
+  }
+ ],
+ "totals": {
+  "live": 104,
+  "queued": 71,
+  "retired": 36
+ }
+}
