@@ -246,7 +246,7 @@ export default function Curio() {
   useEffect(() => () => {
     clearInterval(timerRef.current);
     clearInterval(tickRef.current);
-    urlsRef.current.forEach((u) => URL.revokeObjectURL(u));
+    releaseSessionUrls();
   }, []);
 
   async function refreshArchive() {
@@ -258,6 +258,8 @@ export default function Curio() {
     setDueReturns(due);
   }
 
+  /* Temporary session URLs for the prediction/explanation takes.
+     Kept separate from entryUrls, which belong to persisted archive entries. */
   function trackUrl(blob) {
     if (!blob) return null;
     const url = URL.createObjectURL(blob);
@@ -265,7 +267,19 @@ export default function Curio() {
     return url;
   }
 
+  function releaseUrl(url) {
+    if (!url) return;
+    URL.revokeObjectURL(url);
+    urlsRef.current = urlsRef.current.filter((u) => u !== url);
+  }
+
+  function releaseSessionUrls() {
+    urlsRef.current.forEach((u) => URL.revokeObjectURL(u));
+    urlsRef.current = [];
+  }
+
   function resetSession() {
+    releaseSessionUrls();
     setPhase("idle");
     setPrediction({ blob: null, url: null, transcript: "" });
     setExplanation({ blob: null, url: null, transcript: "" });
@@ -351,6 +365,7 @@ export default function Curio() {
 
   async function stopPrediction() {
     const blob = await recorder.stop();
+    releaseUrl(prediction.url);   // a re-record replaces the previous take
     const url = trackUrl(blob);
     setPrediction({ blob, url, transcript: recorder.transcript });
     setActiveRecording(null);
@@ -383,6 +398,7 @@ export default function Curio() {
 
   async function stopExplanation() {
     const blob = await recorder.stop();
+    releaseUrl(explanation.url);  // a re-record replaces the previous take
     const url = trackUrl(blob);
     setExplanation({ blob, url, transcript: recorder.transcript });
     setElapsed(speakStartRef.current ? (Date.now() - speakStartRef.current) / 60000 : 0);
@@ -439,9 +455,9 @@ export default function Curio() {
 
   /* ---------- HOME NAVIGATION ---------- */
 
-  // A session is in progress once the user has entered the flow.
-  // A freshly drawn topic (phase "idle") has nothing to lose, so it exits directly.
-  const sessionInProgress = Boolean(topic) && phase !== "idle";
+  // A drawn topic is an active discovery session for navigation purposes,
+  // including the initial topic screen where phase is still "idle".
+  const sessionInProgress = Boolean(topic);
 
   function goHome() {
     if (showExitConfirm) return;
@@ -456,10 +472,7 @@ export default function Curio() {
     clearInterval(tickRef.current);
     recorder.abort();
 
-    urlsRef.current.forEach((u) => URL.revokeObjectURL(u));
-    urlsRef.current = [];
-
-    resetSession();
+    resetSession();   // releases session object URLs
     setTopic(null);
     setPrevTopicId(null);
     setSpinning(false);
