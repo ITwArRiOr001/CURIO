@@ -24,18 +24,63 @@ import { requestFeedback, aiAvailable } from "./services/ai";
    4. No scores, no streaks, no overdue state.
    ============================================================ */
 
+/* ============================================================
+   Asset configuration — the only place image/audio paths live.
+   Every path is a placeholder; the caller replaces them later.
+   Missing files degrade silently: the gradient environment renders
+   and the existing synthesised tones play.
+   ============================================================ */
+const CURIO_ASSETS = {
+  home: {
+    desktop: "/assets/curio/home-jungle-cave-desktop.webp",
+    mobile: "/assets/curio/home-jungle-cave-mobile.webp",
+  },
+  rolling: {
+    desktop: "/assets/curio/topic-roll-jungle-desktop.webp",
+    mobile: "/assets/curio/topic-roll-jungle-mobile.webp",
+  },
+  knowledgeBook: {
+    desktop: "/assets/curio/knowledge-book-desktop.webp",
+    mobile: "/assets/curio/knowledge-book-mobile.webp",
+  },
+  sounds: {
+    topicRoll: "/assets/curio/topic-roll.mp3",
+    topicLand: "/assets/curio/topic-land.mp3",
+  },
+};
+
+const BREAKPOINT_MOBILE = 768;
+
 const THEMES = {
   dark: {
-    bg: "radial-gradient(120% 90% at 50% 0%, #24323F 0%, #171F27 55%, #121820 100%)",
-    flat: "#171F27", surface: "#1B242E", surfaceAlt: "#212C37",
-    text: "#EDE7DA", muted: "#96A2AC", line: "rgba(237,231,218,0.14)",
-    accent: "#5AAE9F", amber: "#E3AC55", onAccent: "#10181E",
+    // forest floor at dusk — deep green over charcoal
+    bg: "radial-gradient(130% 100% at 50% 0%, #1D2B24 0%, #141C18 52%, #0D1310 100%)",
+    flat: "#141C18",
+    surface: "#1C2620",
+    surfaceAlt: "#222E27",
+    text: "#EFE8D8",        // warm parchment
+    muted: "#9AA79E",       // muted stone
+    line: "rgba(239,232,216,0.14)",
+    accent: "#5FA98C",      // forest verdigris
+    amber: "#D9A441",       // antique gold — discovery
+    onAccent: "#0D1310",
+    scrimTop: "rgba(13,19,16,0.30)",
+    scrimBottom: "rgba(13,19,16,0.94)",
   },
   light: {
-    bg: "radial-gradient(120% 90% at 50% 0%, #FBF8F0 0%, #F3EFE4 55%, #EDE8DA 100%)",
-    flat: "#F3EFE4", surface: "#FFFDF7", surfaceAlt: "#F6F2E7",
-    text: "#1D262E", muted: "#5E6A73", line: "rgba(29,38,46,0.14)",
-    accent: "#2C7D70", amber: "#8A6015", onAccent: "#FFFFFF",
+    // parchment and moss
+    bg: "radial-gradient(130% 100% at 50% 0%, #F7F3E7 0%, #EFEADB 55%, #E6E0CE 100%)",
+    flat: "#EFEADB",
+    surface: "#FFFDF6",
+    surfaceAlt: "#F5F0E1",
+    text: "#1B241F",        // charcoal
+    muted: "#55635B",
+    line: "rgba(27,36,31,0.15)",
+    accent: "#2C6B54",      // deep forest
+    amber: "#8A6218",       // warm bronze
+    onAccent: "#FFFDF6",
+    scrimTop: "rgba(239,234,219,0.35)",
+    scrimBottom: "rgba(239,234,219,0.92)",
   },
 };
 
@@ -44,10 +89,29 @@ const MODES = {
   deep: { label: "Deep dive", seconds: 900, sub: "Guess, research it yourself, then explain." },
 };
 
-const SLOT_H = 84;
 const REEL_LEN = 30;
 const FINAL_IDX = REEL_LEN - 2;
-const LAND_Y = (FINAL_IDX - 1) * SLOT_H;
+
+/* Reel geometry scales with the viewport. LAND_Y is always derived from the
+   slot height in use, so the chosen term stays centred at every size. */
+function slotHeightFor(width) {
+  if (width < 360) return 64;
+  if (width < BREAKPOINT_MOBILE) return 72;
+  if (width < 1280) return 84;
+  return 92;
+}
+
+function useViewport(frozen) {
+  const [vw, setVw] = useState(() =>
+    typeof window === "undefined" ? 1280 : window.innerWidth);
+  useEffect(() => {
+    if (frozen) return undefined;            // never resize mid-spin
+    const onResize = () => setVw(window.innerWidth);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [frozen]);
+  return { isMobile: vw < BREAKPOINT_MOBILE, slotH: slotHeightFor(vw) };
+}
 
 const fmt = (s) =>
   `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
@@ -71,6 +135,62 @@ function tone(freqs, vol = 0.06, dur = 0.09) {
       osc.stop(t0 + dur + 0.02);
     });
   } catch (e) { /* decorative */ }
+}
+
+/* Sound assets are placeholders. If a file is absent, blocked, or autoplay
+   is refused, this returns null and the caller falls back to tone(). */
+function playClip(src, { loop = false } = {}) {
+  try {
+    const el = new Audio(src);
+    el.loop = loop;
+    el.volume = 0.35;
+    const p = el.play();
+    if (p && typeof p.catch === "function") p.catch(() => {});
+    return el;
+  } catch (e) {
+    return null;
+  }
+}
+
+function stopClip(el) {
+  try { el?.pause(); if (el) el.currentTime = 0; } catch (e) { /* already gone */ }
+}
+
+/* ============================================================
+   BackgroundStage — the environment behind the experience.
+
+   <picture> gives true art direction: a different crop on mobile, so the
+   cave mouth and the illuminated book are never cropped away. onError
+   removes the image layer; the gradient beneath is a complete design on
+   its own, so a missing asset is invisible rather than broken.
+
+   "quiet" stages render no artwork — the user has stepped away to think.
+   ============================================================ */
+function BackgroundStage({ art, isMobile, quiet }) {
+  const [failed, setFailed] = useState(false);
+  useEffect(() => { setFailed(false); }, [art?.desktop]);
+
+  const showArt = Boolean(art) && !quiet && !failed;
+
+  return (
+    <div className="curio-stage" aria-hidden="true">
+      <div className="curio-stage__base" />
+      {showArt && (
+        <picture>
+          <source media={`(max-width: ${BREAKPOINT_MOBILE - 1}px)`} srcSet={art.mobile} />
+          <img
+            className="curio-stage__art"
+            src={art.desktop}
+            alt=""
+            loading="eager"
+            decoding="async"
+            onError={() => setFailed(true)}
+          />
+        </picture>
+      )}
+      {showArt && <div className="curio-stage__scrim" />}
+    </div>
+  );
 }
 
 /* ---------- recorder: one implementation, used twice ---------- */
@@ -180,7 +300,8 @@ export default function Curio() {
   const [reelY, setReelY] = useState(0);
   const [reelAnim, setReelAnim] = useState(false);
   const [landed, setLanded] = useState(false);
-  const pendingIdRef = useRef(null);
+  const pendingIdRef = useRef(0);        // draw sequence in flight
+  const pendingTopicIdRef = useRef(null);
 
   // --- commit / explain ---
   const [prediction, setPrediction] = useState({ blob: null, url: null, transcript: "" });
@@ -209,10 +330,16 @@ export default function Curio() {
   // --- navigation ---
   const [showExitConfirm, setShowExitConfirm] = useState(false);
 
+  const { isMobile, slotH } = useViewport(spinning);
+  const LAND_Y = (FINAL_IDX - 1) * slotH;
+
   const timerRef = useRef(null);
   const tickRef = useRef(null);
+  const rollAudioRef = useRef(null);
   const speakStartRef = useRef(null);
   const urlsRef = useRef([]);
+  const spinningRef = useRef(false);   // synchronous mirror of `spinning`
+  const drawSeqRef = useRef(0);        // invalidates an in-flight draw
 
   /* ---------- lifecycle ---------- */
 
@@ -246,6 +373,7 @@ export default function Curio() {
   useEffect(() => () => {
     clearInterval(timerRef.current);
     clearInterval(tickRef.current);
+    stopClip(rollAudioRef.current);
     releaseSessionUrls();
   }, []);
 
@@ -256,6 +384,27 @@ export default function Curio() {
     ]);
     setEntries(list);
     setDueReturns(due);
+  }
+
+  /* Reel sound. Asset first; synthesised ticks when the file is absent. */
+  function startRollAudio() {
+    clearInterval(tickRef.current);
+    stopClip(rollAudioRef.current);
+    rollAudioRef.current = playClip(CURIO_ASSETS.sounds.topicRoll, { loop: true });
+    if (!rollAudioRef.current) {
+      let n = 0;
+      tickRef.current = setInterval(() => {
+        tone([600], 0.03, 0.045);
+        n += 1;
+        if (n > 22) clearInterval(tickRef.current);
+      }, 100);
+    }
+  }
+
+  function stopRollAudio() {
+    clearInterval(tickRef.current);
+    stopClip(rollAudioRef.current);
+    rollAudioRef.current = null;
   }
 
   /* Temporary session URLs for the prediction/explanation takes.
@@ -300,8 +449,11 @@ export default function Curio() {
     resetSession();
     setTopic(null);
 
+    const seq = ++drawSeqRef.current;   // any earlier draw is now void
+    spinningRef.current = true;
+
     const finalId = targetId ?? pickRandomId(seenIds);
-    pendingIdRef.current = finalId;
+    pendingIdRef.current = seq;
 
     const reel = reelTitles(REEL_LEN);
     const catEntry = getCatalogue().find((x) => x.id === finalId);
@@ -311,14 +463,9 @@ export default function Curio() {
     setReelAnim(false);
     setReelY(0);
     setSpinning(true);
+    pendingTopicIdRef.current = finalId;
 
-    let n = 0;
-    clearInterval(tickRef.current);
-    tickRef.current = setInterval(() => {
-      tone([600], 0.03, 0.045);
-      n += 1;
-      if (n > 22) clearInterval(tickRef.current);
-    }, 100);
+    startRollAudio();
 
     requestAnimationFrame(() =>
       requestAnimationFrame(() => { setReelAnim(true); setReelY(-LAND_Y); })
@@ -326,21 +473,24 @@ export default function Curio() {
   }
 
   async function onReelEnd() {
-    if (!spinning) return;
-    clearInterval(tickRef.current);
+    if (!spinningRef.current) return;        // abandoned mid-spin
+    const seq = pendingIdRef.current;
+    stopRollAudio();
+    spinningRef.current = false;
     setSpinning(false);
     setReelAnim(false);
     setReelY(0);
 
-    const id = pendingIdRef.current;
+    const id = pendingTopicIdRef.current;
     try {
       const full = await loadTopic(id);
       const attempts = await attemptCountFor(id);
+      if (drawSeqRef.current !== seq) return; // abandoned while loading
       setTopic(full);
       setAttemptNumber(attempts + 1);
       setSeenIds((s) => [...s, id]);
       setLanded(true);
-      tone([392, 588], 0.085, 0.5);
+      if (!playClip(CURIO_ASSETS.sounds.topicLand)) tone([392, 588], 0.085, 0.5);
     } catch (e) {
       setTopic(null);
     }
@@ -455,9 +605,9 @@ export default function Curio() {
 
   /* ---------- HOME NAVIGATION ---------- */
 
-  // A drawn topic is an active discovery session for navigation purposes,
-  // including the initial topic screen where phase is still "idle".
-  const sessionInProgress = Boolean(topic);
+  // The session begins the moment a discovery is initiated. The reel counts:
+  // this is true while spinning, before a topic exists, and at phase "idle".
+  const sessionInProgress = spinning || Boolean(topic);
 
   function goHome() {
     if (showExitConfirm) return;
@@ -470,6 +620,9 @@ export default function Curio() {
   function hardReturnHome() {
     clearInterval(timerRef.current);
     clearInterval(tickRef.current);
+    drawSeqRef.current += 1;        // any pending landing is now void
+    spinningRef.current = false;
+    stopRollAudio();
     recorder.abort();
 
     resetSession();   // releases session object URLs
@@ -512,38 +665,47 @@ export default function Curio() {
 
   const rm = topic?.reference_material;
 
+  /* Thinking stages are deliberately quiet — no artwork behind the work. */
+  const QUIET_PHASES = ["commit", "research", "ready", "speak", "reveal"];
+  const quietStage = Boolean(topic) && QUIET_PHASES.includes(phase);
+  const stageArt = spinning
+    ? CURIO_ASSETS.rolling
+    : entries.length > 0
+      ? CURIO_ASSETS.knowledgeBook   // knowledge uncovered and preserved
+      : CURIO_ASSETS.home;           // knowledge still hidden
+
   return (
-    <div style={{
-      minHeight: "100vh", background: t.bg, color: t.text,
-      fontFamily: "'Atkinson Hyperlegible', system-ui, sans-serif",
-      transition: "background .4s ease",
-    }}>
+    <div
+      className="curio-root"
+      style={{
+        "--c-bg": t.bg,
+        "--c-flat": t.flat,
+        "--c-text": t.text,
+        "--c-muted": t.muted,
+        "--c-line": t.line,
+        "--c-accent": t.accent,
+        "--c-amber": t.amber,
+        "--c-scrim-top": t.scrimTop,
+        "--c-scrim-bottom": t.scrimBottom,
+        "--c-scrim-stop": isMobile ? "48%" : "62%",
+        "--c-art-opacity": isMobile ? 0.55 : 0.72,
+        "--c-art-position": isMobile ? "50% 72%" : "50% 50%",
+        "--c-slot": `${slotH}px`,
+      }}
+    >
+      <BackgroundStage art={stageArt} isMobile={isMobile} quiet={quietStage} />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap');
-        * { box-sizing: border-box; }
-        .disp { font-family: 'Fraunces', Georgia, serif; }
-        .tap:hover { opacity: .88; }
-        .tap:active { transform: scale(.985); }
-        .tap:focus-visible { outline: 3px solid ${t.amber}; outline-offset: 3px; }
-        @keyframes settle { 0% { letter-spacing:.05em; opacity:0; transform:translateY(8px);} 100% { letter-spacing:-.012em; opacity:1; transform:translateY(0);} }
-        .settle { animation: settle .75s cubic-bezier(.2,.8,.3,1) both; }
-        @keyframes rise { from { opacity:0; transform:translateY(10px);} to { opacity:1; transform:translateY(0);} }
-        .r1 { animation: rise .5s ease .10s both; }
-        .r2 { animation: rise .5s ease .22s both; }
-        .r3 { animation: rise .5s ease .34s both; }
-        @keyframes breathe { 0%,100%{opacity:1} 50%{opacity:.42} }
-        .breathe { animation: breathe 1.7s ease-in-out infinite; }
-        @media (prefers-reduced-motion: reduce){ .settle,.r1,.r2,.r3,.breathe{animation:none!important} }
       `}</style>
 
-      <div style={{ maxWidth: 520, margin: "0 auto", padding: "18px 20px 70px" }}>
+      <div className="curio-shell">
 
         {/* masthead */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 30 }}>
-          <button className="tap disp" onClick={goHome}
+          <button className="tap disp curio-wordmark" onClick={goHome}
             aria-label={sessionInProgress ? "Leave this session and return home" : "Curio home"}
             style={{ ...base, minHeight: 40, background: "none", border: "none", padding: 0,
-              color: t.text, fontSize: 24, fontWeight: 600, letterSpacing: "-.015em",
+              color: t.text, fontWeight: 600, letterSpacing: "-.015em",
               fontFamily: "'Fraunces', Georgia, serif" }}>
             Curio
           </button>
@@ -599,15 +761,14 @@ export default function Curio() {
         {spinning && (
           <div>
             <div style={{ ...eyebrow, textAlign: "center", color: t.amber, marginBottom: 20 }}>DRAWING</div>
-            <div style={{ position: "relative", height: SLOT_H * 3, overflow: "hidden" }}>
-              <div style={{ position: "absolute", top: SLOT_H, left: 0, right: 0, height: SLOT_H, borderTop: `1px solid ${t.accent}66`, borderBottom: `1px solid ${t.accent}66`, zIndex: 3, pointerEvents: "none" }} />
-              <div style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none",
-                background: `linear-gradient(180deg, ${t.flat} 0%, ${t.flat}00 30%, ${t.flat}00 70%, ${t.flat} 100%)` }} />
+            <div className="curio-reel">
+              <div className="curio-reel__window" />
+              <div className="curio-reel__fade" />
               <div onTransitionEnd={onReelEnd}
                 style={{ transform: `translateY(${reelY}px)`, transition: reelAnim ? "transform 3.1s cubic-bezier(.06,.7,.14,1)" : "none" }}>
                 {reelItems.map((x, i) => (
-                  <div key={`${x.id}-${i}`} style={{ height: SLOT_H, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 14px" }}>
-                    <span className="disp" style={{ fontSize: 24, fontWeight: 500, textAlign: "center", lineHeight: 1.1 }}>{x.title}</span>
+                  <div key={`${x.id}-${i}`} className="curio-reel__slot">
+                    <span className="disp curio-reel__title">{x.title}</span>
                   </div>
                 ))}
               </div>
@@ -622,12 +783,12 @@ export default function Curio() {
               {attemptNumber > 1 ? `RETURN · ATTEMPT ${attemptNumber}` : "TODAY'S DISCOVERY"}
             </div>
 
-            <h1 className={`disp ${landed ? "settle" : ""}`}
-              style={{ textAlign: "center", fontSize: 41, fontWeight: 500, lineHeight: 1.07, margin: "0 0 18px" }}>
+            <h1 className={`disp curio-title ${landed ? "settle" : ""}`}
+              style={{ textAlign: "center", margin: "0 0 18px" }}>
               {topic.title}
             </h1>
 
-            <p className="r2" style={{ textAlign: "center", fontSize: 17, color: t.muted, lineHeight: 1.62, maxWidth: 400, margin: "0 auto 34px" }}>
+            <p className="r2 curio-hook">
               {topic.hook}
             </p>
 
@@ -909,12 +1070,10 @@ export default function Curio() {
       {/* ---------- LEAVE SESSION CONFIRMATION ---------- */}
       {showExitConfirm && (
         <div role="dialog" aria-modal="true" aria-labelledby="exit-title"
-          style={{ position: "fixed", inset: 0, background: "rgba(8,12,16,.7)", zIndex: 70,
-            display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}
+          className="curio-modal"
           onClick={() => setShowExitConfirm(false)}>
           <div onClick={(e) => e.stopPropagation()}
-            style={{ background: t.flat, border: `1px solid ${t.line}`, borderRadius: 16,
-              padding: 24, width: "min(400px, 100%)" }}>
+            className="curio-modal__panel">
             <h2 id="exit-title" className="disp"
               style={{ fontSize: 21, fontWeight: 600, margin: "0 0 10px" }}>
               Leave this session?
@@ -923,7 +1082,7 @@ export default function Curio() {
               You are part-way through {topic ? topic.title : "a discovery"}. Nothing from this
               attempt will be saved to your archive.
             </p>
-            <div style={{ display: "flex", gap: 10 }}>
+            <div className="curio-modal__actions">
               <button className="tap" onClick={hardReturnHome}
                 style={{ ...primary, flex: 1, padding: 14, fontSize: 15 }}>
                 Yes, leave
@@ -942,7 +1101,7 @@ export default function Curio() {
         <div style={{ position: "fixed", inset: 0, background: "rgba(8,12,16,.6)", display: "flex", justifyContent: "flex-end", zIndex: 60 }}
           onClick={() => { setShowArchive(false); setConfirmDeleteId(null); }}>
           <div onClick={(e) => e.stopPropagation()}
-            style={{ width: "min(380px,90vw)", height: "100%", background: t.flat, padding: 22, overflowY: "auto" }}>
+            className="curio-drawer">
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
               <div className="disp" style={{ fontSize: 21, fontWeight: 600 }}>Your archive</div>
               <button className="tap" onClick={() => { setShowArchive(false); setConfirmDeleteId(null); }} aria-label="Close"
