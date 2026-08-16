@@ -228,10 +228,14 @@ select {
 }
 
 /* ==========================================================
-   CURIO — Environment & Responsive Layer
-   Added for the visual redesign. Consumes CSS custom properties
-   set on .curio-root by Curio.jsx, so the theme stays in JS
-   while every media query lives here.
+   CURIO — Environment, Composition & Responsive Layer
+
+   Consumes CSS custom properties set on .curio-root by Curio.jsx,
+   so the palette stays in JS while every media query lives here.
+
+   Composition principle: the environment owns the viewport; the
+   content occupies a deliberate zone within it, vertically centred
+   on large screens rather than stacked at the top of a narrow column.
    ========================================================== */
 
 /* ---------- Root ---------- */
@@ -245,9 +249,7 @@ select {
     Roboto, sans-serif;
 }
 
-.curio-root .disp {
-  font-family: "Fraunces", Georgia, serif;
-}
+.curio-root .disp { font-family: "Fraunces", Georgia, serif; }
 
 .curio-root .tap:hover { opacity: 0.88; }
 .curio-root .tap:active { transform: scale(0.985); }
@@ -256,7 +258,6 @@ select {
   outline-offset: 3px;
 }
 
-/* Native audio controls must never force horizontal overflow */
 .curio-root audio { max-width: 100%; }
 
 /* ---------- Environment stage ---------- */
@@ -276,7 +277,7 @@ select {
   transition: background var(--curio-speed-normal) ease;
 }
 
-/* Art direction: <picture> swaps the source; these rules control framing.
+/* <picture> swaps the source; these rules control framing.
    object-position keeps grass, cave mouth and book in frame on mobile. */
 .curio-stage__art {
   position: absolute;
@@ -301,25 +302,42 @@ select {
   );
 }
 
-/* ---------- Shell ---------- */
+/* ---------- Shell & composition ---------- */
 
 .curio-shell {
   position: relative;
   z-index: 1;
-  max-width: 560px;
-  margin: 0 auto;
   min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 620px;
   padding:
     calc(16px + env(safe-area-inset-top))
     clamp(16px, 5vw, 28px)
-    calc(72px + env(safe-area-inset-bottom));
+    calc(56px + env(safe-area-inset-bottom));
+}
+
+.curio-masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: clamp(22px, 5vh, 40px);
+  flex-shrink: 0;
+}
+
+/* The content zone. On mobile it flows from the top; on larger screens it
+   centres itself in the scene so the layout reads as composed, not stranded. */
+.curio-canvas {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 /* ---------- Typography ---------- */
 
-.curio-wordmark {
-  font-size: clamp(21px, 5.5vw, 26px);
-}
+.curio-wordmark { font-size: clamp(21px, 5.5vw, 27px); }
 
 .curio-title {
   font-size: clamp(30px, 8.5vw, 46px);
@@ -338,6 +356,61 @@ select {
   margin: 0 auto clamp(24px, 6vw, 36px);
 }
 
+.curio-eyebrow {
+  text-align: center;
+  font-size: 11.5px;
+  letter-spacing: 0.22em;
+  font-weight: 700;
+  margin-bottom: clamp(14px, 3vh, 20px);
+}
+
+.curio-invitation {
+  text-align: center;
+  font-size: clamp(14px, 3.8vw, 15.5px);
+  color: var(--c-muted);
+  line-height: 1.6;
+  margin: 0 0 clamp(22px, 5vh, 34px);
+}
+
+.curio-saved-note {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 20px;
+}
+
+/* ---------- Controls ---------- */
+
+.curio-modes {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: 12px;
+  border: 1px solid var(--c-line);
+  border-radius: 999px;
+  background: var(--c-surface-alt);
+}
+
+/* Primary action: restrained, no heavy shadow or gradient */
+.curio-cta {
+  width: 100%;
+  padding: clamp(20px, 4vh, 30px) 20px;
+  font-size: clamp(16px, 4.4vw, 18.5px);
+  letter-spacing: 0.005em;
+  margin-bottom: 10px;
+}
+
+.curio-revisit {
+  width: 100%;
+  padding: 15px;
+  font-size: 14.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0.9;
+}
+
 /* ---------- Topic reel ---------- */
 
 .curio-reel {
@@ -346,6 +419,7 @@ select {
   overflow: hidden;
 }
 
+/* A quiet pair of rules rather than a boxed slot-machine frame */
 .curio-reel__window {
   position: absolute;
   top: var(--c-slot);
@@ -354,7 +428,7 @@ select {
   height: var(--c-slot);
   border-top: 1px solid var(--c-accent);
   border-bottom: 1px solid var(--c-accent);
-  opacity: 0.4;
+  opacity: 0.34;
   z-index: 3;
   pointer-events: none;
 }
@@ -367,8 +441,8 @@ select {
   background: linear-gradient(
     180deg,
     var(--c-flat) 0%,
-    transparent 30%,
-    transparent 70%,
+    transparent 34%,
+    transparent 66%,
     var(--c-flat) 100%
   );
 }
@@ -378,11 +452,11 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 clamp(10px, 4vw, 18px);
+  padding: 0 clamp(10px, 4vw, 20px);
 }
 
 .curio-reel__title {
-  font-size: clamp(18px, 5.2vw, 26px);
+  font-size: clamp(18px, 5.2vw, 27px);
   font-weight: 500;
   text-align: center;
   line-height: 1.15;
@@ -406,16 +480,13 @@ select {
   background: var(--c-flat);
   border: 1px solid var(--c-line);
   border-radius: var(--curio-radius-lg);
-  padding: clamp(18px, 5vw, 26px);
-  width: min(420px, 100%);
+  padding: clamp(20px, 5vw, 28px);
+  width: min(430px, 100%);
   max-height: 88svh;
   overflow-y: auto;
-  box-shadow: var(--curio-shadow-md);
 }
 
-.curio-modal__panel h2 {
-  font-size: clamp(19px, 5.2vw, 22px);
-}
+.curio-modal__panel h2 { font-size: clamp(19px, 5.2vw, 23px); }
 
 .curio-modal__actions {
   display: flex;
@@ -424,21 +495,33 @@ select {
 }
 
 .curio-modal__actions > button {
-  flex: 1 1 140px;
+  flex: 1 1 150px;
+  min-height: 48px;
 }
 
-/* ---------- Archive drawer ---------- */
+/* ---------- Archive: a collection, not a settings drawer ---------- */
 
 .curio-drawer {
-  width: min(420px, 100vw);
+  width: min(440px, 100vw);
   height: 100%;
   background: var(--c-flat);
   border-left: 1px solid var(--c-line);
   overflow-y: auto;
   padding:
     calc(20px + env(safe-area-inset-top))
-    clamp(16px, 5vw, 24px)
+    clamp(16px, 5vw, 26px)
     calc(28px + env(safe-area-inset-bottom));
+}
+
+.curio-drawer__title { font-size: clamp(19px, 5vw, 22px); font-weight: 600; }
+
+.curio-entry {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-left: 2px solid var(--c-amber);
+  border-radius: var(--curio-radius-sm);
+  padding: 16px;
+  margin-bottom: 12px;
 }
 
 /* ---------- Motion ---------- */
@@ -462,29 +545,73 @@ select {
 .curio-root .r3      { animation: curio-rise .5s ease .34s both; }
 .curio-root .breathe { animation: curio-breathe 1.7s ease-in-out infinite; }
 
-/* ---------- Viewport adaptations ---------- */
+/* ==========================================================
+   Viewport adaptations
+   ========================================================== */
 
-/* Touch devices: keep every control comfortably tappable */
+/* Touch devices: comfortable targets everywhere */
 @media (hover: none) and (pointer: coarse) {
   .curio-root .tap { min-height: 48px; }
 }
 
-/* Short viewports, e.g. landscape phones: tighten vertical rhythm */
+/* Small mobile — artwork recedes further so text stays dominant */
+@media (max-width: 360px) {
+  .curio-stage__art { opacity: calc(var(--c-art-opacity) * 0.85); }
+  .curio-canvas { max-width: 100%; }
+}
+
+/* Tablet upward: begin composing rather than stacking */
+@media (min-width: 768px) {
+  .curio-shell { max-width: 680px; }
+  .curio-canvas {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 500px;
+    padding-bottom: 6vh;   /* optical centring sits slightly above true centre */
+  }
+}
+
+/* Laptop: the scene gains presence around a deliberate content zone */
+@media (min-width: 1280px) {
+  .curio-shell {
+    max-width: 760px;
+    padding-top: calc(28px + env(safe-area-inset-top));
+  }
+  .curio-canvas { max-width: 540px; }
+  .curio-stage__art { opacity: calc(var(--c-art-opacity) * 1.05); }
+}
+
+/* Large desktop: cinematic. More air, larger display type, quieter chrome. */
+@media (min-width: 1440px) {
+  .curio-shell {
+    max-width: 860px;
+    padding-top: calc(36px + env(safe-area-inset-top));
+  }
+  .curio-canvas { max-width: 560px; }
+  .curio-title { font-size: clamp(46px, 3.6vw, 58px); }
+  .curio-hook { font-size: 19px; max-width: 460px; }
+  .curio-reel__title { font-size: 30px; }
+  .curio-cta { padding: 32px 24px; font-size: 19px; }
+  .curio-masthead { margin-bottom: 48px; }
+}
+
+/* Ultra-wide: cap growth so the column never sprawls */
+@media (min-width: 1920px) {
+  .curio-shell { max-width: 920px; }
+  .curio-canvas { max-width: 580px; }
+}
+
+/* Short viewports (landscape phones): tighten vertical rhythm */
 @media (max-height: 620px) {
-  .curio-shell { padding-bottom: calc(48px + env(safe-area-inset-bottom)); }
+  .curio-shell { padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
+  .curio-masthead { margin-bottom: 18px; }
+  .curio-canvas { justify-content: flex-start; padding-bottom: 0; }
+  .curio-cta { padding: 18px 20px; }
   .curio-root .r1,
   .curio-root .r2,
   .curio-root .r3 { animation-duration: .3s; }
-}
-
-/* Small mobile: the artwork recedes further so text stays dominant */
-@media (max-width: 360px) {
-  .curio-stage__art { opacity: calc(var(--c-art-opacity) * 0.85); }
-}
-
-/* Wide desktop: give the environment more presence around a fixed column */
-@media (min-width: 1440px) {
-  .curio-shell { max-width: 600px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
