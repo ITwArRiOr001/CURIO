@@ -527,6 +527,7 @@ export default function Curio() {
   }
 
   function skipPrediction() {
+    releaseUrl(prediction.url);   // defensive: no path currently reaches
     setPrediction({ blob: null, url: null, transcript: "" });
     if (mode === "cuff") { setPhase("ready"); return; }
     setTimeLeft(MODES.deep.seconds);
@@ -680,6 +681,8 @@ export default function Curio() {
       style={{
         "--c-bg": t.bg,
         "--c-flat": t.flat,
+        "--c-surface": t.surface,
+        "--c-surface-alt": t.surfaceAlt,
         "--c-text": t.text,
         "--c-muted": t.muted,
         "--c-line": t.line,
@@ -701,7 +704,7 @@ export default function Curio() {
       <div className="curio-shell">
 
         {/* masthead */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 30 }}>
+        <header className="curio-masthead">
           <button className="tap disp curio-wordmark" onClick={goHome}
             aria-label={sessionInProgress ? "Leave this session and return home" : "Curio home"}
             style={{ ...base, minHeight: 40, background: "none", border: "none", padding: 0,
@@ -720,12 +723,14 @@ export default function Curio() {
               <Archive size={15} /> {entries.length}
             </button>
           </div>
-        </div>
+        </header>
+
+        <main className="curio-canvas">
 
         {/* ---------- IDLE / ENCOUNTER ---------- */}
         {!topic && !spinning && (
           <div className="r1">
-            <div style={{ display: "flex", background: t.surfaceAlt, border: `1px solid ${t.line}`, borderRadius: 999, padding: 4, gap: 4, marginBottom: 12 }}>
+            <div className="curio-modes">
               {Object.entries(MODES).map(([k, m]) => (
                 <button key={k} className="tap" onClick={() => setMode(k)}
                   style={{ ...base, flex: 1, minHeight: 44, borderRadius: 999, border: "none",
@@ -735,22 +740,19 @@ export default function Curio() {
                 </button>
               ))}
             </div>
-            <div style={{ fontSize: 14, color: t.muted, textAlign: "center", marginBottom: 26 }}>{MODES[mode].sub}</div>
+            <p className="curio-invitation">{MODES[mode].sub}</p>
 
             {phase === "saved" && (
-              <div style={{ textAlign: "center", marginBottom: 20, fontSize: 15, color: t.accent, fontWeight: 700 }}>
-                Saved to your archive.
-              </div>
+              <p className="curio-saved-note" style={{ color: t.accent }}>Saved to your archive.</p>
             )}
 
-            <button className="tap" onClick={() => draw()}
-              style={{ ...primary, width: "100%", padding: "26px 20px", fontSize: 17, marginBottom: 10 }}>
+            <button className="tap curio-cta" onClick={() => draw()} style={primary}>
               Draw today&apos;s discovery
             </button>
 
             {dueReturns.length > 0 && (
-              <button className="tap" onClick={() => draw(dueReturns[0].topic_id)}
-                style={{ ...ghost, width: "100%", padding: 15, fontSize: 14.5, display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+              <button className="tap curio-revisit" onClick={() => draw(dueReturns[0].topic_id)}
+                style={ghost}>
                 <RotateCcw size={15} /> Revisit {dueReturns[0].title}
               </button>
             )}
@@ -760,7 +762,7 @@ export default function Curio() {
         {/* ---------- REEL ---------- */}
         {spinning && (
           <div>
-            <div style={{ ...eyebrow, textAlign: "center", color: t.amber, marginBottom: 20 }}>DRAWING</div>
+            <div className="curio-eyebrow" style={{ color: t.amber }}>DRAWING</div>
             <div className="curio-reel">
               <div className="curio-reel__window" />
               <div className="curio-reel__fade" />
@@ -779,7 +781,7 @@ export default function Curio() {
         {/* ---------- TOPIC ---------- */}
         {topic && !spinning && (
           <div>
-            <div className="r1" style={{ ...eyebrow, textAlign: "center", color: t.amber, marginBottom: 18 }}>
+            <div className="r1 curio-eyebrow" style={{ color: t.amber }}>
               {attemptNumber > 1 ? `RETURN · ATTEMPT ${attemptNumber}` : "TODAY'S DISCOVERY"}
             </div>
 
@@ -1065,6 +1067,8 @@ export default function Curio() {
             )}
           </div>
         )}
+
+        </main>
       </div>
 
       {/* ---------- LEAVE SESSION CONFIRMATION ---------- */}
@@ -1103,7 +1107,7 @@ export default function Curio() {
           <div onClick={(e) => e.stopPropagation()}
             className="curio-drawer">
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
-              <div className="disp" style={{ fontSize: 21, fontWeight: 600 }}>Your archive</div>
+              <div className="disp curio-drawer__title">Your archive</div>
               <button className="tap" onClick={() => { setShowArchive(false); setConfirmDeleteId(null); }} aria-label="Close"
                 style={{ ...ghost, minHeight: 40, borderRadius: 999, width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <X size={16} />
@@ -1124,7 +1128,7 @@ export default function Curio() {
             )}
 
             {entries.map((e) => (
-              <div key={e.id} style={{ background: t.surface, border: `1px solid ${t.line}`, borderRadius: 12, padding: 16, marginBottom: 12 }}>
+              <div key={e.id} className="curio-entry">
                 <div className="disp" style={{ fontSize: 18, fontWeight: 600 }}>{e.topic_title}</div>
                 <div style={{ fontSize: 12.5, color: t.muted, marginTop: 4 }}>
                   {new Date(e.created_at).toLocaleString()} · {MODES[e.mode]?.label ?? e.mode}
