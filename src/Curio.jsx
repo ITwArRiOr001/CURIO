@@ -95,10 +95,15 @@ const FINAL_IDX = REEL_LEN - 2;
 /* Reel geometry scales with the viewport. LAND_Y is always derived from the
    slot height in use, so the chosen term stays centred at every size. */
 function slotHeightFor(width) {
+  // Mobile values are deliberately unchanged.
   if (width < 360) return 64;
   if (width < BREAKPOINT_MOBILE) return 72;
-  if (width < 1280) return 84;
-  return 92;
+  // Desktop: the reel becomes a major discovery event, not a small widget.
+  if (width < 1024) return 92;
+  if (width < 1280) return 122;
+  if (width < 1440) return 140;
+  if (width < 1920) return 156;
+  return 172;
 }
 
 function useViewport(frozen) {
@@ -712,14 +717,14 @@ export default function Curio() {
               fontFamily: "'Fraunces', Georgia, serif" }}>
             Curio
           </button>
-          <div style={{ display: "flex", gap: 8 }}>
-            <button className="tap" aria-label="Switch theme"
+          <div className="curio-navgroup">
+            <button className="tap curio-iconbtn" aria-label="Switch theme"
               onClick={() => setThemeName(themeName === "dark" ? "light" : "dark")}
-              style={{ ...ghost, minHeight: 40, borderRadius: 999, width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              style={ghost}>
               {themeName === "dark" ? <Sun size={15} /> : <Moon size={15} />}
             </button>
-            <button className="tap" aria-label="Your archive" onClick={() => setShowArchive(true)}
-              style={{ ...ghost, minHeight: 40, borderRadius: 999, padding: "0 15px", display: "flex", alignItems: "center", gap: 7, fontSize: 14 }}>
+            <button className="tap curio-navbtn" aria-label="Your archive" onClick={() => setShowArchive(true)}
+              style={ghost}>
               <Archive size={15} /> {entries.length}
             </button>
           </div>
