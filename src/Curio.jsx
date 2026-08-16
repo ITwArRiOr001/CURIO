@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import {
-  Mic, Square, Archive, X, Download, RotateCcw, ChevronLeft, Sparkles, Sun, Moon,
+  Mic, Square, Archive, X, Download, RotateCcw, ChevronLeft, Sparkles, Sun, Moon, Trash2,
 } from "lucide-react";
 
 import { getCatalogue, loadTopic, pickRandomId, reelTitles } from "./services/topicLoader";
 import {
   saveEntry, listEntries, getDueReturns, previousAttempt, attemptCountFor,
-  exportArchive, downloadBlob,
+  deleteEntry, exportArchive, downloadBlob,
 } from "./services/archive";
 import { requestFeedback, aiAvailable } from "./services/ai";
 
@@ -83,12 +83,14 @@ function useRecorder() {
   const chunksRef = useRef([]);
   const srRef = useRef(null);
   const resolveRef = useRef(null);
+  const streamRef = useRef(null);
 
   const start = useCallback(async () => {
     setError(false);
     setTranscript("");
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
       const rec = new MediaRecorder(stream);
       chunksRef.current = [];
       rec.ondataavailable = (e) => chunksRef.current.push(e.data);
@@ -142,7 +144,20 @@ function useRecorder() {
 
   const reset = useCallback(() => { setTranscript(""); setError(false); }, []);
 
-  return { recording, transcript, error, start, stop, reset };
+  /* Hard stop. Discards the take and releases the microphone.
+     Used when a session is abandoned — never produces a blob. */
+  const abort = useCallback(() => {
+    try { recRef.current?.stop(); } catch (e) { /* already inactive */ }
+    try { srRef.current?.stop(); } catch (e) { /* already inactive */ }
+    try { streamRef.current?.getTracks().forEach((tr) => tr.stop()); } catch (e) { /* no stream */ }
+    streamRef.current = null;
+    resolveRef.current = null;
+    chunksRef.current = [];
+    setRecording(false);
+    setTranscript("");
+  }, []);
+
+  return { recording, transcript, error, start, stop, reset, abort };
 }
 
 /* ============================================================ */
@@ -188,6 +203,11 @@ export default function Curio() {
   const [entries, setEntries] = useState([]);
   const [showArchive, setShowArchive] = useState(false);
   const [dueReturns, setDueReturns] = useState([]);
+  const [entryUrls, setEntryUrls] = useState({});
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+
+  // --- navigation ---
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   const timerRef = useRef(null);
   const tickRef = useRef(null);
@@ -197,9 +217,20 @@ export default function Curio() {
   /* ---------- lifecycle ---------- */
 
   useEffect(() => {
-    listEntries().then(setEntries).catch(() => {});
-    getDueReturns().then(setDueReturns).catch(() => {});
+    refreshArchive();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  /* One object URL per saved entry, rebuilt only when the list changes.
+     Creating these inline in render leaks a URL on every re-render. */
+  useEffect(() => {
+    const map = {};
+    for (const e of entries) {
+      if (e.explanation?.blob) map[e.id] = URL.createObjectURL(e.explanation.blob);
+    }
+    setEntryUrls(map);
+    return () => Object.values(map).forEach((u) => URL.revokeObjectURL(u));
+  }, [entries]);
 
   useEffect(() => {
     if (phase !== "research") return;
@@ -217,6 +248,15 @@ export default function Curio() {
     clearInterval(tickRef.current);
     urlsRef.current.forEach((u) => URL.revokeObjectURL(u));
   }, []);
+
+  async function refreshArchive() {
+    const [list, due] = await Promise.all([
+      listEntries().catch(() => []),
+      getDueReturns().catch(() => []),
+    ]);
+    setEntries(list);
+    setDueReturns(due);
+  }
 
   function trackUrl(blob) {
     if (!blob) return null;
@@ -390,13 +430,54 @@ export default function Curio() {
       explanation: { blob: explanation.blob, transcript: explanation.transcript },
       feedback,
     });
-    const [list, due] = await Promise.all([listEntries(), getDueReturns()]);
-    setEntries(list);
-    setDueReturns(due);
+    await refreshArchive();
     resetSession();
     setTopic(null);
     setPrevTopicId(null);
     setPhase("saved");
+  }
+
+  /* ---------- HOME NAVIGATION ---------- */
+
+  // A session is in progress once the user has entered the flow.
+  // A freshly drawn topic (phase "idle") has nothing to lose, so it exits directly.
+  const sessionInProgress = Boolean(topic) && phase !== "idle";
+
+  function goHome() {
+    if (showExitConfirm) return;
+    if (sessionInProgress) { setShowExitConfirm(true); return; }
+    hardReturnHome();
+  }
+
+  /* Deterministic return to a clean encounter state.
+     Never calls saveEntry — an abandoned attempt must not become an archive record. */
+  function hardReturnHome() {
+    clearInterval(timerRef.current);
+    clearInterval(tickRef.current);
+    recorder.abort();
+
+    urlsRef.current.forEach((u) => URL.revokeObjectURL(u));
+    urlsRef.current = [];
+
+    resetSession();
+    setTopic(null);
+    setPrevTopicId(null);
+    setSpinning(false);
+    setReelItems([]);
+    setReelAnim(false);
+    setReelY(0);
+    setAttemptNumber(1);
+    setShowExitConfirm(false);
+    setShowArchive(false);
+    setPhase("idle");
+  }
+
+  /* ---------- ARCHIVE DELETION ---------- */
+
+  async function removeEntry(id) {
+    await deleteEntry(id);        // removes the IndexedDB record, blobs included
+    setConfirmDeleteId(null);
+    await refreshArchive();       // list + dueReturns both derive from entries
   }
 
   async function doExport() {
@@ -446,7 +527,13 @@ export default function Curio() {
 
         {/* masthead */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 30 }}>
-          <div className="disp" style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-.015em" }}>Curio</div>
+          <button className="tap disp" onClick={goHome}
+            aria-label={sessionInProgress ? "Leave this session and return home" : "Curio home"}
+            style={{ ...base, minHeight: 40, background: "none", border: "none", padding: 0,
+              color: t.text, fontSize: 24, fontWeight: 600, letterSpacing: "-.015em",
+              fontFamily: "'Fraunces', Georgia, serif" }}>
+            Curio
+          </button>
           <div style={{ display: "flex", gap: 8 }}>
             <button className="tap" aria-label="Switch theme"
               onClick={() => setThemeName(themeName === "dark" ? "light" : "dark")}
@@ -743,7 +830,7 @@ export default function Curio() {
                       YOU EXPLAINED THIS ON {new Date(priorEntry.created_at).toLocaleDateString()}
                     </div>
                     {priorEntry.explanation?.blob && (
-                      <audio controls src={URL.createObjectURL(priorEntry.explanation.blob)} style={{ width: "100%", height: 40 }} />
+                      <audio controls src={entryUrls[priorEntry.id]} style={{ width: "100%", height: 40 }} />
                     )}
                     {priorEntry.explanation?.transcript && (
                       <p style={{ fontSize: 14, color: t.muted, lineHeight: 1.6, marginTop: 10, marginBottom: 0 }}>
@@ -806,15 +893,46 @@ export default function Curio() {
         )}
       </div>
 
+      {/* ---------- LEAVE SESSION CONFIRMATION ---------- */}
+      {showExitConfirm && (
+        <div role="dialog" aria-modal="true" aria-labelledby="exit-title"
+          style={{ position: "fixed", inset: 0, background: "rgba(8,12,16,.7)", zIndex: 70,
+            display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}
+          onClick={() => setShowExitConfirm(false)}>
+          <div onClick={(e) => e.stopPropagation()}
+            style={{ background: t.flat, border: `1px solid ${t.line}`, borderRadius: 16,
+              padding: 24, width: "min(400px, 100%)" }}>
+            <h2 id="exit-title" className="disp"
+              style={{ fontSize: 21, fontWeight: 600, margin: "0 0 10px" }}>
+              Leave this session?
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.6, color: t.muted, margin: "0 0 22px" }}>
+              You are part-way through {topic ? topic.title : "a discovery"}. Nothing from this
+              attempt will be saved to your archive.
+            </p>
+            <div style={{ display: "flex", gap: 10 }}>
+              <button className="tap" onClick={hardReturnHome}
+                style={{ ...primary, flex: 1, padding: 14, fontSize: 15 }}>
+                Yes, leave
+              </button>
+              <button className="tap" onClick={() => setShowExitConfirm(false)}
+                style={{ ...ghost, flex: 1, padding: 14, fontSize: 15 }}>
+                No, keep going
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ---------- ARCHIVE ---------- */}
       {showArchive && (
         <div style={{ position: "fixed", inset: 0, background: "rgba(8,12,16,.6)", display: "flex", justifyContent: "flex-end", zIndex: 60 }}
-          onClick={() => setShowArchive(false)}>
+          onClick={() => { setShowArchive(false); setConfirmDeleteId(null); }}>
           <div onClick={(e) => e.stopPropagation()}
             style={{ width: "min(380px,90vw)", height: "100%", background: t.flat, padding: 22, overflowY: "auto" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
               <div className="disp" style={{ fontSize: 21, fontWeight: 600 }}>Your archive</div>
-              <button className="tap" onClick={() => setShowArchive(false)} aria-label="Close"
+              <button className="tap" onClick={() => { setShowArchive(false); setConfirmDeleteId(null); }} aria-label="Close"
                 style={{ ...ghost, minHeight: 40, borderRadius: 999, width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <X size={16} />
               </button>
@@ -840,11 +958,37 @@ export default function Curio() {
                   {new Date(e.created_at).toLocaleString()} · {MODES[e.mode]?.label ?? e.mode}
                   {e.attempt_number > 1 ? ` · attempt ${e.attempt_number}` : ""}
                 </div>
-                {e.explanation?.blob && (
-                  <audio controls src={URL.createObjectURL(e.explanation.blob)} style={{ width: "100%", marginTop: 10, height: 36 }} />
+                {entryUrls[e.id] && (
+                  <audio controls src={entryUrls[e.id]} style={{ width: "100%", marginTop: 10, height: 36 }} />
                 )}
                 {e.revealed_early && (
                   <div style={{ fontSize: 12.5, color: t.muted, marginTop: 8 }}>Briefing revealed during research</div>
+                )}
+
+                {confirmDeleteId === e.id ? (
+                  <div style={{ marginTop: 12, borderTop: `1px solid ${t.line}`, paddingTop: 12 }}>
+                    <div style={{ fontSize: 14, lineHeight: 1.5, marginBottom: 10 }}>
+                      Delete this entry permanently? The recording cannot be recovered.
+                    </div>
+                    <div style={{ display: "flex", gap: 8 }}>
+                      <button className="tap" onClick={() => removeEntry(e.id)}
+                        style={{ ...base, flex: 1, minHeight: 42, borderRadius: 10, border: "none",
+                          background: t.amber, color: t.onAccent, fontSize: 14, fontWeight: 700 }}>
+                        Delete
+                      </button>
+                      <button className="tap" onClick={() => setConfirmDeleteId(null)}
+                        style={{ ...ghost, minHeight: 42, borderRadius: 10, padding: "0 16px", fontSize: 14 }}>
+                        Keep
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <button className="tap" onClick={() => setConfirmDeleteId(e.id)}
+                    aria-label={`Delete entry: ${e.topic_title}`}
+                    style={{ ...base, minHeight: 36, marginTop: 10, background: "none", border: "none",
+                      padding: 0, color: t.muted, fontSize: 13, display: "flex", alignItems: "center", gap: 6 }}>
+                    <Trash2 size={13} /> Delete
+                  </button>
                 )}
               </div>
             ))}
