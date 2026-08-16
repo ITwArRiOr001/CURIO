@@ -411,6 +411,34 @@ select {
   opacity: 0.9;
 }
 
+/* ---------- Masthead controls ---------- */
+
+.curio-navgroup {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.curio-iconbtn {
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.curio-navbtn {
+  min-height: 40px;
+  border-radius: 999px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+}
+
 /* ---------- Topic reel ---------- */
 
 .curio-reel {
@@ -560,47 +588,113 @@ select {
   .curio-canvas { max-width: 100%; }
 }
 
-/* Tablet upward: begin composing rather than stacking */
+/* Tablet: begin composing rather than stacking. Mobile below 768px is untouched. */
 @media (min-width: 768px) {
-  .curio-shell { max-width: 680px; }
+  .curio-shell { max-width: 700px; }
   .curio-canvas {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 500px;
-    padding-bottom: 6vh;   /* optical centring sits slightly above true centre */
+    max-width: 560px;
+    padding-bottom: 5vh;    /* optical centring sits slightly above true centre */
   }
 }
 
-/* Laptop: the scene gains presence around a deliberate content zone */
+/* ==========================================================
+   Desktop composition
+
+   The masthead leaves the flow and anchors to the viewport's
+   top-left/top-right. The composition column widens materially;
+   prose keeps its own measure inside it so lines stay readable.
+   ========================================================== */
+
+@media (min-width: 1024px) {
+  /* Full-bleed to the viewport edges while remaining in normal flow, so the
+     wordmark sits at the true top-left without overlapping scrolled content.
+     .curio-shell is position:relative, so absolute positioning would anchor
+     to the shell rather than the viewport. */
+  .curio-masthead {
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-left: clamp(28px, 3.6vw, 60px);
+    padding-right: clamp(28px, 3.6vw, 60px);
+    margin-bottom: clamp(40px, 6vh, 72px);
+  }
+
+  .curio-shell {
+    max-width: 720px;
+    padding-top: clamp(24px, 3vh, 40px);
+  }
+
+  .curio-canvas { max-width: 640px; }
+
+  /* Readable measure inside a wide composition */
+  .curio-canvas p { max-width: 64ch; margin-left: auto; margin-right: auto; }
+  .curio-hook { max-width: 520px; }
+
+  .curio-wordmark { font-size: 30px; }
+  .curio-iconbtn  { width: 44px; height: 44px; min-height: 44px; }
+  .curio-navbtn   { min-height: 44px; padding: 0 18px; font-size: 15px; }
+  .curio-navgroup { gap: 10px; }
+
+  .curio-reel__title { font-size: 32px; }
+  .curio-title { font-size: 50px; }
+  .curio-hook  { font-size: 19px; }
+  .curio-cta   { padding: 30px 24px; font-size: 19px; }
+}
+
 @media (min-width: 1280px) {
-  .curio-shell {
-    max-width: 760px;
-    padding-top: calc(28px + env(safe-area-inset-top));
-  }
-  .curio-canvas { max-width: 540px; }
+  .curio-shell { max-width: 780px; padding-top: clamp(28px, 3.2vh, 46px); }
+  .curio-canvas { max-width: 690px; }
+
+  .curio-wordmark { font-size: 32px; }
+  .curio-iconbtn  { width: 46px; height: 46px; min-height: 46px; }
+  .curio-navbtn   { min-height: 46px; padding: 0 20px; font-size: 15.5px; }
+
+  .curio-reel__title { font-size: 36px; }
+  .curio-title { font-size: 54px; }
+  .curio-cta   { padding: 32px 26px; font-size: 19.5px; }
+
   .curio-stage__art { opacity: calc(var(--c-art-opacity) * 1.05); }
+  .curio-drawer { width: min(460px, 100vw); }
 }
 
-/* Large desktop: cinematic. More air, larger display type, quieter chrome. */
 @media (min-width: 1440px) {
-  .curio-shell {
-    max-width: 860px;
-    padding-top: calc(36px + env(safe-area-inset-top));
+  .curio-shell { max-width: 860px; padding-top: clamp(32px, 3.5vh, 52px); }
+  .curio-canvas { max-width: 760px; }
+
+  .curio-masthead {
+    padding-left: clamp(36px, 4vw, 88px);
+    padding-right: clamp(36px, 4vw, 88px);
   }
-  .curio-canvas { max-width: 560px; }
-  .curio-title { font-size: clamp(46px, 3.6vw, 58px); }
-  .curio-hook { font-size: 19px; max-width: 460px; }
-  .curio-reel__title { font-size: 30px; }
-  .curio-cta { padding: 32px 24px; font-size: 19px; }
-  .curio-masthead { margin-bottom: 48px; }
+
+  .curio-wordmark { font-size: 34px; }
+  .curio-iconbtn  { width: 48px; height: 48px; min-height: 48px; }
+  .curio-navbtn   { min-height: 48px; padding: 0 22px; font-size: 16px; }
+
+  .curio-reel__title { font-size: 40px; }
+  .curio-title { font-size: 58px; }
+  .curio-hook  { font-size: 20px; max-width: 560px; }
+  .curio-cta   { padding: 34px 28px; font-size: 20px; }
+
+  .curio-drawer { width: min(480px, 100vw); }
 }
 
-/* Ultra-wide: cap growth so the column never sprawls */
 @media (min-width: 1920px) {
-  .curio-shell { max-width: 920px; }
-  .curio-canvas { max-width: 580px; }
+  .curio-shell { max-width: 980px; padding-top: clamp(36px, 3.8vh, 60px); }
+  .curio-canvas { max-width: 870px; }
+
+  .curio-masthead {
+    padding-left: clamp(48px, 4.5vw, 120px);
+    padding-right: clamp(48px, 4.5vw, 120px);
+  }
+
+  .curio-wordmark { font-size: 36px; }
+  .curio-reel__title { font-size: 44px; }
+  .curio-title { font-size: 62px; }
+  .curio-hook  { font-size: 20.5px; max-width: 600px; }
+  .curio-cta   { padding: 36px 30px; font-size: 21px; }
 }
 
 /* Short viewports (landscape phones): tighten vertical rhythm */
