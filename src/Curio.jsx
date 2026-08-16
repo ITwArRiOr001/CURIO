@@ -94,28 +94,82 @@ const FINAL_IDX = REEL_LEN - 2;
 
 /* Reel geometry scales with the viewport. LAND_Y is always derived from the
    slot height in use, so the chosen term stays centred at every size. */
-/* Vertical space the desktop stage needs outside the reel:
-   shell padding, masthead + its margin, the DRAWING eyebrow, bottom padding. */
-const DESKTOP_CHROME = 240;
-const MIN_DESKTOP_SLOT = 100;
+/* ============================================================
+   Reel geometry
 
-/* Width sets the ambition; height sets the ceiling. Returning a single number
-   keeps LAND_Y and --c-slot derived from the same value, so the chosen term
-   stays centred in the middle slot at every size. */
+   One number governs everything: slotH. From it,
+     --c-slot  -> .curio-reel (3 slots), .curio-reel__window, .curio-reel__slot
+     LAND_Y    -> (FINAL_IDX - 1) * slotH, the animation target
+   so item FINAL_IDX always lands at offset exactly slotH: the centre slot.
+
+   Width sets the intended scale; the height actually available on the
+   drawing screen caps it. The cap is derived from the vertical values in
+   index.css rather than estimated.
+   ============================================================ */
+
+/* Anchor points mirroring the desktop breakpoints in index.css.
+   Interpolated between, so there is no discontinuity at any width. */
+const SLOT_ANCHORS = [
+  [768, 92],    // tablet — current value, preserved
+  [1024, 150],
+  [1280, 180],
+  [1440, 210],
+  [1920, 235],
+  [2560, 250],
+];
+
+const MIN_SLOT = 92;   // never below today's tablet slot
+
+function cssClamp(min, preferred, max) {
+  return Math.max(min, Math.min(preferred, max));
+}
+
+function slotByWidth(width) {
+  const first = SLOT_ANCHORS[0];
+  const last = SLOT_ANCHORS[SLOT_ANCHORS.length - 1];
+  if (width <= first[0]) return first[1];
+  if (width >= last[0]) return last[1];
+  for (let i = 1; i < SLOT_ANCHORS.length; i += 1) {
+    const [w0, s0] = SLOT_ANCHORS[i - 1];
+    const [w1, s1] = SLOT_ANCHORS[i];
+    if (width <= w1) return s0 + ((width - w0) / (w1 - w0)) * (s1 - s0);
+  }
+  return last[1];
+}
+
+/* Everything on the drawing screen except the reel itself. Each term mirrors
+   a real declaration in index.css, so the model tracks the stylesheet:
+     .curio-shell   padding-top (per breakpoint) + padding-bottom 56px
+     .curio-masthead  control row height + margin-bottom
+     .curio-eyebrow   label line + margin-bottom
+     .curio-canvas    padding-bottom 5vh
+*/
+function desktopChrome(width, height) {
+  const vh = height / 100;
+
+  let shellPadTop;
+  let controlRow;
+  if (width >= 1920)      { shellPadTop = cssClamp(36, 3.8 * vh, 60); controlRow = 48; }
+  else if (width >= 1440) { shellPadTop = cssClamp(32, 3.5 * vh, 52); controlRow = 48; }
+  else if (width >= 1280) { shellPadTop = cssClamp(28, 3.2 * vh, 46); controlRow = 46; }
+  else                    { shellPadTop = cssClamp(24, 3.0 * vh, 40); controlRow = 44; }
+
+  const mastheadGap  = cssClamp(40, 6 * vh, 72);           // .curio-masthead margin-bottom
+  const eyebrowBlock = 14 + cssClamp(14, 3 * vh, 20);      // 11.5px label line + margin
+  const shellPadBot  = 56;                                 // .curio-shell padding-bottom
+  const canvasPadBot = 5 * vh;                             // .curio-canvas padding-bottom
+
+  return shellPadTop + controlRow + mastheadGap + eyebrowBlock + shellPadBot + canvasPadBot;
+}
+
 function slotHeightFor(width, height) {
   // Mobile — deliberately unchanged.
   if (width < 360) return 64;
   if (width < BREAKPOINT_MOBILE) return 72;
-  if (width < 1024) return 92;
 
-  const byWidth =
-    width < 1280 ? 152 :
-    width < 1440 ? 180 :
-    width < 1920 ? 210 :
-    width < 2560 ? 235 : 250;
-
-  const byHeight = Math.floor((height - DESKTOP_CHROME) / 3);
-  return Math.max(MIN_DESKTOP_SLOT, Math.min(byWidth, byHeight));
+  const byWidth = slotByWidth(width);
+  const byHeight = (height - desktopChrome(width, height)) / 3;
+  return Math.max(MIN_SLOT, Math.round(Math.min(byWidth, byHeight)));
 }
 
 function useViewport(frozen) {
