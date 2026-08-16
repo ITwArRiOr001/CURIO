@@ -118,7 +118,13 @@ const SLOT_ANCHORS = [
   [2560, 250],
 ];
 
-const MIN_SLOT = 92;   // never below today's tablet slot
+/* Floor of last resort. The height cap is allowed to go below the tablet
+   anchor on very short screens — claiming a larger slot "fits" when it does
+   not is worse than a small reel. */
+const ABSOLUTE_MIN_SLOT = 56;
+
+/* index.css: @media (max-height: 620px) */
+const SHORT_VIEWPORT_H = 620;
 
 function cssClamp(min, preferred, max) {
   return Math.max(min, Math.min(preferred, max));
@@ -146,6 +152,7 @@ function slotByWidth(width) {
 */
 function desktopChrome(width, height) {
   const vh = height / 100;
+  const short = height <= SHORT_VIEWPORT_H;   // @media (max-height: 620px)
 
   let shellPadTop;
   let controlRow;
@@ -154,10 +161,18 @@ function desktopChrome(width, height) {
   else if (width >= 1280) { shellPadTop = cssClamp(28, 3.2 * vh, 46); controlRow = 46; }
   else                    { shellPadTop = cssClamp(24, 3.0 * vh, 40); controlRow = 44; }
 
-  const mastheadGap  = cssClamp(40, 6 * vh, 72);           // .curio-masthead margin-bottom
-  const eyebrowBlock = 14 + cssClamp(14, 3 * vh, 20);      // 11.5px label line + margin
-  const shellPadBot  = 56;                                 // .curio-shell padding-bottom
-  const canvasPadBot = 5 * vh;                             // .curio-canvas padding-bottom
+  // .curio-masthead margin-bottom — the short-height rule overrides the clamp
+  const mastheadGap = short ? 18 : cssClamp(40, 6 * vh, 72);
+
+  // .curio-eyebrow: font-size 11.5px x line-height 1.6, plus its margin-bottom
+  const eyebrowLine  = 11.5 * 1.6;
+  const eyebrowBlock = eyebrowLine + cssClamp(14, 3 * vh, 20);
+
+  // .curio-shell padding-bottom: 56px, or 40px under the short-height rule
+  const shellPadBot = short ? 40 : 56;
+
+  // .curio-canvas padding-bottom: 5vh, or 0 under the short-height rule
+  const canvasPadBot = short ? 0 : 5 * vh;
 
   return shellPadTop + controlRow + mastheadGap + eyebrowBlock + shellPadBot + canvasPadBot;
 }
@@ -169,7 +184,10 @@ function slotHeightFor(width, height) {
 
   const byWidth = slotByWidth(width);
   const byHeight = (height - desktopChrome(width, height)) / 3;
-  return Math.max(MIN_SLOT, Math.round(Math.min(byWidth, byHeight)));
+
+  // floor, not round: guarantees 3 * slotH <= available reel space
+  const fitted = Math.floor(Math.min(byWidth, byHeight));
+  return Math.max(ABSOLUTE_MIN_SLOT, fitted);
 }
 
 function useViewport(frozen) {
@@ -408,7 +426,13 @@ export default function Curio() {
   const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   const { isMobile, slotH } = useViewport(spinning);
-  const LAND_Y = (FINAL_IDX - 1) * slotH;
+
+  /* A spin locks the geometry it started with. --c-slot and LAND_Y are both
+     derived from `activeSlotH`, so the CSS the reel is rendered with and the
+     transform it animates to can never come from different snapshots. */
+  const [lockedSlotH, setLockedSlotH] = useState(null);
+  const activeSlotH = lockedSlotH ?? slotH;
+  const LAND_Y = (FINAL_IDX - 1) * activeSlotH;
 
   const timerRef = useRef(null);
   const tickRef = useRef(null);
@@ -536,6 +560,13 @@ export default function Curio() {
     const catEntry = getCatalogue().find((x) => x.id === finalId);
     reel[FINAL_IDX] = { id: finalId, title: catEntry?.title ?? "" };
 
+    // Snapshot the geometry this spin will use, read fresh from the viewport.
+    const snapSlotH = typeof window === "undefined"
+      ? activeSlotH
+      : slotHeightFor(window.innerWidth, window.innerHeight);
+    const snapLandY = (FINAL_IDX - 1) * snapSlotH;
+    setLockedSlotH(snapSlotH);
+
     setReelItems(reel);
     setReelAnim(false);
     setReelY(0);
@@ -544,8 +575,10 @@ export default function Curio() {
 
     startRollAudio();
 
+    // snapLandY comes from the same number written to --c-slot, so the
+    // transform target cannot drift from the rendered slot height.
     requestAnimationFrame(() =>
-      requestAnimationFrame(() => { setReelAnim(true); setReelY(-LAND_Y); })
+      requestAnimationFrame(() => { setReelAnim(true); setReelY(-snapLandY); })
     );
   }
 
@@ -557,6 +590,7 @@ export default function Curio() {
     setSpinning(false);
     setReelAnim(false);
     setReelY(0);
+    setLockedSlotH(null);          // geometry follows the viewport again
 
     const id = pendingTopicIdRef.current;
     try {
@@ -700,6 +734,7 @@ export default function Curio() {
     clearInterval(tickRef.current);
     drawSeqRef.current += 1;        // any pending landing is now void
     spinningRef.current = false;
+    setLockedSlotH(null);
     stopRollAudio();
     recorder.abort();
 
@@ -770,7 +805,7 @@ export default function Curio() {
         "--c-scrim-stop": isMobile ? "48%" : "62%",
         "--c-art-opacity": isMobile ? 0.55 : 0.72,
         "--c-art-position": isMobile ? "50% 72%" : "50% 50%",
-        "--c-slot": `${slotH}px`,
+        "--c-slot": `${activeSlotH}px`,
       }}
     >
       <BackgroundStage art={stageArt} isMobile={isMobile} quiet={quietStage} />
@@ -784,8 +819,8 @@ export default function Curio() {
         <header className="curio-masthead">
           <button className="tap disp curio-wordmark" onClick={goHome}
             aria-label={sessionInProgress ? "Leave this session and return home" : "Curio home"}
-            style={{ ...base, minHeight: 40, background: "none", border: "none", padding: 0,
-              color: t.text, fontWeight: 600, letterSpacing: "-.015em",
+            style={{ ...base, minHeight: 40, border: "none", padding: 0,
+              fontWeight: 600, letterSpacing: "-.015em",
               fontFamily: "'Fraunces', Georgia, serif" }}>
             Curio
           </button>
