@@ -94,28 +94,46 @@ const FINAL_IDX = REEL_LEN - 2;
 
 /* Reel geometry scales with the viewport. LAND_Y is always derived from the
    slot height in use, so the chosen term stays centred at every size. */
-function slotHeightFor(width) {
-  // Mobile values are deliberately unchanged.
+/* Vertical space the desktop stage needs outside the reel:
+   shell padding, masthead + its margin, the DRAWING eyebrow, bottom padding. */
+const DESKTOP_CHROME = 240;
+const MIN_DESKTOP_SLOT = 100;
+
+/* Width sets the ambition; height sets the ceiling. Returning a single number
+   keeps LAND_Y and --c-slot derived from the same value, so the chosen term
+   stays centred in the middle slot at every size. */
+function slotHeightFor(width, height) {
+  // Mobile — deliberately unchanged.
   if (width < 360) return 64;
   if (width < BREAKPOINT_MOBILE) return 72;
-  // Desktop: the reel becomes a major discovery event, not a small widget.
   if (width < 1024) return 92;
-  if (width < 1280) return 122;
-  if (width < 1440) return 140;
-  if (width < 1920) return 156;
-  return 172;
+
+  const byWidth =
+    width < 1280 ? 152 :
+    width < 1440 ? 180 :
+    width < 1920 ? 210 :
+    width < 2560 ? 235 : 250;
+
+  const byHeight = Math.floor((height - DESKTOP_CHROME) / 3);
+  return Math.max(MIN_DESKTOP_SLOT, Math.min(byWidth, byHeight));
 }
 
 function useViewport(frozen) {
-  const [vw, setVw] = useState(() =>
-    typeof window === "undefined" ? 1280 : window.innerWidth);
+  const [vp, setVp] = useState(() =>
+    typeof window === "undefined"
+      ? { w: 1280, h: 900 }
+      : { w: window.innerWidth, h: window.innerHeight });
   useEffect(() => {
     if (frozen) return undefined;            // never resize mid-spin
-    const onResize = () => setVw(window.innerWidth);
+    const onResize = () =>
+      setVp({ w: window.innerWidth, h: window.innerHeight });
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, [frozen]);
-  return { isMobile: vw < BREAKPOINT_MOBILE, slotH: slotHeightFor(vw) };
+  return {
+    isMobile: vp.w < BREAKPOINT_MOBILE,
+    slotH: slotHeightFor(vp.w, vp.h),
+  };
 }
 
 const fmt = (s) =>
