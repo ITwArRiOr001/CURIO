@@ -337,36 +337,7 @@ select {
 
 /* ---------- Typography ---------- */
 
-/* A thin antique-gold highlight travels across the lettering, briefly, then
-   rests. The gradient is clipped to the glyphs, so nothing is added to the
-   layout and no second element is introduced. Where background-clip:text is
-   unsupported, -webkit-text-fill-color is too, and `color` renders normally. */
-.curio-wordmark {
-  font-size: clamp(21px, 5.5vw, 27px);
-  color: var(--c-text);
-  background-color: transparent;
-  background-image: linear-gradient(
-    100deg,
-    var(--c-text) 0%,
-    var(--c-text) 43%,
-    var(--c-amber) 50%,
-    var(--c-text) 57%,
-    var(--c-text) 100%
-  );
-  background-size: 260% 100%;
-  background-position: 125% 0;
-  background-repeat: no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: curio-glint 9s ease-in-out infinite;
-}
-
-@keyframes curio-glint {
-  0%   { background-position: 125% 0; }
-  16%  { background-position: -25% 0; }
-  100% { background-position: -25% 0; }
-}
+.curio-wordmark { font-size: clamp(21px, 5.5vw, 27px); }
 
 .curio-title {
   font-size: clamp(30px, 8.5vw, 46px);
@@ -470,21 +441,10 @@ select {
 
 /* ---------- Topic reel ---------- */
 
-/* The roller is a stage element, not a column element: it escapes the prose
-   width and stretches across the available viewport. Vertical geometry is
-   untouched - height still derives solely from --c-slot. */
 .curio-reel {
-  --c-reel-w: 100vw;
-  --c-reel-gutter: 12px;
-  --c-reel-actual: min(var(--c-reel-w), calc(100vw - var(--c-reel-gutter) * 2));
-
   position: relative;
   height: calc(var(--c-slot) * 3);
   overflow: hidden;
-
-  width: var(--c-reel-actual);
-  max-width: none;
-  margin-left: calc(50% - var(--c-reel-actual) / 2);
 }
 
 /* A quiet pair of rules rather than a boxed slot-machine frame */
@@ -631,7 +591,6 @@ select {
 /* Tablet: begin composing rather than stacking. Mobile below 768px is untouched. */
 @media (min-width: 768px) {
   .curio-shell { max-width: 700px; }
-  .curio-reel { --c-reel-w: 720px; --c-reel-gutter: 20px; }
   .curio-canvas {
     flex: 1;
     display: flex;
@@ -669,7 +628,6 @@ select {
   }
 
   .curio-canvas { max-width: 640px; }
-  .curio-reel { --c-reel-w: 920px; --c-reel-gutter: 28px; }
 
   /* Readable measure inside a wide composition */
   .curio-canvas p { max-width: 64ch; margin-left: auto; margin-right: auto; }
@@ -689,7 +647,6 @@ select {
 @media (min-width: 1280px) {
   .curio-shell { max-width: 780px; padding-top: clamp(28px, 3.2vh, 46px); }
   .curio-canvas { max-width: 690px; }
-  .curio-reel { --c-reel-w: 1120px; --c-reel-gutter: 32px; }
 
   .curio-wordmark { font-size: 32px; }
   .curio-iconbtn  { width: 46px; height: 46px; min-height: 46px; }
@@ -706,7 +663,6 @@ select {
 @media (min-width: 1440px) {
   .curio-shell { max-width: 860px; padding-top: clamp(32px, 3.5vh, 52px); }
   .curio-canvas { max-width: 760px; }
-  .curio-reel { --c-reel-w: 1320px; --c-reel-gutter: 40px; }
 
   .curio-masthead {
     padding-left: clamp(36px, 4vw, 88px);
@@ -728,7 +684,6 @@ select {
 @media (min-width: 1920px) {
   .curio-shell { max-width: 980px; padding-top: clamp(36px, 3.8vh, 60px); }
   .curio-canvas { max-width: 870px; }
-  .curio-reel { --c-reel-w: 1640px; --c-reel-gutter: 48px; }
 
   .curio-masthead {
     padding-left: clamp(48px, 4.5vw, 120px);
@@ -759,6 +714,5 @@ select {
   .curio-root .r2,
   .curio-root .r3,
   .curio-root .breathe { animation: none !important; }
-  .curio-wordmark { animation: none !important; background-position: -25% 0; }
   .curio-stage__art { transition: none; }
 }
