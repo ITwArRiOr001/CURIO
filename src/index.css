@@ -226,3 +226,272 @@ select {
 .app-fallback button:active {
   transform: scale(.98);
 }
+
+/* ==========================================================
+   CURIO — Environment & Responsive Layer
+   Added for the visual redesign. Consumes CSS custom properties
+   set on .curio-root by Curio.jsx, so the theme stays in JS
+   while every media query lives here.
+   ========================================================== */
+
+/* ---------- Root ---------- */
+
+.curio-root {
+  position: relative;
+  min-height: 100svh;
+  overflow-x: hidden;
+  color: var(--c-text);
+  font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
+}
+
+.curio-root .disp {
+  font-family: "Fraunces", Georgia, serif;
+}
+
+.curio-root .tap:hover { opacity: 0.88; }
+.curio-root .tap:active { transform: scale(0.985); }
+.curio-root .tap:focus-visible {
+  outline: 3px solid var(--c-amber);
+  outline-offset: 3px;
+}
+
+/* Native audio controls must never force horizontal overflow */
+.curio-root audio { max-width: 100%; }
+
+/* ---------- Environment stage ---------- */
+
+.curio-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.curio-stage__base {
+  position: absolute;
+  inset: 0;
+  background: var(--c-bg);
+  transition: background var(--curio-speed-normal) ease;
+}
+
+/* Art direction: <picture> swaps the source; these rules control framing.
+   object-position keeps grass, cave mouth and book in frame on mobile. */
+.curio-stage__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--c-art-position);
+  opacity: var(--c-art-opacity);
+  transition: opacity 0.6s ease;
+}
+
+/* Legibility scrim — heavier on mobile, where text sits over more artwork */
+.curio-stage__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--c-scrim-top) 0%,
+    var(--c-scrim-bottom) var(--c-scrim-stop),
+    var(--c-scrim-bottom) 100%
+  );
+}
+
+/* ---------- Shell ---------- */
+
+.curio-shell {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+  margin: 0 auto;
+  min-height: 100svh;
+  padding:
+    calc(16px + env(safe-area-inset-top))
+    clamp(16px, 5vw, 28px)
+    calc(72px + env(safe-area-inset-bottom));
+}
+
+/* ---------- Typography ---------- */
+
+.curio-wordmark {
+  font-size: clamp(21px, 5.5vw, 26px);
+}
+
+.curio-title {
+  font-size: clamp(30px, 8.5vw, 46px);
+  font-weight: 500;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.curio-hook {
+  text-align: center;
+  font-size: clamp(15px, 4.2vw, 18px);
+  color: var(--c-muted);
+  line-height: 1.6;
+  max-width: 420px;
+  margin: 0 auto clamp(24px, 6vw, 36px);
+}
+
+/* ---------- Topic reel ---------- */
+
+.curio-reel {
+  position: relative;
+  height: calc(var(--c-slot) * 3);
+  overflow: hidden;
+}
+
+.curio-reel__window {
+  position: absolute;
+  top: var(--c-slot);
+  left: 0;
+  right: 0;
+  height: var(--c-slot);
+  border-top: 1px solid var(--c-accent);
+  border-bottom: 1px solid var(--c-accent);
+  opacity: 0.4;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.curio-reel__fade {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    var(--c-flat) 0%,
+    transparent 30%,
+    transparent 70%,
+    var(--c-flat) 100%
+  );
+}
+
+.curio-reel__slot {
+  height: var(--c-slot);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 clamp(10px, 4vw, 18px);
+}
+
+.curio-reel__title {
+  font-size: clamp(18px, 5.2vw, 26px);
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Leave-session dialog ---------- */
+
+.curio-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgba(8, 14, 11, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(14px, 5vw, 24px);
+}
+
+.curio-modal__panel {
+  background: var(--c-flat);
+  border: 1px solid var(--c-line);
+  border-radius: var(--curio-radius-lg);
+  padding: clamp(18px, 5vw, 26px);
+  width: min(420px, 100%);
+  max-height: 88svh;
+  overflow-y: auto;
+  box-shadow: var(--curio-shadow-md);
+}
+
+.curio-modal__panel h2 {
+  font-size: clamp(19px, 5.2vw, 22px);
+}
+
+.curio-modal__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.curio-modal__actions > button {
+  flex: 1 1 140px;
+}
+
+/* ---------- Archive drawer ---------- */
+
+.curio-drawer {
+  width: min(420px, 100vw);
+  height: 100%;
+  background: var(--c-flat);
+  border-left: 1px solid var(--c-line);
+  overflow-y: auto;
+  padding:
+    calc(20px + env(safe-area-inset-top))
+    clamp(16px, 5vw, 24px)
+    calc(28px + env(safe-area-inset-bottom));
+}
+
+/* ---------- Motion ---------- */
+
+@keyframes curio-settle {
+  0%   { letter-spacing: 0.05em; opacity: 0; transform: translateY(8px); }
+  100% { letter-spacing: -0.012em; opacity: 1; transform: translateY(0); }
+}
+@keyframes curio-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes curio-breathe {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.42; }
+}
+
+.curio-root .settle  { animation: curio-settle .75s cubic-bezier(.2,.8,.3,1) both; }
+.curio-root .r1      { animation: curio-rise .5s ease .10s both; }
+.curio-root .r2      { animation: curio-rise .5s ease .22s both; }
+.curio-root .r3      { animation: curio-rise .5s ease .34s both; }
+.curio-root .breathe { animation: curio-breathe 1.7s ease-in-out infinite; }
+
+/* ---------- Viewport adaptations ---------- */
+
+/* Touch devices: keep every control comfortably tappable */
+@media (hover: none) and (pointer: coarse) {
+  .curio-root .tap { min-height: 48px; }
+}
+
+/* Short viewports, e.g. landscape phones: tighten vertical rhythm */
+@media (max-height: 620px) {
+  .curio-shell { padding-bottom: calc(48px + env(safe-area-inset-bottom)); }
+  .curio-root .r1,
+  .curio-root .r2,
+  .curio-root .r3 { animation-duration: .3s; }
+}
+
+/* Small mobile: the artwork recedes further so text stays dominant */
+@media (max-width: 360px) {
+  .curio-stage__art { opacity: calc(var(--c-art-opacity) * 0.85); }
+}
+
+/* Wide desktop: give the environment more presence around a fixed column */
+@media (min-width: 1440px) {
+  .curio-shell { max-width: 600px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .curio-root .settle,
+  .curio-root .r1,
+  .curio-root .r2,
+  .curio-root .r3,
+  .curio-root .breathe { animation: none !important; }
+  .curio-stage__art { transition: none; }
+}
