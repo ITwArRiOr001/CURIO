@@ -1,4 +1,3 @@
-  
 import { useState, useRef, useEffect, useCallback } from "react";  
 import {  
   Mic, Square, Archive, X, Download, RotateCcw, ChevronLeft, Sparkles, Sun, Moon, Trash2,  
@@ -65,11 +64,8 @@ const THEMES = {
     accent: "#5FA98C",      // forest verdigris  
     amber: "#D9A441",       // antique gold — discovery  
     onAccent: "#0D1310",  
-    scrimTop: "rgba(13,19,16,0.22)",  
-    scrimBottom: "rgba(13,19,16,0.86)",  
-    focal: "rgba(95,169,140,0.13)",      // soft atmospheric depth behind the reel  
-    vignette: "rgba(6,10,8,0.62)",       // corners recede  
-    glint: "#F2CE86",                    // light catching polished antique gold  
+    scrimTop: "rgba(13,19,16,0.30)",  
+    scrimBottom: "rgba(13,19,16,0.94)",  
   },  
   light: {  
     // parchment and moss  
@@ -83,11 +79,8 @@ const THEMES = {
     accent: "#2C6B54",      // deep forest  
     amber: "#8A6218",       // warm bronze  
     onAccent: "#FFFDF6",  
-    scrimTop: "rgba(239,234,219,0.28)",  
-    scrimBottom: "rgba(239,234,219,0.88)",  
-    focal: "rgba(44,107,84,0.10)",  
-    vignette: "rgba(120,110,88,0.30)",  
-    glint: "#B98A2E",  
+    scrimTop: "rgba(239,234,219,0.35)",  
+    scrimBottom: "rgba(239,234,219,0.92)",  
   },  
 };  
   
@@ -807,13 +800,10 @@ export default function Curio() {
         "--c-line": t.line,  
         "--c-accent": t.accent,  
         "--c-amber": t.amber,  
-        "--c-focal": t.focal,  
-        "--c-vignette": t.vignette,  
-        "--c-glint": t.glint,  
         "--c-scrim-top": t.scrimTop,  
         "--c-scrim-bottom": t.scrimBottom,  
         "--c-scrim-stop": isMobile ? "48%" : "62%",  
-        "--c-art-opacity": isMobile ? 0.62 : 0.80,  
+        "--c-art-opacity": isMobile ? 0.55 : 0.72,  
         "--c-art-position": isMobile ? "50% 72%" : "50% 50%",  
         "--c-slot": `${activeSlotH}px`,  
       }}  
@@ -1295,4 +1285,4 @@ export default function Curio() {
       )}  
     </div>  
   );  
-}
+}  
