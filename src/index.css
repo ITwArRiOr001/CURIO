@@ -270,42 +270,11 @@ select {
   pointer-events: none;
 }
 
-/* The base is a complete environment on its own, so the composition reads as
-   a place even before the artwork exists. Three layers, back to front:
-   the theme field, a canopy/floor shading, and a soft focal atmosphere
-   behind the discovery zone. */
 .curio-stage__base {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(
-      ellipse 130% 58% at 50% 46%,
-      var(--c-focal) 0%,
-      transparent 64%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.30) 0%,
-      transparent 24%,
-      transparent 66%,
-      rgba(0, 0, 0, 0.32) 100%
-    ),
-    var(--c-bg);
+  background: var(--c-bg);
   transition: background var(--curio-speed-normal) ease;
-}
-
-/* Corners recede so attention settles centrally. Deliberately weak — it should
-   never register as a "vignette effect". */
-.curio-stage::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse 105% 78% at 50% 48%,
-    transparent 38%,
-    var(--c-vignette) 100%
-  );
 }
 
 /* <picture> swaps the source; these rules control framing.
@@ -328,7 +297,6 @@ select {
   background: linear-gradient(
     180deg,
     var(--c-scrim-top) 0%,
-    var(--c-scrim-top) 22%,
     var(--c-scrim-bottom) var(--c-scrim-stop),
     var(--c-scrim-bottom) 100%
   );
@@ -361,54 +329,15 @@ select {
 
 /* The content zone. On mobile it flows from the top; on larger screens it
    centres itself in the scene so the layout reads as composed, not stranded. */
-/* The content zone is centred in the stage at every width, so the reel sits in
-   a deliberate focal band rather than floating below a large empty field. */
 .curio-canvas {
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
-  flex: 1 1 auto;        /* basis auto: tall content grows the zone, never clips it */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-bottom: 4vh;   /* optical centre sits slightly above true centre */
 }
 
 /* ---------- Typography ---------- */
 
-/* A thin antique-gold highlight travels across the lettering, briefly, then
-   rests. The gradient is clipped to the glyphs, so nothing is added to the
-   layout and no second element is introduced. Where background-clip:text is
-   unsupported, -webkit-text-fill-color is too, and `color` renders normally. */
-.curio-wordmark {
-  font-size: clamp(21px, 5.5vw, 27px);
-  color: var(--c-text);
-  background-color: transparent;
-  background-image: linear-gradient(
-    102deg,
-    var(--c-text) 0%,
-    var(--c-text) 40%,
-    var(--c-amber) 47%,
-    var(--c-glint) 50%,
-    var(--c-amber) 53%,
-    var(--c-text) 60%,
-    var(--c-text) 100%
-  );
-  background-size: 320% 100%;
-  background-position: 130% 0;
-  background-repeat: no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: curio-glint 11s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
-/* One sharp pass, then a long rest. The sweep occupies ~13% of the cycle. */
-@keyframes curio-glint {
-  0%   { background-position: 130% 0; }
-  13%  { background-position: -30% 0; }
-  100% { background-position: -30% 0; }
-}
+.curio-wordmark { font-size: clamp(21px, 5.5vw, 27px); }
 
 .curio-title {
   font-size: clamp(30px, 8.5vw, 46px);
@@ -484,18 +413,10 @@ select {
 
 /* ---------- Masthead controls ---------- */
 
-/* The controls sit back so the wordmark leads the line. */
 .curio-navgroup {
   display: flex;
   gap: 8px;
   align-items: center;
-  opacity: 0.68;
-  transition: opacity var(--curio-speed-normal) ease;
-}
-
-.curio-navgroup:hover,
-.curio-navgroup:focus-within {
-  opacity: 1;
 }
 
 .curio-iconbtn {
@@ -520,60 +441,26 @@ select {
 
 /* ---------- Topic reel ---------- */
 
-/* The roller is a stage element, not a column element: it escapes the prose
-   width and stretches across the available viewport. Vertical geometry is
-   untouched - height still derives solely from --c-slot. */
 .curio-reel {
-  --c-reel-w: 100vw;
-  --c-reel-gutter: 12px;
-  --c-reel-actual: min(var(--c-reel-w), calc(100vw - var(--c-reel-gutter) * 2));
-
   position: relative;
   height: calc(var(--c-slot) * 3);
   overflow: hidden;
-
-  width: var(--c-reel-actual);
-  max-width: none;
-  margin-left: calc(50% - var(--c-reel-actual) / 2);
 }
 
 /* A quiet pair of rules rather than a boxed slot-machine frame */
-/* The window marks the centre slot with two hairlines that dissolve toward
-   the edges — a field the topic passes through, not a box around it.
-   Geometry (top/height = one slot) is unchanged. */
 .curio-reel__window {
   position: absolute;
   top: var(--c-slot);
   left: 0;
   right: 0;
   height: var(--c-slot);
+  border-top: 1px solid var(--c-accent);
+  border-bottom: 1px solid var(--c-accent);
+  opacity: 0.34;
   z-index: 3;
   pointer-events: none;
 }
 
-.curio-reel__window::before,
-.curio-reel__window::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--c-accent) 14%,
-    var(--c-accent) 86%,
-    transparent 100%
-  );
-  opacity: 0.5;
-}
-
-.curio-reel__window::before { top: 0; }
-.curio-reel__window::after  { bottom: 0; }
-
-/* Adjacent topics recede into the environment: fully veiled at the edges,
-   clear through the centre band. The extra stops make the transition read as
-   depth rather than a hard mask. */
 .curio-reel__fade {
   position: absolute;
   inset: 0;
@@ -582,27 +469,10 @@ select {
   background: linear-gradient(
     180deg,
     var(--c-flat) 0%,
-    color-mix(in srgb, var(--c-flat) 88%, transparent) 14%,
-    color-mix(in srgb, var(--c-flat) 45%, transparent) 27%,
-    transparent 37%,
-    transparent 63%,
-    color-mix(in srgb, var(--c-flat) 45%, transparent) 73%,
-    color-mix(in srgb, var(--c-flat) 88%, transparent) 86%,
+    transparent 34%,
+    transparent 66%,
     var(--c-flat) 100%
   );
-}
-
-/* Fallback where color-mix is unavailable: the previous, simpler ramp. */
-@supports not (background: color-mix(in srgb, red 50%, transparent)) {
-  .curio-reel__fade {
-    background: linear-gradient(
-      180deg,
-      var(--c-flat) 0%,
-      transparent 34%,
-      transparent 66%,
-      var(--c-flat) 100%
-    );
-  }
 }
 
 .curio-reel__slot {
@@ -613,16 +483,12 @@ select {
   padding: 0 clamp(10px, 4vw, 20px);
 }
 
-/* The passing titles read as ideas moving through a field. Centre clarity comes
-   from the fade above, not from styling any individual slot. */
 .curio-reel__title {
-  font-size: clamp(19px, 5.6vw, 29px);
+  font-size: clamp(18px, 5.2vw, 27px);
   font-weight: 500;
   text-align: center;
   line-height: 1.15;
   overflow-wrap: anywhere;
-  letter-spacing: -0.008em;
-  text-shadow: 0 1px 12px var(--c-flat);   /* legibility over artwork */
 }
 
 /* ---------- Leave-session dialog ---------- */
@@ -688,12 +554,9 @@ select {
 
 /* ---------- Motion ---------- */
 
-/* The discovered title arrives warm and settles into the reading colour.
-   Opacity, letter-spacing and a few pixels of travel — nothing more. */
 @keyframes curio-settle {
-  0%   { letter-spacing: 0.055em; opacity: 0; transform: translateY(10px); color: var(--c-amber); }
-  45%  { opacity: 1; }
-  100% { letter-spacing: -0.012em; opacity: 1; transform: translateY(0); color: var(--c-text); }
+  0%   { letter-spacing: 0.05em; opacity: 0; transform: translateY(8px); }
+  100% { letter-spacing: -0.012em; opacity: 1; transform: translateY(0); }
 }
 @keyframes curio-rise {
   from { opacity: 0; transform: translateY(10px); }
@@ -704,7 +567,7 @@ select {
   50%      { opacity: 0.42; }
 }
 
-.curio-root .settle  { animation: curio-settle 1.05s cubic-bezier(.16,.84,.28,1) both; }
+.curio-root .settle  { animation: curio-settle .75s cubic-bezier(.2,.8,.3,1) both; }
 .curio-root .r1      { animation: curio-rise .5s ease .10s both; }
 .curio-root .r2      { animation: curio-rise .5s ease .22s both; }
 .curio-root .r3      { animation: curio-rise .5s ease .34s both; }
@@ -728,8 +591,14 @@ select {
 /* Tablet: begin composing rather than stacking. Mobile below 768px is untouched. */
 @media (min-width: 768px) {
   .curio-shell { max-width: 700px; }
-  .curio-reel { --c-reel-w: 720px; --c-reel-gutter: 20px; }
-  .curio-canvas { max-width: 560px; padding-bottom: 5vh; }
+  .curio-canvas {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 560px;
+    padding-bottom: 5vh;    /* optical centring sits slightly above true centre */
+  }
 }
 
 /* ==========================================================
@@ -759,7 +628,6 @@ select {
   }
 
   .curio-canvas { max-width: 640px; }
-  .curio-reel { --c-reel-w: 920px; --c-reel-gutter: 28px; }
 
   /* Readable measure inside a wide composition */
   .curio-canvas p { max-width: 64ch; margin-left: auto; margin-right: auto; }
@@ -779,7 +647,6 @@ select {
 @media (min-width: 1280px) {
   .curio-shell { max-width: 780px; padding-top: clamp(28px, 3.2vh, 46px); }
   .curio-canvas { max-width: 690px; }
-  .curio-reel { --c-reel-w: 1120px; --c-reel-gutter: 32px; }
 
   .curio-wordmark { font-size: 32px; }
   .curio-iconbtn  { width: 46px; height: 46px; min-height: 46px; }
@@ -796,7 +663,6 @@ select {
 @media (min-width: 1440px) {
   .curio-shell { max-width: 860px; padding-top: clamp(32px, 3.5vh, 52px); }
   .curio-canvas { max-width: 760px; }
-  .curio-reel { --c-reel-w: 1320px; --c-reel-gutter: 40px; }
 
   .curio-masthead {
     padding-left: clamp(36px, 4vw, 88px);
@@ -818,7 +684,6 @@ select {
 @media (min-width: 1920px) {
   .curio-shell { max-width: 980px; padding-top: clamp(36px, 3.8vh, 60px); }
   .curio-canvas { max-width: 870px; }
-  .curio-reel { --c-reel-w: 1640px; --c-reel-gutter: 48px; }
 
   .curio-masthead {
     padding-left: clamp(48px, 4.5vw, 120px);
@@ -849,6 +714,5 @@ select {
   .curio-root .r2,
   .curio-root .r3,
   .curio-root .breathe { animation: none !important; }
-  .curio-wordmark { animation: none !important; background-position: -25% 0; }
   .curio-stage__art { transition: none; }
 }
