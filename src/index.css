@@ -1,764 +1,1286 @@
-/* ==========================================================  
-   CURIO  
-   Foundation Layer  
-   Research • Reflection • Communication  
-   ========================================================== */  
-  
-/* ---------- Design Tokens ---------- */  
-  
-:root {  
-  --curio-bg-dark: #171f27;  
-  --curio-surface-dark: #1b242e;  
-  --curio-text-dark: #ede7da;  
-  
-  --curio-bg-light: #f3efe4;  
-  --curio-surface-light: #fffdf7;  
-  --curio-text-light: #1d262e;  
-  
-  --curio-accent: #5aae9f;  
-  --curio-accent-hover: #4ca091;  
-  
-  --curio-gold: #e3ac55;  
-  
-  --curio-radius-sm: 10px;  
-  --curio-radius-md: 14px;  
-  --curio-radius-lg: 20px;  
-  
-  --curio-shadow-sm:  
-    0 4px 10px rgba(0,0,0,.08);  
-  
-  --curio-shadow-md:  
-    0 10px 30px rgba(0,0,0,.12);  
-  
-  --curio-max-width: 520px;  
-  
-  --curio-speed-fast: .18s;  
-  --curio-speed-normal: .28s;  
-}  
-  
-/* ---------- Reset ---------- */  
-  
-*,  
-*::before,  
-*::after {  
-  box-sizing: border-box;  
-}  
-  
-html {  
-  -webkit-text-size-adjust: 100%;  
-  scroll-behavior: smooth;  
-}  
-  
-/* ---------- Root ---------- */  
-  
-html,  
-body,  
-#root {  
-  min-height: 100%;  
-}  
-  
-body {  
-  margin: 0;  
-  
-  background: var(--curio-bg-dark);  
-  color: var(--curio-text-dark);  
-  
-  font-family:  
-    "Atkinson Hyperlegible",  
-    system-ui,  
-    -apple-system,  
-    BlinkMacSystemFont,  
-    "Segoe UI",  
-    Roboto,  
-    sans-serif;  
-  
-  line-height: 1.6;  
-  
-  -webkit-font-smoothing: antialiased;  
-  -moz-osx-font-smoothing: grayscale;  
-  
-  text-rendering: optimizeLegibility;  
-  
-  padding:  
-    env(safe-area-inset-top)  
-    env(safe-area-inset-right)  
-    env(safe-area-inset-bottom)  
-    env(safe-area-inset-left);  
-}  
-  
-/* ---------- Selection ---------- */  
-  
-::selection {  
-  background: rgba(90, 174, 159, 0.35);  
-}  
-  
-/* ---------- Media ---------- */  
-  
-img,  
-svg,  
-audio,  
-video,  
-canvas {  
-  display: block;  
-  max-width: 100%;  
-}  
-  
-/* ---------- Forms ---------- */  
-  
-button,  
-input,  
-textarea,  
-select {  
-  font: inherit;  
-  color: inherit;  
-}  
-  
-/* ---------- Accessibility ---------- */  
-  
-:focus-visible {  
-  outline: 3px solid var(--curio-gold);  
-  outline-offset: 3px;  
-}  
-  
-/* ---------- Scrollbars ---------- */  
-  
-::-webkit-scrollbar {  
-  width: 10px;  
-}  
-  
-::-webkit-scrollbar-thumb {  
-  background: rgba(255,255,255,.15);  
-  border-radius: 999px;  
-}  
-  
-::-webkit-scrollbar-track {  
-  background: transparent;  
-}  
-  
-/* ---------- Light Theme Support ---------- */  
-  
-@media (prefers-color-scheme: light) {  
-  body {  
-    background: var(--curio-bg-light);  
-    color: var(--curio-text-light);  
-  }  
-  
-  ::-webkit-scrollbar-thumb {  
-    background: rgba(0,0,0,.15);  
-  }  
-}  
-  
-/* ---------- Motion Preferences ---------- */  
-  
-@media (prefers-reduced-motion: reduce) {  
-  
-  html {  
-    scroll-behavior: auto;  
-  }  
-  
-  *,  
-  *::before,  
-  *::after {  
-    animation-duration: .01ms !important;  
-    animation-iteration-count: 1 !important;  
-    transition-duration: .01ms !important;  
-  }  
-}  
-  
-/* ==========================================================  
-   Error Boundary UI  
-   ========================================================== */  
-  
-.app-fallback {  
-  max-width: 440px;  
-  
-  margin: 0 auto;  
-  
-  padding: 80px 24px;  
-  
-  text-align: center;  
-}  
-  
-.app-fallback h1 {  
-  margin: 0 0 14px;  
-  
-  font-size: 24px;  
-  
-  font-weight: 700;  
-}  
-  
-.app-fallback p {  
-  margin: 0 0 24px;  
-  
-  opacity: .75;  
-  
-  line-height: 1.7;  
-  
-  font-size: 15px;  
-}  
-  
-.app-fallback button {  
-  min-height: 50px;  
-  
-  padding: 0 26px;  
-  
-  border: none;  
-  
-  border-radius: var(--curio-radius-md);  
-  
-  background: var(--curio-accent);  
-  
-  color: #10181e;  
-  
-  font-weight: 700;  
-  
-  cursor: pointer;  
-  
-  transition:  
-    opacity var(--curio-speed-fast),  
-    transform var(--curio-speed-fast);  
-}  
-  
-.app-fallback button:hover {  
-  opacity: .92;  
-}  
-  
-.app-fallback button:active {  
-  transform: scale(.98);  
-}  
-  
-/* ==========================================================  
-   CURIO — Environment, Composition & Responsive Layer  
-  
-   Consumes CSS custom properties set on .curio-root by Curio.jsx,  
-   so the palette stays in JS while every media query lives here.  
-  
-   Composition principle: the environment owns the viewport; the  
-   content occupies a deliberate zone within it, vertically centred  
-   on large screens rather than stacked at the top of a narrow column.  
-   ========================================================== */  
-  
-/* ---------- Root ---------- */  
-  
-.curio-root {  
-  position: relative;  
-  min-height: 100svh;  
-  overflow-x: hidden;  
-  color: var(--c-text);  
-  font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI",  
-    Roboto, sans-serif;  
-}  
-  
-.curio-root .disp { font-family: "Fraunces", Georgia, serif; }  
-  
-.curio-root .tap:hover { opacity: 0.88; }  
-.curio-root .tap:active { transform: scale(0.985); }  
-.curio-root .tap:focus-visible {  
-  outline: 3px solid var(--c-amber);  
-  outline-offset: 3px;  
-}  
-  
-.curio-root audio { max-width: 100%; }  
-  
-/* ---------- Environment stage ---------- */  
-  
-.curio-stage {  
-  position: fixed;  
-  inset: 0;  
-  z-index: 0;  
-  overflow: hidden;  
-  pointer-events: none;  
-}  
-  
-.curio-stage__base {  
-  position: absolute;  
-  inset: 0;  
-  background: var(--c-bg);  
-  transition: background var(--curio-speed-normal) ease;  
-}  
-  
-/* <picture> swaps the source; these rules control framing.  
-   object-position keeps grass, cave mouth and book in frame on mobile. */  
-.curio-stage__art {  
-  position: absolute;  
-  inset: 0;  
-  width: 100%;  
-  height: 100%;  
-  object-fit: cover;  
-  object-position: var(--c-art-position);  
-  opacity: var(--c-art-opacity);  
-  transition: opacity 0.6s ease;  
-}  
-  
-/* Legibility scrim — heavier on mobile, where text sits over more artwork */  
-.curio-stage__scrim {  
-  position: absolute;  
-  inset: 0;  
-  background: linear-gradient(  
-    180deg,  
-    var(--c-scrim-top) 0%,  
-    var(--c-scrim-bottom) var(--c-scrim-stop),  
-    var(--c-scrim-bottom) 100%  
-  );  
-}  
-  
-/* ---------- Shell & composition ---------- */  
-  
-.curio-shell {  
-  position: relative;  
-  z-index: 1;  
-  min-height: 100svh;  
-  display: flex;  
-  flex-direction: column;  
-  margin: 0 auto;  
-  max-width: 620px;  
-  padding:  
-    calc(16px + env(safe-area-inset-top))  
-    clamp(16px, 5vw, 28px)  
-    calc(56px + env(safe-area-inset-bottom));  
-}  
-  
-.curio-masthead {  
-  display: flex;  
-  justify-content: space-between;  
-  align-items: center;  
-  gap: 12px;  
-  margin-bottom: clamp(22px, 5vh, 40px);  
-  flex-shrink: 0;  
-}  
-  
-/* The content zone. On mobile it flows from the top; on larger screens it  
-   centres itself in the scene so the layout reads as composed, not stranded. */  
-.curio-canvas {  
-  width: 100%;  
-  max-width: 480px;  
-  margin: 0 auto;  
-}  
-  
-/* ---------- Typography ---------- */  
-  
-/* A thin antique-gold highlight travels across the lettering, briefly, then  
-   rests. The gradient is clipped to the glyphs, so nothing is added to the  
-   layout and no second element is introduced. Where background-clip:text is  
-   unsupported, -webkit-text-fill-color is too, and `color` renders normally. */  
-.curio-wordmark {  
-  font-size: clamp(21px, 5.5vw, 27px);  
-  color: var(--c-text);  
-  background-color: transparent;  
-  background-image: linear-gradient(  
-    100deg,  
-    var(--c-text) 0%,  
-    var(--c-text) 43%,  
-    var(--c-amber) 50%,  
-    var(--c-text) 57%,  
-    var(--c-text) 100%  
-  );  
-  background-size: 260% 100%;  
-  background-position: 125% 0;  
-  background-repeat: no-repeat;  
-  -webkit-background-clip: text;  
-  background-clip: text;  
-  -webkit-text-fill-color: transparent;  
-  animation: curio-glint 9s ease-in-out infinite;  
-}  
-  
-@keyframes curio-glint {  
-  0%   { background-position: 125% 0; }  
-  16%  { background-position: -25% 0; }  
-  100% { background-position: -25% 0; }  
-}  
-  
-.curio-title {  
-  font-size: clamp(30px, 8.5vw, 46px);  
-  font-weight: 500;  
-  line-height: 1.08;  
-  overflow-wrap: anywhere;  
-  hyphens: auto;  
-}  
-  
-.curio-hook {  
-  text-align: center;  
-  font-size: clamp(15px, 4.2vw, 18px);  
-  color: var(--c-muted);  
-  line-height: 1.6;  
-  max-width: 420px;  
-  margin: 0 auto clamp(24px, 6vw, 36px);  
-}  
-  
-.curio-eyebrow {  
-  text-align: center;  
-  font-size: 11.5px;  
-  letter-spacing: 0.22em;  
-  font-weight: 700;  
-  margin-bottom: clamp(14px, 3vh, 20px);  
-}  
-  
-.curio-invitation {  
-  text-align: center;  
-  font-size: clamp(14px, 3.8vw, 15.5px);  
-  color: var(--c-muted);  
-  line-height: 1.6;  
-  margin: 0 0 clamp(22px, 5vh, 34px);  
-}  
-  
-.curio-saved-note {  
-  text-align: center;  
-  font-size: 15px;  
-  font-weight: 700;  
-  margin: 0 0 20px;  
-}  
-  
-/* ---------- Controls ---------- */  
-  
-.curio-modes {  
-  display: flex;  
-  gap: 4px;  
-  padding: 4px;  
-  margin-bottom: 12px;  
-  border: 1px solid var(--c-line);  
-  border-radius: 999px;  
-  background: var(--c-surface-alt);  
-}  
-  
-/* Primary action: restrained, no heavy shadow or gradient */  
-.curio-cta {  
-  width: 100%;  
-  padding: clamp(20px, 4vh, 30px) 20px;  
-  font-size: clamp(16px, 4.4vw, 18.5px);  
-  letter-spacing: 0.005em;  
-  margin-bottom: 10px;  
-}  
-  
-.curio-revisit {  
-  width: 100%;  
-  padding: 15px;  
-  font-size: 14.5px;  
-  display: flex;  
-  align-items: center;  
-  justify-content: center;  
-  gap: 8px;  
-  opacity: 0.9;  
-}  
-  
-/* ---------- Masthead controls ---------- */  
-  
-.curio-navgroup {  
-  display: flex;  
-  gap: 8px;  
-  align-items: center;  
-}  
-  
-.curio-iconbtn {  
-  width: 40px;  
-  height: 40px;  
-  min-height: 40px;  
-  border-radius: 999px;  
-  display: flex;  
-  align-items: center;  
-  justify-content: center;  
-}  
-  
-.curio-navbtn {  
-  min-height: 40px;  
-  border-radius: 999px;  
-  padding: 0 15px;  
-  display: flex;  
-  align-items: center;  
-  gap: 7px;  
-  font-size: 14px;  
-}  
-  
-/* ---------- Topic reel ---------- */  
-  
-/* The roller is a stage element, not a column element: it escapes the prose  
-   width and stretches across the available viewport. Vertical geometry is  
-   untouched - height still derives solely from --c-slot. */  
-.curio-reel {  
-  --c-reel-w: 100vw;  
-  --c-reel-gutter: 12px;  
-  --c-reel-actual: min(var(--c-reel-w), calc(100vw - var(--c-reel-gutter) * 2));  
-  
-  position: relative;  
-  height: calc(var(--c-slot) * 3);  
-  overflow: hidden;  
-  
-  width: var(--c-reel-actual);  
-  max-width: none;  
-  margin-left: calc(50% - var(--c-reel-actual) / 2);  
-}  
-  
-/* A quiet pair of rules rather than a boxed slot-machine frame */  
-.curio-reel__window {  
-  position: absolute;  
-  top: var(--c-slot);  
-  left: 0;  
-  right: 0;  
-  height: var(--c-slot);  
-  border-top: 1px solid var(--c-accent);  
-  border-bottom: 1px solid var(--c-accent);  
-  opacity: 0.34;  
-  z-index: 3;  
-  pointer-events: none;  
-}  
-  
-.curio-reel__fade {  
-  position: absolute;  
-  inset: 0;  
-  z-index: 2;  
-  pointer-events: none;  
-  background: linear-gradient(  
-    180deg,  
-    var(--c-flat) 0%,  
-    transparent 34%,  
-    transparent 66%,  
-    var(--c-flat) 100%  
-  );  
-}  
-  
-.curio-reel__slot {  
-  height: var(--c-slot);  
-  display: flex;  
-  align-items: center;  
-  justify-content: center;  
-  padding: 0 clamp(10px, 4vw, 20px);  
-}  
-  
-.curio-reel__title {  
-  font-size: clamp(18px, 5.2vw, 27px);  
-  font-weight: 500;  
-  text-align: center;  
-  line-height: 1.15;  
-  overflow-wrap: anywhere;  
-}  
-  
-/* ---------- Leave-session dialog ---------- */  
-  
-.curio-modal {  
-  position: fixed;  
-  inset: 0;  
-  z-index: 70;  
-  background: rgba(8, 14, 11, 0.72);  
-  display: flex;  
-  align-items: center;  
-  justify-content: center;  
-  padding: clamp(14px, 5vw, 24px);  
-}  
-  
-.curio-modal__panel {  
-  background: var(--c-flat);  
-  border: 1px solid var(--c-line);  
-  border-radius: var(--curio-radius-lg);  
-  padding: clamp(20px, 5vw, 28px);  
-  width: min(430px, 100%);  
-  max-height: 88svh;  
-  overflow-y: auto;  
-}  
-  
-.curio-modal__panel h2 { font-size: clamp(19px, 5.2vw, 23px); }  
-  
-.curio-modal__actions {  
-  display: flex;  
-  gap: 10px;  
-  flex-wrap: wrap;  
-}  
-  
-.curio-modal__actions > button {  
-  flex: 1 1 150px;  
-  min-height: 48px;  
-}  
-  
-/* ---------- Archive: a collection, not a settings drawer ---------- */  
-  
-.curio-drawer {  
-  width: min(440px, 100vw);  
-  height: 100%;  
-  background: var(--c-flat);  
-  border-left: 1px solid var(--c-line);  
-  overflow-y: auto;  
-  padding:  
-    calc(20px + env(safe-area-inset-top))  
-    clamp(16px, 5vw, 26px)  
-    calc(28px + env(safe-area-inset-bottom));  
-}  
-  
-.curio-drawer__title { font-size: clamp(19px, 5vw, 22px); font-weight: 600; }  
-  
-.curio-entry {  
-  background: var(--c-surface);  
-  border: 1px solid var(--c-line);  
-  border-left: 2px solid var(--c-amber);  
-  border-radius: var(--curio-radius-sm);  
-  padding: 16px;  
-  margin-bottom: 12px;  
-}  
-  
-/* ---------- Motion ---------- */  
-  
-@keyframes curio-settle {  
-  0%   { letter-spacing: 0.05em; opacity: 0; transform: translateY(8px); }  
-  100% { letter-spacing: -0.012em; opacity: 1; transform: translateY(0); }  
-}  
-@keyframes curio-rise {  
-  from { opacity: 0; transform: translateY(10px); }  
-  to   { opacity: 1; transform: translateY(0); }  
-}  
-@keyframes curio-breathe {  
-  0%, 100% { opacity: 1; }  
-  50%      { opacity: 0.42; }  
-}  
-  
-.curio-root .settle  { animation: curio-settle .75s cubic-bezier(.2,.8,.3,1) both; }  
-.curio-root .r1      { animation: curio-rise .5s ease .10s both; }  
-.curio-root .r2      { animation: curio-rise .5s ease .22s both; }  
-.curio-root .r3      { animation: curio-rise .5s ease .34s both; }  
-.curio-root .breathe { animation: curio-breathe 1.7s ease-in-out infinite; }  
-  
-/* ==========================================================  
-   Viewport adaptations  
-   ========================================================== */  
-  
-/* Touch devices: comfortable targets everywhere */  
-@media (hover: none) and (pointer: coarse) {  
-  .curio-root .tap { min-height: 48px; }  
-}  
-  
-/* Small mobile — artwork recedes further so text stays dominant */  
-@media (max-width: 360px) {  
-  .curio-stage__art { opacity: calc(var(--c-art-opacity) * 0.85); }  
-  .curio-canvas { max-width: 100%; }  
-}  
-  
-/* Tablet: begin composing rather than stacking. Mobile below 768px is untouched. */  
-@media (min-width: 768px) {  
-  .curio-shell { max-width: 700px; }  
-  .curio-reel { --c-reel-w: 720px; --c-reel-gutter: 20px; }  
-  .curio-canvas {  
-    flex: 1;  
-    display: flex;  
-    flex-direction: column;  
-    justify-content: center;  
-    max-width: 560px;  
-    padding-bottom: 5vh;    /* optical centring sits slightly above true centre */  
-  }  
-}  
-  
-/* ==========================================================  
-   Desktop composition  
-  
-   The masthead leaves the flow and anchors to the viewport's  
-   top-left/top-right. The composition column widens materially;  
-   prose keeps its own measure inside it so lines stay readable.  
-   ========================================================== */  
-  
-@media (min-width: 1024px) {  
-  /* Full-bleed to the viewport edges while remaining in normal flow, so the  
-     wordmark sits at the true top-left without overlapping scrolled content.  
-     .curio-shell is position:relative, so absolute positioning would anchor  
-     to the shell rather than the viewport. */  
-  .curio-masthead {  
-    margin-left: calc(50% - 50vw);  
-    margin-right: calc(50% - 50vw);  
-    padding-left: clamp(28px, 3.6vw, 60px);  
-    padding-right: clamp(28px, 3.6vw, 60px);  
-    margin-bottom: clamp(40px, 6vh, 72px);  
-  }  
-  
-  .curio-shell {  
-    max-width: 720px;  
-    padding-top: clamp(24px, 3vh, 40px);  
-  }  
-  
-  .curio-canvas { max-width: 640px; }  
-  .curio-reel { --c-reel-w: 920px; --c-reel-gutter: 28px; }  
-  
-  /* Readable measure inside a wide composition */  
-  .curio-canvas p { max-width: 64ch; margin-left: auto; margin-right: auto; }  
-  .curio-hook { max-width: 520px; }  
-  
-  .curio-wordmark { font-size: 30px; }  
-  .curio-iconbtn  { width: 44px; height: 44px; min-height: 44px; }  
-  .curio-navbtn   { min-height: 44px; padding: 0 18px; font-size: 15px; }  
-  .curio-navgroup { gap: 10px; }  
-  
-  .curio-reel__title { font-size: 36px; }  
-  .curio-title { font-size: 50px; }  
-  .curio-hook  { font-size: 19px; }  
-  .curio-cta   { padding: 30px 24px; font-size: 19px; }  
-}  
-  
-@media (min-width: 1280px) {  
-  .curio-shell { max-width: 780px; padding-top: clamp(28px, 3.2vh, 46px); }  
-  .curio-canvas { max-width: 690px; }  
-  .curio-reel { --c-reel-w: 1120px; --c-reel-gutter: 32px; }  
-  
-  .curio-wordmark { font-size: 32px; }  
-  .curio-iconbtn  { width: 46px; height: 46px; min-height: 46px; }  
-  .curio-navbtn   { min-height: 46px; padding: 0 20px; font-size: 15.5px; }  
-  
-  .curio-reel__title { font-size: 42px; }  
-  .curio-title { font-size: 54px; }  
-  .curio-cta   { padding: 32px 26px; font-size: 19.5px; }  
-  
-  .curio-stage__art { opacity: calc(var(--c-art-opacity) * 1.05); }  
-  .curio-drawer { width: min(460px, 100vw); }  
-}  
-  
-@media (min-width: 1440px) {  
-  .curio-shell { max-width: 860px; padding-top: clamp(32px, 3.5vh, 52px); }  
-  .curio-canvas { max-width: 760px; }  
-  .curio-reel { --c-reel-w: 1320px; --c-reel-gutter: 40px; }  
-  
-  .curio-masthead {  
-    padding-left: clamp(36px, 4vw, 88px);  
-    padding-right: clamp(36px, 4vw, 88px);  
-  }  
-  
-  .curio-wordmark { font-size: 34px; }  
-  .curio-iconbtn  { width: 48px; height: 48px; min-height: 48px; }  
-  .curio-navbtn   { min-height: 48px; padding: 0 22px; font-size: 16px; }  
-  
-  .curio-reel__title { font-size: 48px; }  
-  .curio-title { font-size: 58px; }  
-  .curio-hook  { font-size: 20px; max-width: 560px; }  
-  .curio-cta   { padding: 34px 28px; font-size: 20px; }  
-  
-  .curio-drawer { width: min(480px, 100vw); }  
-}  
-  
-@media (min-width: 1920px) {  
-  .curio-shell { max-width: 980px; padding-top: clamp(36px, 3.8vh, 60px); }  
-  .curio-canvas { max-width: 870px; }  
-  .curio-reel { --c-reel-w: 1640px; --c-reel-gutter: 48px; }  
-  
-  .curio-masthead {  
-    padding-left: clamp(48px, 4.5vw, 120px);  
-    padding-right: clamp(48px, 4.5vw, 120px);  
-  }  
-  
-  .curio-wordmark { font-size: 36px; }  
-  .curio-reel__title { font-size: 52px; }  
-  .curio-title { font-size: 62px; }  
-  .curio-hook  { font-size: 20.5px; max-width: 600px; }  
-  .curio-cta   { padding: 36px 30px; font-size: 21px; }  
-}  
-  
-/* Short viewports (landscape phones): tighten vertical rhythm */  
-@media (max-height: 620px) {  
-  .curio-shell { padding-bottom: calc(40px + env(safe-area-inset-bottom)); }  
-  .curio-masthead { margin-bottom: 18px; }  
-  .curio-canvas { justify-content: flex-start; padding-bottom: 0; }  
-  .curio-cta { padding: 18px 20px; }  
-  .curio-root .r1,  
-  .curio-root .r2,  
-  .curio-root .r3 { animation-duration: .3s; }  
-}  
-  
-@media (prefers-reduced-motion: reduce) {  
-  .curio-root .settle,  
-  .curio-root .r1,  
-  .curio-root .r2,  
-  .curio-root .r3,  
-  .curio-root .breathe { animation: none !important; }  
-  .curio-wordmark { animation: none !important; background-position: -25% 0; }  
-  .curio-stage__art { transition: none; }  
-}  
+/* ==========================================================================
+   Curio — global stylesheet
+
+   Ownership model
+   ---------------
+   This file owns the visual system: tokens, layout, typography, components,
+   responsive behaviour, motion and focus treatment.
+
+   Curio.jsx owns state, behaviour and semantics. The only value it writes into
+   CSS at runtime is --c-slot, the reel slot height, because that number is also
+   used by JavaScript to compute the landing transform and the two must never
+   diverge.
+
+   Theme
+   -----
+   [data-theme] on .curio-root is authoritative. prefers-color-scheme is read
+   once in JavaScript to pick an initial default and is used here only to tint
+   the pre-mount page; it never overrides the user's runtime choice.
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap");
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+
+.curio-root {
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 18px;
+  --r-pill: 999px;
+
+  --sp-1: 6px;
+  --sp-2: 10px;
+  --sp-3: 16px;
+  --sp-4: 22px;
+
+  --t-fast: 0.15s;
+  --t-med: 0.4s;
+  --t-slow: 0.6s;
+
+  --control-h: 40px;
+  --tap-min: 44px;
+
+  /* --c-slot is written by Curio.jsx; the rest of the reel geometry is CSS. */
+  --c-slot: 72px;
+  --reel-w: 100vw;
+  --reel-gutter: 12px;
+  --reel-actual: min(var(--reel-w), calc(100vw - var(--reel-gutter) * 2));
+
+  --art-opacity: 0.55;
+  --art-position: 50% 72%;
+  --scrim-stop: 48%;
+}
+
+/* Dark — deep forest over charcoal, warm parchment text */
+.curio-root[data-theme="dark"] {
+  --bg: radial-gradient(130% 100% at 50% 0%, #1d2b24 0%, #141c18 52%, #0d1310 100%);
+  --flat: #141c18;
+  --surface: #1c2620;
+  --surface-alt: #222e27;
+  --text: #efe8d8;
+  --muted: #9aa79e;
+  --line: rgba(239, 232, 216, 0.14);
+  --accent: #5fa98c;
+  --on-accent: #0d1310;
+  --gold: #d9a441;
+  --danger: #dc9482;
+  --scrim-top: rgba(13, 19, 16, 0.3);
+  --scrim-bottom: rgba(13, 19, 16, 0.94);
+  --veil: rgba(8, 14, 11, 0.72);
+}
+
+/* Light — parchment and moss */
+.curio-root[data-theme="light"] {
+  --bg: radial-gradient(130% 100% at 50% 0%, #f7f3e7 0%, #efeadb 55%, #e6e0ce 100%);
+  --flat: #efeadb;
+  --surface: #fffdf6;
+  --surface-alt: #f5f0e1;
+  --text: #1b241f;
+  --muted: #55635b;
+  --line: rgba(27, 36, 31, 0.15);
+  --accent: #2c6b54;
+  --on-accent: #fffdf6;
+  --gold: #8a6218;
+  --danger: #8c3f2c;
+  --scrim-top: rgba(239, 234, 219, 0.35);
+  --scrim-bottom: rgba(239, 234, 219, 0.92);
+  --veil: rgba(28, 34, 30, 0.62);
+}
+
+/* --------------------------------------------------------------------------
+   2. Document
+
+   Safe-area insets are applied in exactly two places: .curio-shell and
+   .curio-drawer. body applies none, so cutout padding is never doubled.
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: #141c18;
+  color: #efe8d8;
+  font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Pre-mount tint only, so there is no dark flash for light-mode users.
+   Once React mounts, .curio-root[data-theme] is the sole authority. */
+@media (prefers-color-scheme: light) {
+  body {
+    background: #efeadb;
+    color: #1b241f;
+  }
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   3. Root and environment stage
+   -------------------------------------------------------------------------- */
+
+.curio-root {
+  position: relative;
+  min-height: 100svh;
+  overflow-x: hidden;
+  color: var(--text);
+  font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
+}
+
+.curio-root audio {
+  width: 100%;
+  max-width: 100%;
+  height: 40px;
+}
+
+.curio-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.curio-stage__base {
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  transition: background var(--t-med) ease;
+}
+
+/* <picture> performs art direction; these rules control framing. */
+.curio-stage__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--art-position);
+  opacity: var(--art-opacity);
+  transition: opacity var(--t-slow) ease;
+}
+
+.curio-stage__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--scrim-top) 0%,
+    var(--scrim-bottom) var(--scrim-stop),
+    var(--scrim-bottom) 100%
+  );
+}
+
+/* --------------------------------------------------------------------------
+   4. Shell and composition
+   -------------------------------------------------------------------------- */
+
+.curio-shell {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  margin: 0 auto;
+  max-width: 620px;
+  padding: calc(16px + env(safe-area-inset-top)) clamp(16px, 5vw, 28px)
+    calc(56px + env(safe-area-inset-bottom));
+}
+
+.curio-masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  margin-bottom: clamp(22px, 5vh, 40px);
+  flex-shrink: 0;
+}
+
+.curio-navgroup {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
+.curio-canvas {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   5. Wordmark
+
+   The base text is painted normally and is never made transparent. The glint
+   lives entirely on ::after, which paints only the moving gold band; when the
+   gradient sits off the element the pseudo paints nothing and the base
+   wordmark is untouched.
+
+   The previous implementation clipped a background to the button's own text
+   and set -webkit-text-fill-color: transparent. At the resting position
+   (background-size 260%, background-position -25%) the image offset is
+   -0.25 x (100% - 260%) = +40% of the element, leaving the first 40% of the
+   glyphs with no background and therefore invisible: "Curio" rendered "rio".
+   -------------------------------------------------------------------------- */
+
+.curio-wordmark {
+  position: relative;
+  isolation: isolate;
+  display: inline-block;
+  min-height: var(--control-h);
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--text);
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  font-size: clamp(21px, 5.5vw, 27px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  cursor: pointer;
+}
+
+.curio-wordmark:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.curio-wordmark::after {
+  content: attr(data-wordmark);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  background-image: linear-gradient(
+    100deg,
+    transparent 42%,
+    var(--gold) 50%,
+    transparent 58%
+  );
+  background-size: 220% 100%;
+  background-position: 118% 0;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.85;
+  animation: curio-glint 9s ease-in-out infinite;
+}
+
+@keyframes curio-glint {
+  0% {
+    background-position: 118% 0;
+  }
+  14% {
+    background-position: -18% 0;
+  }
+  100% {
+    background-position: -18% 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. Typography
+   -------------------------------------------------------------------------- */
+
+.curio-eyebrow {
+  text-align: center;
+  font-size: 11.5px;
+  letter-spacing: 0.22em;
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0 0 clamp(14px, 3vh, 20px);
+}
+
+.curio-eyebrow--gold {
+  color: var(--gold);
+}
+
+.curio-eyebrow--inline {
+  text-align: left;
+  margin: 0 0 var(--sp-2);
+}
+
+.curio-title {
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  text-align: center;
+  font-size: clamp(30px, 8.5vw, 46px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+  margin: 0 0 var(--sp-4);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.curio-hook {
+  text-align: center;
+  font-size: clamp(15px, 4.2vw, 18px);
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 420px;
+  margin: 0 auto clamp(24px, 6vw, 36px);
+}
+
+.curio-invitation {
+  text-align: center;
+  font-size: clamp(14px, 3.8vw, 15.5px);
+  color: var(--muted);
+  margin: 0 0 clamp(22px, 5vh, 34px);
+}
+
+.curio-prose {
+  font-size: 16px;
+  line-height: 1.68;
+  margin: 0 0 var(--sp-4);
+}
+
+.curio-lead {
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  font-size: clamp(17px, 4.6vw, 20px);
+  line-height: 1.5;
+  margin: 0 0 var(--sp-4);
+}
+
+.curio-question {
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  font-size: clamp(16px, 4.4vw, 18.5px);
+  font-style: italic;
+  line-height: 1.45;
+  margin: 0 0 var(--sp-2);
+}
+
+.curio-muted {
+  color: var(--muted);
+}
+
+.curio-center {
+  text-align: center;
+}
+
+.curio-saved-note {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 0 var(--sp-4);
+}
+
+.curio-timer {
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  font-size: clamp(22px, 6vw, 28px);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.curio-verdict {
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 0 0 var(--sp-2);
+}
+
+/* --------------------------------------------------------------------------
+   7. Buttons
+   -------------------------------------------------------------------------- */
+
+.curio-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--tap-min);
+  padding: 14px 20px;
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition: opacity var(--t-fast) ease, transform 0.12s ease,
+    background var(--t-fast) ease, border-color var(--t-fast) ease;
+}
+
+.curio-btn:active {
+  transform: scale(0.985);
+}
+
+.curio-btn:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.curio-btn:disabled,
+.curio-btn[aria-busy="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.curio-btn:disabled:active,
+.curio-btn[aria-busy="true"]:active {
+  transform: none;
+}
+
+@media (hover: hover) {
+  .curio-btn:hover:not(:disabled) {
+    opacity: 0.88;
+  }
+}
+
+.curio-btn--primary {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+}
+
+.curio-btn--ghost {
+  border-color: var(--line);
+}
+
+.curio-btn--subtle {
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.curio-btn--danger {
+  background: var(--danger);
+  color: var(--on-accent);
+  border-color: var(--danger);
+}
+
+.curio-btn--gold {
+  border-style: dashed;
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.curio-btn--icon {
+  width: var(--control-h);
+  height: var(--control-h);
+  min-height: var(--control-h);
+  padding: 0;
+  border-radius: var(--r-pill);
+  border-color: var(--line);
+}
+
+.curio-btn--nav {
+  min-height: var(--control-h);
+  padding: 0 15px;
+  border-radius: var(--r-pill);
+  border-color: var(--line);
+  font-size: 14px;
+}
+
+.curio-btn--block {
+  width: 100%;
+}
+
+.curio-btn--cta {
+  width: 100%;
+  padding: clamp(20px, 4vh, 30px) 20px;
+  font-size: clamp(16px, 4.4vw, 18.5px);
+  letter-spacing: 0.005em;
+}
+
+/* The single circular stop control shown while recording */
+.curio-btn--stop {
+  width: 70px;
+  height: 70px;
+  min-height: 70px;
+  padding: 0;
+  border-radius: var(--r-pill);
+  background: var(--text);
+  color: var(--flat);
+  border-color: var(--text);
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .curio-btn {
+    min-height: 48px;
+  }
+}
+
+.curio-actions {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.curio-actions > .curio-btn {
+  flex: 1 1 150px;
+}
+
+.curio-actions > .curio-btn--hold {
+  flex: 0 0 auto;
+}
+
+.curio-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+/* --------------------------------------------------------------------------
+   8. Mode selector (segmented control; the pill shape is intentional here)
+   -------------------------------------------------------------------------- */
+
+.curio-modes {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: var(--sp-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--surface-alt);
+}
+
+.curio-mode {
+  flex: 1;
+  min-height: var(--tap-min);
+  border: none;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--muted);
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--t-fast) ease, color var(--t-fast) ease;
+}
+
+.curio-mode[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.curio-mode:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   9. Topic reel
+
+   The roller is a stage element, not a column element: it escapes the prose
+   width and stretches across the viewport. Vertical geometry derives solely
+   from --c-slot, the same number Curio.jsx uses for the landing transform.
+   -------------------------------------------------------------------------- */
+
+.curio-reel {
+  position: relative;
+  height: calc(var(--c-slot) * 3);
+  overflow: hidden;
+  width: var(--reel-actual);
+  max-width: none;
+  margin-left: calc(50% - var(--reel-actual) / 2);
+}
+
+.curio-reel__strip {
+  will-change: transform;
+}
+
+.curio-reel__window {
+  position: absolute;
+  top: var(--c-slot);
+  left: 0;
+  right: 0;
+  height: var(--c-slot);
+  border-top: 1px solid var(--accent);
+  border-bottom: 1px solid var(--accent);
+  opacity: 0.34;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.curio-reel__fade {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    var(--flat) 0%,
+    transparent 34%,
+    transparent 66%,
+    var(--flat) 100%
+  );
+}
+
+.curio-reel__slot {
+  height: var(--c-slot);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 clamp(10px, 4vw, 20px);
+}
+
+.curio-reel__title {
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  font-size: clamp(18px, 5.2vw, 27px);
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+/* --------------------------------------------------------------------------
+   10. Cards, chips, notices, recorder states
+   -------------------------------------------------------------------------- */
+
+.curio-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--sp-3);
+  margin-bottom: var(--sp-2);
+}
+
+.curio-card--accent {
+  border-left: 3px solid var(--accent);
+}
+
+.curio-card--gold {
+  border-left: 3px solid var(--gold);
+}
+
+.curio-card--quiet {
+  background: var(--surface-alt);
+}
+
+.curio-rule {
+  border-left: 2px solid var(--gold);
+  padding-left: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+
+.curio-rule--muted {
+  border-left-color: var(--muted);
+}
+
+.curio-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.curio-chip {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  padding: 7px 13px;
+  font-size: 14px;
+}
+
+.curio-chip--term {
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  border-radius: var(--r-sm);
+  padding: 8px 13px;
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.curio-block {
+  margin-bottom: var(--sp-4);
+}
+
+.curio-timeline-item {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 5px;
+}
+
+.curio-notice {
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--sp-3);
+  margin-bottom: var(--sp-2);
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--gold);
+}
+
+.curio-notice--danger {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.curio-transcript {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--sp-3);
+  margin-bottom: var(--sp-3);
+  max-height: 120px;
+  overflow-y: auto;
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.curio-recording {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: var(--sp-3);
+  color: var(--gold);
+}
+
+.curio-recording__dot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: var(--r-pill);
+  background: currentColor;
+}
+
+.curio-list-item {
+  position: relative;
+  padding-left: 16px;
+  margin: 6px 0 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.curio-list-item::before {
+  content: "\2014";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+
+/* Last child inside a card or rule never carries trailing space */
+.curio-card > :last-child,
+.curio-rule > :last-child {
+  margin-bottom: 0;
+}
+
+.curio-stat {
+  margin-top: -12px;
+}
+
+.curio-actions--spaced {
+  margin-top: var(--sp-2);
+}
+
+.curio-loading {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.curio-eyebrow--spaced {
+  margin-top: 14px;
+}
+
+.curio-entry audio {
+  margin-top: 10px;
+}
+
+.curio-entry__transcript {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
+
+.curio-btn--flush {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.curio-drawer__export {
+  margin-bottom: var(--sp-3);
+}
+
+.curio-research-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  margin-bottom: 18px;
+}
+
+/* --------------------------------------------------------------------------
+   11. Dialogs — leave-session modal and archive drawer
+   -------------------------------------------------------------------------- */
+
+.curio-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: var(--veil);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(14px, 5vw, 24px);
+}
+
+.curio-modal__panel {
+  background: var(--flat);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: clamp(20px, 5vw, 28px);
+  width: min(430px, 100%);
+  max-height: 88svh;
+  overflow-y: auto;
+}
+
+.curio-modal__title {
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  font-size: clamp(19px, 5.2vw, 23px);
+  font-weight: 600;
+  margin: 0 0 var(--sp-2);
+}
+
+.curio-modal__body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0 0 var(--sp-4);
+}
+
+.curio-drawer-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: var(--veil);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.curio-drawer {
+  width: min(440px, 100vw);
+  height: 100%;
+  background: var(--flat);
+  border-left: 1px solid var(--line);
+  overflow-y: auto;
+  padding: calc(20px + env(safe-area-inset-top)) clamp(16px, 5vw, 26px)
+    calc(28px + env(safe-area-inset-bottom));
+}
+
+.curio-drawer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+}
+
+.curio-drawer__title {
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  font-size: clamp(19px, 5vw, 22px);
+  font-weight: 600;
+  margin: 0;
+}
+
+.curio-entry {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--gold);
+  border-radius: var(--r-sm);
+  padding: var(--sp-3);
+  margin-bottom: 12px;
+}
+
+.curio-entry__title {
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.curio-entry__meta {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin: 4px 0 0;
+}
+
+.curio-entry__note {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+
+.curio-confirm {
+  margin-top: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.curio-confirm__text {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 var(--sp-2);
+}
+
+/* --------------------------------------------------------------------------
+   12. Motion
+   -------------------------------------------------------------------------- */
+
+@keyframes curio-settle {
+  0% {
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    letter-spacing: -0.012em;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes curio-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes curio-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.42;
+  }
+}
+
+.curio-settle {
+  animation: curio-settle 0.75s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+.curio-rise-1 {
+  animation: curio-rise 0.5s ease 0.1s both;
+}
+.curio-rise-2 {
+  animation: curio-rise 0.5s ease 0.22s both;
+}
+.curio-rise-3 {
+  animation: curio-rise 0.5s ease 0.34s both;
+}
+.curio-breathe {
+  animation: curio-breathe 1.7s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   13. Responsive composition
+
+   Mobile below 768px is deliberately untouched by the desktop rules below.
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 360px) {
+  .curio-root {
+    --art-opacity: 0.47;
+  }
+  .curio-canvas {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .curio-root {
+    --reel-w: 720px;
+    --reel-gutter: 20px;
+    --art-opacity: 0.72;
+    --art-position: 50% 50%;
+    --scrim-stop: 62%;
+  }
+
+  .curio-shell {
+    max-width: 700px;
+  }
+
+  .curio-canvas {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 560px;
+    padding-bottom: 5vh; /* optical centring sits slightly above true centre */
+  }
+}
+
+/* Desktop: the masthead full-bleeds to the viewport edges while staying in
+   normal flow. .curio-shell is positioned, so absolute placement would anchor
+   to the shell rather than the viewport. */
+@media (min-width: 1024px) {
+  .curio-root {
+    --reel-w: 920px;
+    --reel-gutter: 28px;
+    --control-h: 44px;
+  }
+
+  .curio-masthead {
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-left: clamp(28px, 3.6vw, 60px);
+    padding-right: clamp(28px, 3.6vw, 60px);
+    margin-bottom: clamp(40px, 6vh, 72px);
+  }
+
+  .curio-shell {
+    max-width: 720px;
+    padding-top: clamp(24px, 3vh, 40px);
+  }
+
+  .curio-canvas {
+    max-width: 640px;
+  }
+
+  /* Readable measure inside a wide composition */
+  .curio-canvas p {
+    max-width: 64ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .curio-wordmark {
+    font-size: 30px;
+  }
+  .curio-btn--nav {
+    padding: 0 18px;
+    font-size: 15px;
+  }
+  .curio-navgroup {
+    gap: var(--sp-2);
+  }
+  .curio-hook {
+    max-width: 520px;
+    font-size: 19px;
+  }
+  .curio-title {
+    font-size: 50px;
+  }
+  .curio-reel__title {
+    font-size: 36px;
+  }
+  .curio-btn--cta {
+    padding: 30px 24px;
+    font-size: 19px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .curio-root {
+    --reel-w: 1120px;
+    --reel-gutter: 32px;
+    --control-h: 46px;
+    --art-opacity: 0.76;
+  }
+
+  .curio-shell {
+    max-width: 780px;
+    padding-top: clamp(28px, 3.2vh, 46px);
+  }
+  .curio-canvas {
+    max-width: 690px;
+  }
+
+  .curio-wordmark {
+    font-size: 32px;
+  }
+  .curio-btn--nav {
+    padding: 0 20px;
+    font-size: 15.5px;
+  }
+  .curio-title {
+    font-size: 54px;
+  }
+  .curio-reel__title {
+    font-size: 42px;
+  }
+  .curio-btn--cta {
+    padding: 32px 26px;
+    font-size: 19.5px;
+  }
+  .curio-drawer {
+    width: min(460px, 100vw);
+  }
+}
+
+@media (min-width: 1440px) {
+  .curio-root {
+    --reel-w: 1320px;
+    --reel-gutter: 40px;
+    --control-h: 48px;
+  }
+
+  .curio-shell {
+    max-width: 860px;
+    padding-top: clamp(32px, 3.5vh, 52px);
+  }
+  .curio-canvas {
+    max-width: 760px;
+  }
+
+  .curio-masthead {
+    padding-left: clamp(36px, 4vw, 88px);
+    padding-right: clamp(36px, 4vw, 88px);
+  }
+
+  .curio-wordmark {
+    font-size: 34px;
+  }
+  .curio-btn--nav {
+    padding: 0 22px;
+    font-size: 16px;
+  }
+  .curio-title {
+    font-size: 58px;
+  }
+  .curio-hook {
+    font-size: 20px;
+    max-width: 560px;
+  }
+  .curio-reel__title {
+    font-size: 48px;
+  }
+  .curio-btn--cta {
+    padding: 34px 28px;
+    font-size: 20px;
+  }
+  .curio-drawer {
+    width: min(480px, 100vw);
+  }
+}
+
+@media (min-width: 1920px) {
+  .curio-root {
+    --reel-w: 1640px;
+    --reel-gutter: 48px;
+  }
+
+  .curio-shell {
+    max-width: 980px;
+    padding-top: clamp(36px, 3.8vh, 60px);
+  }
+  .curio-canvas {
+    max-width: 870px;
+  }
+
+  .curio-masthead {
+    padding-left: clamp(48px, 4.5vw, 120px);
+    padding-right: clamp(48px, 4.5vw, 120px);
+  }
+
+  .curio-wordmark {
+    font-size: 36px;
+  }
+  .curio-title {
+    font-size: 62px;
+  }
+  .curio-hook {
+    font-size: 20.5px;
+    max-width: 600px;
+  }
+  .curio-reel__title {
+    font-size: 52px;
+  }
+  .curio-btn--cta {
+    padding: 36px 30px;
+    font-size: 21px;
+  }
+}
+
+/* Short viewports, e.g. landscape phones. These values are mirrored by
+   desktopChrome() in Curio.jsx; change both together. */
+@media (max-height: 620px) {
+  .curio-shell {
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+  }
+  .curio-masthead {
+    margin-bottom: 18px;
+  }
+  .curio-canvas {
+    justify-content: flex-start;
+    padding-bottom: 0;
+  }
+  .curio-btn--cta {
+    padding: 18px 20px;
+  }
+  .curio-rise-1,
+  .curio-rise-2,
+  .curio-rise-3 {
+    animation-duration: 0.3s;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   14. Reduced motion
+
+   The reel's landing is driven by transitionend. Curio.jsx also arms a timer
+   as a guaranteed fallback, so removing the transition here can never leave
+   the application waiting forever.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .curio-settle,
+  .curio-rise-1,
+  .curio-rise-2,
+  .curio-rise-3,
+  .curio-breathe {
+    animation: none !important;
+  }
+
+  .curio-wordmark::after {
+    animation: none !important;
+    opacity: 0;
+  }
+
+  .curio-stage__art,
+  .curio-stage__base,
+  .curio-btn {
+    transition: none !important;
+  }
+}
