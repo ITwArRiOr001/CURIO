@@ -274,7 +274,7 @@ function BackgroundStage({ art, isMobile, quiet }) {
   const showArt = Boolean(art) && !quiet && !failed;
 
   return (
-    <div className="curio-stage" aria-hidden="true">
+    <div className="curio-stage" data-art={showArt ? "on" : "off"} aria-hidden="true">
       <div className="curio-stage__base" />
       {showArt && (
         <picture>
