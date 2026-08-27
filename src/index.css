@@ -262,6 +262,19 @@ select {
 
 /* ---------- Environment stage ---------- */
 
+/*
+  Stage hierarchy — explicit, so a later change cannot bury a layer:
+
+    z 0  .curio-stage__base    theme field + canopy/floor shading
+    z 1  .curio-stage__art     artwork (present only when loaded and not quiet)
+    z 2  .curio-stage::before  focal atmosphere  <-- ABOVE the artwork
+    z 3  .curio-stage__scrim   legibility treatment (renders with the artwork)
+    z 4  .curio-stage::after   vignette
+
+  .curio-stage is position:fixed with z-index:0, so it forms its own stacking
+  context: these values are scoped to the stage and the whole stage stays
+  beneath .curio-shell (z-index 1). The UI is always above all five layers.
+*/
 .curio-stage {
   position: fixed;
   inset: 0;
@@ -270,6 +283,25 @@ select {
   pointer-events: none;
 }
 
+/* Focal atmosphere. Broad, soft, and deliberately not a light source: it
+   raises the centre of the environment a little, above the artwork rather
+   than trapped beneath it. Weakened when artwork is present, because there
+   it is a modifier on a real image rather than the only depth cue. */
+.curio-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 130% 58% at 50% 46%,
+    var(--c-focal) 0%,
+    transparent 64%
+  );
+}
+
+.curio-stage[data-art="on"]::before { opacity: 0.62; }
+
 /* The base is a complete environment on its own, so the composition reads as
    a place even before the artwork exists. Three layers, back to front:
    the theme field, a canopy/floor shading, and a soft focal atmosphere
@@ -277,12 +309,8 @@ select {
 .curio-stage__base {
   position: absolute;
   inset: 0;
+  z-index: 0;
   background:
-    radial-gradient(
-      ellipse 130% 58% at 50% 46%,
-      var(--c-focal) 0%,
-      transparent 64%
-    ),
     linear-gradient(
       180deg,
       rgba(0, 0, 0, 0.30) 0%,
@@ -300,6 +328,7 @@ select {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 4;
   pointer-events: none;
   background: radial-gradient(
     ellipse 105% 78% at 50% 48%,
@@ -313,6 +342,7 @@ select {
 .curio-stage__art {
   position: absolute;
   inset: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -325,6 +355,7 @@ select {
 .curio-stage__scrim {
   position: absolute;
   inset: 0;
+  z-index: 3;
   background: linear-gradient(
     180deg,
     var(--c-scrim-top) 0%,
