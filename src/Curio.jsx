@@ -60,6 +60,14 @@ const MODES = {
   deep: { label: "Deep dive", seconds: 900, sub: "Guess, research it yourself, then explain." },
 };
 
+const MIC_MESSAGES = {
+  denied: "Recording needs microphone access. Allow it in your browser settings, then try again.",
+  missing: "No microphone was found. Connect one and try again.",
+  busy: "Your microphone is in use by another application. Close it and try again.",
+  unsupported: "This browser cannot record audio. You can still read and think through the topic.",
+  unavailable: "The microphone could not be started. Please try again.",
+};
+
 const QUIET_PHASES = ["commit", "research", "ready", "speak", "reveal"];
 
 const FILLERS = ["um", "uh", "like", "you know", "so yeah", "basically", "actually"];
@@ -307,182 +315,395 @@ function BackgroundStage({ art, quiet }) {
    media stream is released on every exit path.
    --------------------------------------------------------------------------- */
 
+function mapMicError(err) {
+  // Distinguish the failures the user can actually act on.
+  switch (err?.name) {
+    case "NotAllowedError":
+    case "SecurityError":
+      return "denied";
+    case "NotFoundError":
+    case "OverconstrainedError":
+      return "missing";
+    case "NotReadableError":
+    case "AbortError":
+      return "busy";
+    default:
+      return "unavailable";
+  }
+}
+
+/* Milliseconds to let SpeechRecognition deliver its last final result after the
+   recorder has stopped. Short enough not to be felt, long enough that a word
+   spoken at the very end usually lands in the finalized transcript. */
+const SPEECH_SETTLE_MS = 350;
+
+/**
+ * useRecorder — one implementation, used for both the prediction and the
+ * explanation.
+ *
+ * Lifecycle: idle -> starting -> recording -> stopping -> idle, tracked in a
+ * ref because every transition must be observable synchronously by the next
+ * caller, before React has re-rendered.
+ *
+ * Two properties matter most in production:
+ *
+ *  - stop() is idempotent. A stop operation can outlive the click that started
+ *    it, so one shared promise is kept and every caller awaiting the same stop
+ *    observes the same finalized take. Nothing is resolved twice and nothing is
+ *    left hanging.
+ *
+ *  - Every asynchronous path is generation-checked. Permission prompts, media
+ *    callbacks and speech results can all arrive after the take they belong to
+ *    was abandoned, and none of them may touch a newer take.
+ *
+ * SpeechRecognition is an enhancement throughout: when it is missing or fails,
+ * audio recording and saving still work and the transcript is simply empty.
+ */
 function useRecorder() {
   const [recording, setRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
   const [error, setError] = useState(null);
 
   const genRef = useRef(0);
+  const stateRef = useRef("idle"); // idle | starting | recording | stopping
   const recRef = useRef(null);
-  const chunksRef = useRef([]);
-  const srRef = useRef(null);
   const streamRef = useRef(null);
-  const resolveRef = useRef(null);
+  const srRef = useRef(null);
+  const srEndRef = useRef(null);
+  const chunksRef = useRef([]);
+  const transcriptRef = useRef("");
+  const startPromiseRef = useRef(null);
+  const stopPromiseRef = useRef(null);
+  const settleRef = useRef(null);
 
   const releaseStream = useCallback(() => {
     try {
       streamRef.current?.getTracks().forEach((t) => t.stop());
     } catch {
-      /* already stopped */
+      /* tracks already ended */
     }
     streamRef.current = null;
   }, []);
 
-  const teardown = useCallback(() => {
-    try { srRef.current?.stop(); } catch { /* inactive */ }
+  const teardownMedia = useCallback(() => {
+    try { srRef.current?.stop(); } catch { /* already inactive */ }
     srRef.current = null;
+    srEndRef.current = null;
     try {
       if (recRef.current && recRef.current.state !== "inactive") recRef.current.stop();
     } catch {
-      /* inactive */
+      /* already inactive */
     }
     recRef.current = null;
     releaseStream();
   }, [releaseStream]);
 
-  const start = useCallback(async () => {
-    setError(null);
-    setTranscript("");
-
-    if (typeof navigator === "undefined" || !navigator.mediaDevices?.getUserMedia) {
-      setError("unsupported");
-      return false;
-    }
-    if (typeof MediaRecorder === "undefined") {
-      setError("unsupported");
-      return false;
-    }
-
-    const gen = ++genRef.current;
-    let stream;
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    } catch {
-      setError("denied");
-      return false;
-    }
-
-    // Abandoned while the permission prompt was open.
-    if (gen !== genRef.current) {
-      stream.getTracks().forEach((t) => t.stop());
-      return false;
-    }
-
-    streamRef.current = stream;
-    chunksRef.current = [];
-
-    let rec;
-    try {
-      rec = new MediaRecorder(stream);
-    } catch {
-      releaseStream();
-      setError("unsupported");
-      return false;
-    }
-
-    rec.ondataavailable = (e) => {
-      if (gen === genRef.current && e.data?.size) chunksRef.current.push(e.data);
-    };
-    rec.onstop = () => {
-      const blob = chunksRef.current.length
-        ? new Blob(chunksRef.current, { type: rec.mimeType || "audio/webm" })
-        : null;
+  /* Resolves the shared stop promise exactly once. A take from a superseded
+     generation resolves empty so it can never be committed by its caller. */
+  const finalize = useCallback(
+    (gen, blob) => {
+      const settle = settleRef.current;
+      settleRef.current = null;
+      stopPromiseRef.current = null;
+      recRef.current = null;
       chunksRef.current = [];
+      stateRef.current = "idle";
       releaseStream();
-      const settle = resolveRef.current;
-      resolveRef.current = null;
-      // A stale take resolves with null so it cannot overwrite a newer one.
-      settle?.(gen === genRef.current ? blob : null);
-    };
 
-    try {
-      rec.start();
-    } catch {
-      releaseStream();
-      setError("unsupported");
-      return false;
-    }
-    recRef.current = rec;
-
-    // Enhancement only; never required for recording or saving.
-    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SR) {
-      try {
-        const r = new SR();
-        r.continuous = true;
-        r.interimResults = true;
-        r.lang = "en-US";
-        let settled = "";
-        r.onresult = (e) => {
-          if (gen !== genRef.current) return;
-          let interim = "";
-          for (let i = e.resultIndex; i < e.results.length; i += 1) {
-            if (e.results[i].isFinal) settled += `${e.results[i][0].transcript} `;
-            else interim += e.results[i][0].transcript;
-          }
-          setTranscript(settled + interim);
-        };
-        r.onerror = () => {}; // transcript simply stays empty
-        r.start();
-        srRef.current = r;
-      } catch {
-        srRef.current = null;
-      }
-    }
-
-    setRecording(true);
-    return true;
-  }, [releaseStream]);
-
-  /** Stops and resolves with the recorded Blob, or null if nothing usable. */
-  const stop = useCallback(
-    () =>
-      new Promise((resolve) => {
-        const rec = recRef.current;
-        try { srRef.current?.stop(); } catch { /* inactive */ }
-        srRef.current = null;
-        setRecording(false);
-
-        if (!rec || rec.state === "inactive") {
-          recRef.current = null;
-          releaseStream();
-          resolve(null);
-          return;
-        }
-        resolveRef.current = resolve;
-        try {
-          rec.stop();
-        } catch {
-          resolveRef.current = null;
-          recRef.current = null;
-          releaseStream();
-          resolve(null);
-        }
-      }),
+      const current = gen === genRef.current;
+      setRecording(false);
+      settle?.(
+        current
+          ? { blob: blob ?? null, transcript: transcriptRef.current.trim() }
+          : { blob: null, transcript: "" }
+      );
+    },
     [releaseStream]
   );
 
-  /** Discards the take and releases the microphone. Never produces a Blob. */
+  /* SpeechRecognition emits its last final result while stopping. Give it a
+     bounded window so the finalized transcript is as complete as it can be,
+     without ever making the stop depend on it. */
+  const waitForSpeech = useCallback(() => {
+    const sr = srRef.current;
+    srRef.current = null;
+    if (!sr) return Promise.resolve();
+    return new Promise((resolve) => {
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        srEndRef.current = null;
+        resolve();
+      };
+      srEndRef.current = finish;
+      try { sr.stop(); } catch { finish(); }
+      setTimeout(finish, SPEECH_SETTLE_MS);
+    });
+  }, []);
+
+  const beginRecording = useCallback(
+    async (gen) => {
+      if (typeof navigator === "undefined" || !navigator.mediaDevices?.getUserMedia
+        || typeof MediaRecorder === "undefined") {
+        if (gen === genRef.current) {
+          stateRef.current = "idle";
+          setError("unsupported");
+        }
+        return false;
+      }
+
+      let stream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      } catch (err) {
+        // A denial belonging to an abandoned attempt must not surface later.
+        if (gen === genRef.current) {
+          stateRef.current = "idle";
+          setError(mapMicError(err));
+        }
+        return false;
+      }
+
+      // Abandoned while the permission prompt was open.
+      if (gen !== genRef.current) {
+        stream.getTracks().forEach((t) => t.stop());
+        return false;
+      }
+
+      streamRef.current = stream;
+      chunksRef.current = [];
+      transcriptRef.current = "";
+
+      let rec;
+      try {
+        rec = new MediaRecorder(stream);
+      } catch {
+        releaseStream();
+        stateRef.current = "idle";
+        setError("unsupported");
+        return false;
+      }
+
+      rec.ondataavailable = (e) => {
+        if (gen === genRef.current && e.data?.size) chunksRef.current.push(e.data);
+      };
+
+      rec.onstop = () => {
+        const parts = chunksRef.current;
+        const blob = parts.length
+          ? new Blob(parts, { type: rec.mimeType || "audio/webm" })
+          : null;
+        waitForSpeech().then(() => finalize(gen, blob));
+      };
+
+      try {
+        rec.start();
+      } catch {
+        releaseStream();
+        stateRef.current = "idle";
+        setError("unsupported");
+        return false;
+      }
+
+      recRef.current = rec;
+
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SR) {
+        try {
+          const r = new SR();
+          r.continuous = true;
+          r.interimResults = true;
+          r.lang = "en-US";
+          let settled = "";
+          r.onresult = (e) => {
+            if (gen !== genRef.current) return;
+            let interim = "";
+            for (let i = e.resultIndex; i < e.results.length; i += 1) {
+              if (e.results[i].isFinal) settled += `${e.results[i][0].transcript} `;
+              else interim += e.results[i][0].transcript;
+            }
+            transcriptRef.current = settled + interim;
+            setTranscript(transcriptRef.current);
+          };
+          r.onerror = () => {
+            // Enhancement only: the take proceeds with whatever text exists.
+            srEndRef.current?.();
+          };
+          r.onend = () => { srEndRef.current?.(); };
+          r.start();
+          srRef.current = r;
+        } catch {
+          srRef.current = null;
+        }
+      }
+
+      stateRef.current = "recording";
+      setError(null);
+      setTranscript("");
+      setRecording(true);
+      return true;
+    },
+    [finalize, releaseStream, waitForSpeech]
+  );
+
+  /* Only one start may become authoritative. Repeat calls observe the pending
+     attempt rather than acquiring a second microphone stream. */
+  const start = useCallback(() => {
+    if (stateRef.current === "starting" && startPromiseRef.current) {
+      return startPromiseRef.current;
+    }
+    if (stateRef.current === "recording") return Promise.resolve(true);
+    if (stateRef.current === "stopping") return Promise.resolve(false);
+
+    stateRef.current = "starting";
+    const gen = ++genRef.current;
+    const p = beginRecording(gen).finally(() => {
+      if (startPromiseRef.current === p) startPromiseRef.current = null;
+    });
+    startPromiseRef.current = p;
+    return p;
+  }, [beginRecording]);
+
+  /**
+   * Stops and resolves with { blob, transcript } for this take.
+   * Safe to call repeatedly: every caller receives the same finalized result.
+   */
+  const stop = useCallback(() => {
+    if (stopPromiseRef.current) return stopPromiseRef.current;
+
+    if (stateRef.current === "starting") {
+      // No take exists yet. Invalidate the pending acquisition and resolve
+      // deterministically rather than waiting on a recording that never began.
+      genRef.current += 1;
+      stateRef.current = "idle";
+      startPromiseRef.current = null;
+      teardownMedia();
+      setRecording(false);
+      return Promise.resolve({ blob: null, transcript: "" });
+    }
+
+    if (stateRef.current !== "recording") {
+      return Promise.resolve({ blob: null, transcript: transcriptRef.current.trim() });
+    }
+
+    const gen = genRef.current;
+    stateRef.current = "stopping";
+    setRecording(false);
+
+    const p = new Promise((resolve) => { settleRef.current = resolve; });
+    stopPromiseRef.current = p;
+
+    try {
+      recRef.current.stop(); // onstop drives finalize()
+    } catch {
+      finalize(gen, null);
+    }
+    return p;
+  }, [finalize, teardownMedia]);
+
+  /* Discards the take and releases the microphone. The generation is bumped
+     first so callbacks still in flight cannot touch anything afterwards, and
+     any caller awaiting a stop is resolved rather than left hanging. */
   const abort = useCallback(() => {
     genRef.current += 1;
-    const settle = resolveRef.current;
-    resolveRef.current = null;
-    teardown();
+    const settle = settleRef.current;
+    settleRef.current = null;
+    stopPromiseRef.current = null;
+    startPromiseRef.current = null;
+    srEndRef.current = null;
+
+    teardownMedia();
     chunksRef.current = [];
+    transcriptRef.current = "";
+    stateRef.current = "idle";
+
     setRecording(false);
     setTranscript("");
     setError(null);
-    settle?.(null);
-  }, [teardown]);
+    settle?.({ blob: null, transcript: "" });
+  }, [teardownMedia]);
 
   const reset = useCallback(() => {
+    transcriptRef.current = "";
     setTranscript("");
     setError(null);
   }, []);
 
-  useEffect(() => () => { genRef.current += 1; teardown(); }, [teardown]);
+  useEffect(
+    () => () => {
+      genRef.current += 1;
+      settleRef.current?.({ blob: null, transcript: "" });
+      settleRef.current = null;
+      teardownMedia();
+    },
+    [teardownMedia]
+  );
 
   return { recording, transcript, error, start, stop, abort, reset };
+}
+
+const FOCUSABLE = [
+  "a[href]", "button:not([disabled])", "input:not([disabled])",
+  "select:not([disabled])", "textarea:not([disabled])", "audio[controls]",
+  '[tabindex]:not([tabindex="-1"])',
+].join(",");
+
+/**
+ * Real focus containment for a modal surface.
+ *
+ * aria-modal="true" is a promise to assistive technology, not an implementation:
+ * it does not stop Tab from walking into the application behind the dialog. This
+ * moves focus in, cycles it within the dialog, handles Escape, and returns focus
+ * to whatever opened it when the surface closes.
+ */
+function useFocusTrap(active, containerRef, onClose) {
+  useEffect(() => {
+    if (!active) return undefined;
+    const node = containerRef.current;
+    if (!node) return undefined;
+
+    const opener = document.activeElement;
+    node.focus();
+
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        e.stopPropagation();
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const items = Array.from(node.querySelectorAll(FOCUSABLE)).filter(
+        (el) => el.offsetParent !== null || el === document.activeElement
+      );
+      if (items.length === 0) {
+        e.preventDefault();
+        node.focus();
+        return;
+      }
+      const first = items[0];
+      const last = items[items.length - 1];
+      const current = document.activeElement;
+
+      if (e.shiftKey) {
+        if (current === first || current === node || !node.contains(current)) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else if (current === last || !node.contains(current)) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKey, true);
+    return () => {
+      document.removeEventListener("keydown", onKey, true);
+      if (opener && typeof opener.focus === "function") opener.focus();
+    };
+  }, [active, containerRef, onClose]);
 }
 
 /* ========================================================================== */
@@ -494,7 +715,7 @@ export default function Curio() {
   const [phase, setPhase] = useState("idle"); // idle|commit|research|ready|speak|reveal|saved
   const [mode, setMode] = useState("deep");
   const [topic, setTopic] = useState(null);
-  const [prevTopicId, setPrevTopicId] = useState(null);
+  const [topicLoading, setTopicLoading] = useState(false);
   const [attemptNumber, setAttemptNumber] = useState(1);
   const [seenIds, setSeenIds] = useState([]);
   const [topicError, setTopicError] = useState(false);
@@ -547,11 +768,12 @@ export default function Curio() {
   const speakStartRef = useRef(null);
   const urlsRef = useRef([]);
   const spinningRef = useRef(false);
+  const topicLoadingRef = useRef(false); // synchronous mirror of topicLoading
   const drawSeqRef = useRef(0);
+  const archiveSeqRef = useRef(0);
+  const fbSeqRef = useRef(0);
   const pendingSeqRef = useRef(0);
   const pendingTopicIdRef = useRef(null);
-  const exitTriggerRef = useRef(null);
-  const archiveTriggerRef = useRef(null);
   const modalRef = useRef(null);
   const drawerRef = useRef(null);
 
@@ -559,13 +781,18 @@ export default function Curio() {
 
   /* ---------- archive loading ---------- */
 
+  /* Refreshes can overlap. Only the newest may write, so a slow earlier request
+     cannot overwrite newer entries or resurrect an error the newer one cleared. */
   const refreshArchive = useCallback(async () => {
+    const seq = ++archiveSeqRef.current;
     try {
       const [list, due] = await Promise.all([listEntries(), getDueReturns()]);
+      if (seq !== archiveSeqRef.current) return;
       setEntries(list);
       setDueReturns(due);
       setArchiveError(null);
     } catch {
+      if (seq !== archiveSeqRef.current) return;
       setArchiveError("Your archive could not be loaded. Saved entries are safe on this device.");
     }
   }, []);
@@ -700,8 +927,10 @@ export default function Curio() {
   /* ---------- Encounter ---------- */
 
   function draw(targetId = null) {
-    if (spinningRef.current) return; // ignore double-clicks on Draw
-    if (topic) setPrevTopicId(topic.id);
+    // A draw is in flight until its topic has resolved, not merely until the
+    // reel stops. Both guards are refs so a second click in the same tick sees
+    // the block before React has re-rendered.
+    if (spinningRef.current || topicLoadingRef.current) return;
     resetSession();
     setTopic(null);
 
@@ -753,8 +982,14 @@ export default function Curio() {
     const seq = pendingSeqRef.current;
     clearTimeout(settleRef.current);
     stopRollAudio();
+
+    // The reel has finished but the session has not: hand straight over to an
+    // explicit loading state so the application never looks like it returned
+    // home while a topic request is still outstanding.
     spinningRef.current = false;
+    topicLoadingRef.current = true;
     setSpinning(false);
+    setTopicLoading(true);
     setReelAnim(false);
     setReelY(0);
     setLockedSlotH(null); // geometry follows the viewport again
@@ -762,36 +997,33 @@ export default function Curio() {
     const id = pendingTopicIdRef.current;
     try {
       const [full, attempts] = await Promise.all([loadTopic(id), attemptCountFor(id)]);
-      if (drawSeqRef.current !== seq) return; // abandoned while loading
+      // Abandoned mid-load: whoever abandoned already cleared the loading state.
+      if (drawSeqRef.current !== seq) return;
+      topicLoadingRef.current = false;
+      setTopicLoading(false);
       setTopic(full);
       setAttemptNumber(attempts + 1);
-      setSeenIds((s) => (s.includes(id) ? s : [...s, id]));
+      setSeenIds((prev) => (prev.includes(id) ? prev : [...prev, id]));
       setLanded(true);
       playLandAudio();
     } catch {
       if (drawSeqRef.current !== seq) return;
+      topicLoadingRef.current = false;
+      setTopicLoading(false);
       setTopic(null);
       setTopicError(true);
     }
-  }
-
-  function goBack() {
-    if (!prevTopicId) return;
-    const id = prevTopicId;
-    setPrevTopicId(null);
-    draw(id);
   }
 
   /* ---------- Home navigation ----------
      The session begins the moment a discovery is initiated: the reel counts,
      before a topic exists and while phase is still "idle". */
 
-  const sessionInProgress = spinning || Boolean(topic);
+  const sessionInProgress = spinning || topicLoading || Boolean(topic);
 
-  function goHome(e) {
+  function goHome() {
     if (exitOpen) return;
     if (sessionInProgress) {
-      exitTriggerRef.current = e?.currentTarget ?? null;
       setExitOpen(true);
       return;
     }
@@ -804,15 +1036,16 @@ export default function Curio() {
     clearInterval(timerRef.current);
     clearInterval(tickRef.current);
     clearTimeout(settleRef.current);
-    drawSeqRef.current += 1; // any pending landing is now void
+    drawSeqRef.current += 1; // voids any pending landing, load, feedback or prior-attempt
     spinningRef.current = false;
+    topicLoadingRef.current = false;
+    setTopicLoading(false);
     setLockedSlotH(null);
     stopRollAudio();
     recorder.abort();
 
     resetSession(); // releases session object URLs
     setTopic(null);
-    setPrevTopicId(null);
     setSpinning(false);
     setReelItems([]);
     setReelAnim(false);
@@ -845,9 +1078,16 @@ export default function Curio() {
   }
 
   async function stopPrediction() {
-    const blob = await recorder.stop();
-    releaseUrl(prediction.url); // a re-record replaces the previous take
-    setPrediction({ blob, url: trackUrl(blob), transcript: recorder.transcript });
+    // The finalized transcript travels with the take; reading recorder.transcript
+    // here would race the last SpeechRecognition result.
+    const { blob, transcript } = await recorder.stop();
+    if (blob) {
+      // Only discard the previous take once a valid replacement exists.
+      const nextUrl = trackUrl(blob);
+      const oldUrl = prediction.url;
+      setPrediction({ blob, url: nextUrl, transcript });
+      releaseUrl(oldUrl);
+    }
     setActiveTake(null);
     advanceAfterCommit();
   }
@@ -870,23 +1110,40 @@ export default function Curio() {
   }
 
   async function stopExplanation() {
-    const blob = await recorder.stop();
-    releaseUrl(explanation.url);
-    setExplanation({ blob, url: trackUrl(blob), transcript: recorder.transcript });
+    const { blob, transcript } = await recorder.stop();
+    if (blob) {
+      const nextUrl = trackUrl(blob);
+      const oldUrl = explanation.url;
+      setExplanation({ blob, url: nextUrl, transcript });
+      releaseUrl(oldUrl);
+    }
     setElapsed(speakStartRef.current ? (Date.now() - speakStartRef.current) / 60000 : 0);
     setActiveTake(null);
 
     // The previous attempt is revealed only on the next screen, never earlier.
+    // It is fetched against the current draw so a slow lookup for an abandoned
+    // topic cannot appear inside a later one.
     if (attemptNumber > 1) {
-      previousAttempt(topic.id).then(setPriorEntry).catch(() => setPriorEntry(null));
+      const seq = drawSeqRef.current;
+      const topicId = topic.id;
+      previousAttempt(topicId)
+        .then((entry) => { if (drawSeqRef.current === seq) setPriorEntry(entry); })
+        .catch(() => { if (drawSeqRef.current === seq) setPriorEntry(null); });
     }
     setPhase("reveal");
   }
 
   /* ---------- Reveal ---------- */
 
+  /* The AI service cannot be cancelled, so a superseded request is ignored on
+     arrival instead: it must not overwrite a newer result, nor the loading or
+     error state belonging to a newer request or a different topic. */
   async function loadFeedback() {
-    if (fbState === "loading") return;
+    if (fbState === "loading") return; // single-flight
+    const reqSeq = ++fbSeqRef.current;
+    const drawSeq = drawSeqRef.current;
+    const stale = () => reqSeq !== fbSeqRef.current || drawSeq !== drawSeqRef.current;
+
     setFbState("loading");
     try {
       const fb = await requestFeedback({
@@ -894,9 +1151,11 @@ export default function Curio() {
         predictionTranscript: prediction.transcript,
         explanationTranscript: explanation.transcript,
       });
+      if (stale()) return;
       setFeedback(fb);
       setFbState("idle");
     } catch {
+      if (stale()) return;
       setFbState("error");
     }
   }
@@ -955,39 +1214,20 @@ export default function Curio() {
     }
   }
 
-  function openArchive(e) {
-    archiveTriggerRef.current = e?.currentTarget ?? null;
-    setArchiveOpen(true);
-  }
-
-  function closeArchive() {
+  /* Stable identities: the focus trap depends on these, and a new function on
+     every render would tear the trap down and rebuild it continuously. */
+  const closeArchive = useCallback(() => {
     setArchiveOpen(false);
     setConfirmDeleteId(null);
-    archiveTriggerRef.current?.focus?.();
-  }
+  }, []);
 
-  function closeExit() {
+  const closeExit = useCallback(() => {
     setExitOpen(false);
-    exitTriggerRef.current?.focus?.();
-  }
+  }, []);
 
-  /* ---------- dialog behaviour: focus and Escape ---------- */
-
-  useEffect(() => {
-    if (!exitOpen) return undefined;
-    modalRef.current?.focus();
-    const onKey = (e) => { if (e.key === "Escape") closeExit(); };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [exitOpen]);
-
-  useEffect(() => {
-    if (!archiveOpen) return undefined;
-    drawerRef.current?.focus();
-    const onKey = (e) => { if (e.key === "Escape") closeArchive(); };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [archiveOpen]);
+  // Focus containment, Escape, and focus return to the opener.
+  useFocusTrap(exitOpen, modalRef, closeExit);
+  useFocusTrap(archiveOpen, drawerRef, closeArchive);
 
   /* ---------- derived view state ---------- */
 
@@ -1014,12 +1254,7 @@ export default function Curio() {
   const spokenFor =
     elapsed < 1 ? `${Math.round(elapsed * 60)} seconds` : `${elapsed.toFixed(1)} minutes`;
 
-  const micMessage =
-    recorder.error === "denied"
-      ? "Recording needs microphone access. Allow it in your browser settings, then try again."
-      : recorder.error === "unsupported"
-        ? "This browser cannot record audio. You can still read and think through the topic."
-        : null;
+  const micMessage = recorder.error ? MIC_MESSAGES[recorder.error] : null;
 
   return (
     <div
@@ -1054,7 +1289,7 @@ export default function Curio() {
             <button
               type="button"
               className="curio-btn curio-btn--nav"
-              onClick={openArchive}
+              onClick={() => setArchiveOpen(true)}
               aria-label={`Your archive, ${entries.length} ${entries.length === 1 ? "entry" : "entries"}`}
             >
               <Archive size={15} aria-hidden="true" />
@@ -1065,7 +1300,7 @@ export default function Curio() {
 
         <main className="curio-canvas">
           {/* ------------------ Encounter (home) ------------------ */}
-          {!topic && !spinning && (
+          {!topic && !spinning && !topicLoading && (
             <div className="curio-rise-1">
               <div className="curio-modes" role="group" aria-label="Session mode">
                 {Object.entries(MODES).map(([k, m]) => (
@@ -1144,8 +1379,17 @@ export default function Curio() {
             </div>
           )}
 
+          {/* ------------------ Loading the drawn topic ------------------ */}
+          {topicLoading && (
+            <div className="curio-center">
+              <p className="curio-eyebrow curio-eyebrow--gold curio-breathe" role="status">
+                FINDING IT
+              </p>
+            </div>
+          )}
+
           {/* ------------------ Topic ------------------ */}
-          {topic && !spinning && (
+          {topic && !spinning && !topicLoading && (
             <div>
               <p className="curio-eyebrow curio-eyebrow--gold curio-rise-1">
                 {attemptNumber > 1 ? `RETURN \u00B7 ATTEMPT ${attemptNumber}` : "TODAY'S DISCOVERY"}
@@ -1169,15 +1413,13 @@ export default function Curio() {
                     <button type="button" className="curio-btn curio-btn--ghost" onClick={() => draw()}>
                       <RotateCcw size={15} aria-hidden="true" /> Draw another
                     </button>
-                    {prevTopicId && (
-                      <button
-                        type="button"
-                        className="curio-btn curio-btn--ghost curio-btn--hold"
-                        onClick={goBack}
-                      >
-                        <ChevronLeft size={15} aria-hidden="true" /> Back
-                      </button>
-                    )}
+                    <button
+                      type="button"
+                      className="curio-btn curio-btn--ghost curio-btn--hold"
+                      onClick={goHome}
+                    >
+                      <ChevronLeft size={15} aria-hidden="true" /> Back
+                    </button>
                   </div>
                 </div>
               )}
