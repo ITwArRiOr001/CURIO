@@ -27,6 +27,22 @@ import { requestFeedback, aiAvailable } from "./services/ai";
 
    Presentation lives in index.css. The only value written into CSS from here
    is --c-slot, because the same number drives the reel's landing transform.
+
+   Asynchronous ownership model
+   ----------------------------
+   Two tokens decide who is allowed to write state.
+
+     drawSeqRef  identifies the session. It advances on every draw, on every
+                 return home, when a session is preserved, and on unmount.
+                 Any asynchronous result that was started under an older draw
+                 sequence is read-only: it may complete, but it may not write.
+
+     the take    identifies one microphone recording. Ownership is an object
+                 identity, not a scattered set of guards: a take owns its own
+                 stream, recorder, recogniser, chunks, transcript and stop
+                 resolver, and exactly one take at a time sits in takeRef.
+                 A callback belonging to take A can therefore only reach A's
+                 own fields; it can never mutate, resolve or release B's.
    ============================================================================ */
 
 /* ---------------------------------------------------------------------------
@@ -66,11 +82,32 @@ const MIC_MESSAGES = {
   busy: "Your microphone is in use by another application. Close it and try again.",
   unsupported: "This browser cannot record audio. You can still read and think through the topic.",
   unavailable: "The microphone could not be started. Please try again.",
+  interrupted: "The recording stopped unexpectedly. Your previous take is safe — please try again.",
 };
 
 const QUIET_PHASES = ["commit", "research", "ready", "speak", "reveal"];
 
 const FILLERS = ["um", "uh", "like", "you know", "so yeah", "basically", "actually"];
+
+/* ---------------------------------------------------------------------------
+   Single-flight latches
+
+   A boolean is not enough once an operation can outlive the session that began
+   it: a late completion from an abandoned session would clear the latch a newer
+   session had just set. The token makes release ownership explicit — only the
+   operation that claimed the latch may release it.
+   --------------------------------------------------------------------------- */
+
+function claim(ref) {
+  if (ref.current) return null;
+  const token = {};
+  ref.current = token;
+  return token;
+}
+
+function release(ref, token) {
+  if (ref.current === token) ref.current = null;
+}
 
 /* ---------------------------------------------------------------------------
    Reel geometry
@@ -172,12 +209,22 @@ function useViewport(frozen) {
 
   useEffect(() => {
     if (frozen) return undefined; // geometry must not move mid-spin
-    const onResize = () => setVp(readViewport());
-    window.addEventListener("resize", onResize);
-    window.addEventListener("orientationchange", onResize);
+
+    // readViewport() returns a fresh object every call, so identity is compared
+    // by value here: otherwise every resize event and every unfreeze would
+    // re-render whether or not the viewport actually changed.
+    const sync = () =>
+      setVp((prev) => {
+        const next = readViewport();
+        return prev.w === next.w && prev.h === next.h ? prev : next;
+      });
+
+    sync(); // catch up on anything that moved while the geometry was frozen
+    window.addEventListener("resize", sync);
+    window.addEventListener("orientationchange", sync);
     return () => {
-      window.removeEventListener("resize", onResize);
-      window.removeEventListener("orientationchange", onResize);
+      window.removeEventListener("resize", sync);
+      window.removeEventListener("orientationchange", sync);
     };
   }, [frozen]);
 
@@ -309,10 +356,33 @@ function BackgroundStage({ art, quiet }) {
    useRecorder — one implementation, used for both the prediction and the
    explanation.
 
-   Speech recognition is an enhancement: when it is unavailable or fails, audio
-   recording still works and the session can still be saved. A generation token
-   makes callbacks from an abandoned take unable to affect a newer one, and the
-   media stream is released on every exit path.
+   Ownership
+   ---------
+   A "take" is one recording attempt. It is a plain object that owns every
+   resource that attempt acquired: the media stream, the MediaRecorder, the
+   SpeechRecognition instance, the collected chunks, the running transcript,
+   its own timers, and the resolver of its own stop promise.
+
+   Exactly one take is authoritative at a time, and that is the one held in
+   takeRef. Every callback closes over the take that created it, so it can only
+   ever reach that take's fields. `owns(take)` answers one question — is this
+   take still the authoritative one — and it is the only thing that gates
+   writes to shared state (recording, transcript, error, the state machine).
+
+   That is why a late callback from an abandoned attempt is harmless rather
+   than dangerous: attempt A physically cannot reach attempt B's stream,
+   recorder, chunks, transcript, resolver or refs, because they are not stored
+   in the same places.
+
+   Two further properties matter in production:
+
+    - stop() is idempotent. One shared promise is kept for a stop operation and
+      every caller awaiting the same stop observes the same finalized take.
+      Nothing is resolved twice and nothing is left hanging.
+
+    - SpeechRecognition is an enhancement throughout. When it is missing, fails
+      or returns nothing, audio recording and saving still work and the
+      transcript is simply empty.
    --------------------------------------------------------------------------- */
 
 function mapMicError(err) {
@@ -337,120 +407,177 @@ function mapMicError(err) {
    spoken at the very end usually lands in the finalized transcript. */
 const SPEECH_SETTLE_MS = 350;
 
-/**
- * useRecorder — one implementation, used for both the prediction and the
- * explanation.
- *
- * Lifecycle: idle -> starting -> recording -> stopping -> idle, tracked in a
- * ref because every transition must be observable synchronously by the next
- * caller, before React has re-rendered.
- *
- * Two properties matter most in production:
- *
- *  - stop() is idempotent. A stop operation can outlive the click that started
- *    it, so one shared promise is kept and every caller awaiting the same stop
- *    observes the same finalized take. Nothing is resolved twice and nothing is
- *    left hanging.
- *
- *  - Every asynchronous path is generation-checked. Permission prompts, media
- *    callbacks and speech results can all arrive after the take they belong to
- *    was abandoned, and none of them may touch a newer take.
- *
- * SpeechRecognition is an enhancement throughout: when it is missing or fails,
- * audio recording and saving still work and the transcript is simply empty.
- */
+/* MediaRecorder is specified to follow an error with a stop. If a browser does
+   not, finalize anyway so the microphone is released and the stop resolves. */
+const RECORDER_ERROR_GRACE_MS = 400;
+
+/* Last-resort watchdog for a stop that never produces onstop. Deliberately far
+   longer than any real flush: it exists so a browser bug degrades to a lost
+   take rather than a permanently stuck recording screen with the microphone
+   still open. */
+const STOP_WATCHDOG_MS = 5000;
+
+const emptyTake = () => ({ blob: null, transcript: "" });
+
+function newTake(gen) {
+  return {
+    gen,
+    stream: null,
+    rec: null,
+    sr: null,
+    srSettle: null,   // resolves this take's speech settle window
+    srTimer: null,
+    errorTimer: null,
+    stopTimer: null,
+    chunks: [],
+    transcript: "",
+    settle: null,     // resolver of this take's stop promise
+    dead: false,
+    failed: false,
+    finalized: false,
+  };
+}
+
+/* Releases everything this take acquired. Idempotent, and scoped strictly to
+   the take passed in: it can never close a newer take's microphone. Handlers
+   are detached first so a discarded take produces no further callbacks. */
+function releaseTake(take) {
+  if (!take) return;
+  take.dead = true;
+
+  if (take.srTimer) { clearTimeout(take.srTimer); take.srTimer = null; }
+  if (take.errorTimer) { clearTimeout(take.errorTimer); take.errorTimer = null; }
+  if (take.stopTimer) { clearTimeout(take.stopTimer); take.stopTimer = null; }
+  take.srSettle = null;
+
+  const sr = take.sr;
+  take.sr = null;
+  if (sr) {
+    try { sr.onresult = null; sr.onerror = null; sr.onend = null; } catch { /* frozen */ }
+    // abort() discards the pending result; this path is always a discard.
+    try { if (typeof sr.abort === "function") sr.abort(); else sr.stop(); } catch { /* inactive */ }
+  }
+
+  const rec = take.rec;
+  take.rec = null;
+  if (rec) {
+    try { rec.ondataavailable = null; rec.onstop = null; rec.onerror = null; } catch { /* frozen */ }
+    try { if (rec.state !== "inactive") rec.stop(); } catch { /* already inactive */ }
+  }
+
+  const stream = take.stream;
+  take.stream = null;
+  if (stream) {
+    try { stream.getTracks().forEach((t) => t.stop()); } catch { /* tracks ended */ }
+  }
+
+  take.chunks = [];
+}
+
+/* SpeechRecognition emits its last final result while stopping. Give this take
+   a bounded window so its finalized transcript is as complete as it can be,
+   without ever making the stop depend on it. The resolver lives on the take,
+   so an abandoned attempt's recogniser can never close a newer one's window. */
+function waitForSpeech(take) {
+  const sr = take.sr;
+  take.sr = null;
+  if (!sr) return Promise.resolve();
+
+  return new Promise((resolve) => {
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      take.srSettle = null;
+      if (take.srTimer) { clearTimeout(take.srTimer); take.srTimer = null; }
+      try { sr.onresult = null; sr.onerror = null; sr.onend = null; } catch { /* frozen */ }
+      resolve();
+    };
+
+    take.srSettle = finish;
+    // Armed before stop(), so a synchronous throw cannot leave a stray timer.
+    take.srTimer = setTimeout(finish, SPEECH_SETTLE_MS);
+    try { sr.stop(); } catch { finish(); }
+  });
+}
+
 function useRecorder() {
   const [recording, setRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
   const [error, setError] = useState(null);
 
-  const genRef = useRef(0);
-  const stateRef = useRef("idle"); // idle | starting | recording | stopping
-  const recRef = useRef(null);
-  const streamRef = useRef(null);
-  const srRef = useRef(null);
-  const srEndRef = useRef(null);
-  const chunksRef = useRef([]);
-  const transcriptRef = useRef("");
+  const genRef = useRef(0);            // monotonic take id
+  const stateRef = useRef("idle");     // idle | starting | recording | stopping
+  const takeRef = useRef(null);        // the one authoritative take, or null
   const startPromiseRef = useRef(null);
   const stopPromiseRef = useRef(null);
-  const settleRef = useRef(null);
+  const salvageRef = useRef(null);     // audio from a stop nobody asked for
+  const mountedRef = useRef(true);
 
-  const releaseStream = useCallback(() => {
-    try {
-      streamRef.current?.getTracks().forEach((t) => t.stop());
-    } catch {
-      /* tracks already ended */
-    }
-    streamRef.current = null;
-  }, []);
+  /* The whole ownership question, in one place. */
+  const owns = useCallback((take) => takeRef.current === take, []);
 
-  const teardownMedia = useCallback(() => {
-    try { srRef.current?.stop(); } catch { /* already inactive */ }
-    srRef.current = null;
-    srEndRef.current = null;
-    try {
-      if (recRef.current && recRef.current.state !== "inactive") recRef.current.stop();
-    } catch {
-      /* already inactive */
-    }
-    recRef.current = null;
-    releaseStream();
-  }, [releaseStream]);
+  /* Resolves this take's stop promise exactly once and returns the machine to
+     idle — but only if this take is still the authoritative one. A superseded
+     take reaches here only to release its own resources. */
+  const finalize = useCallback((take, blob) => {
+    if (!take || take.finalized) return;
+    take.finalized = true;
 
-  /* Resolves the shared stop promise exactly once. A take from a superseded
-     generation resolves empty so it can never be committed by its caller. */
-  const finalize = useCallback(
-    (gen, blob) => {
-      const settle = settleRef.current;
-      settleRef.current = null;
+    const settle = take.settle;
+    take.settle = null;
+
+    const wasCurrent = takeRef.current === take;
+    const unexpected = wasCurrent && !settle; // the recorder stopped by itself
+
+    const result = {
+      blob: take.failed ? null : (blob ?? null),
+      transcript: take.transcript.trim(),
+    };
+
+    releaseTake(take);
+
+    if (wasCurrent) {
+      // finalize() owns the end of a take: the authoritative slot, the stop
+      // promise and the state machine. It deliberately does not touch
+      // startPromiseRef — that belongs to start(), which clears it in its own
+      // .finally, and by the time a take can be finalized it is already null.
+      takeRef.current = null;
       stopPromiseRef.current = null;
-      recRef.current = null;
-      chunksRef.current = [];
       stateRef.current = "idle";
-      releaseStream();
+      if (mountedRef.current) setRecording(false);
 
-      const current = gen === genRef.current;
-      setRecording(false);
-      settle?.(
-        current
-          ? { blob: blob ?? null, transcript: transcriptRef.current.trim() }
-          : { blob: null, transcript: "" }
-      );
-    },
-    [releaseStream]
-  );
+      if (unexpected) {
+        // Nobody is awaiting this. Hold the result so the stop() the UI is
+        // about to issue still returns the audio the user actually spoke.
+        salvageRef.current = { gen: take.gen, result };
+        if (take.failed && mountedRef.current) setError("interrupted");
+      }
+    }
 
-  /* SpeechRecognition emits its last final result while stopping. Give it a
-     bounded window so the finalized transcript is as complete as it can be,
-     without ever making the stop depend on it. */
-  const waitForSpeech = useCallback(() => {
-    const sr = srRef.current;
-    srRef.current = null;
-    if (!sr) return Promise.resolve();
-    return new Promise((resolve) => {
-      let done = false;
-      const finish = () => {
-        if (done) return;
-        done = true;
-        srEndRef.current = null;
-        resolve();
-      };
-      srEndRef.current = finish;
-      try { sr.stop(); } catch { finish(); }
-      setTimeout(finish, SPEECH_SETTLE_MS);
-    });
+    settle?.(wasCurrent ? result : emptyTake());
   }, []);
 
   const beginRecording = useCallback(
-    async (gen) => {
-      if (typeof navigator === "undefined" || !navigator.mediaDevices?.getUserMedia
-        || typeof MediaRecorder === "undefined") {
-        if (gen === genRef.current) {
-          stateRef.current = "idle";
-          setError("unsupported");
+    async (take) => {
+      /* A failure may only be reported, and the machine may only be reset, by
+         the authoritative take. An abandoned attempt cleans up and goes quiet. */
+      const fail = (code) => {
+        const mine = owns(take);
+        releaseTake(take);
+        if (!mine) return false;
+        takeRef.current = null;
+        stateRef.current = "idle";
+        if (mountedRef.current) {
+          setRecording(false);
+          setError(code);
         }
         return false;
+      };
+
+      if (typeof navigator === "undefined" || !navigator.mediaDevices?.getUserMedia
+        || typeof MediaRecorder === "undefined") {
+        return fail("unsupported");
       }
 
       let stream;
@@ -458,93 +585,112 @@ function useRecorder() {
         stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       } catch (err) {
         // A denial belonging to an abandoned attempt must not surface later.
-        if (gen === genRef.current) {
-          stateRef.current = "idle";
-          setError(mapMicError(err));
-        }
-        return false;
+        return fail(mapMicError(err));
       }
 
-      // Abandoned while the permission prompt was open.
-      if (gen !== genRef.current) {
-        stream.getTracks().forEach((t) => t.stop());
+      // Abandoned while the permission prompt was open. This take owns the
+      // stream it has just been handed and must release it itself.
+      if (!owns(take)) {
+        try { stream.getTracks().forEach((t) => t.stop()); } catch { /* ended */ }
         return false;
       }
-
-      streamRef.current = stream;
-      chunksRef.current = [];
-      transcriptRef.current = "";
+      take.stream = stream;
 
       let rec;
       try {
         rec = new MediaRecorder(stream);
       } catch {
-        releaseStream();
-        stateRef.current = "idle";
-        setError("unsupported");
-        return false;
+        return fail("unsupported");
       }
+      take.rec = rec;
 
       rec.ondataavailable = (e) => {
-        if (gen === genRef.current && e.data?.size) chunksRef.current.push(e.data);
+        // Pushing into this take's own array; a discarded take keeps nothing.
+        if (!take.dead && e.data?.size) take.chunks.push(e.data);
+      };
+
+      rec.onerror = () => {
+        take.failed = true;
+        // The specification says a stop follows. If it does not, finalize
+        // anyway rather than leave the microphone open and a stop unresolved.
+        if (take.errorTimer) clearTimeout(take.errorTimer);
+        take.errorTimer = setTimeout(() => {
+          if (!take.finalized) finalize(take, null);
+        }, RECORDER_ERROR_GRACE_MS);
       };
 
       rec.onstop = () => {
-        const parts = chunksRef.current;
-        const blob = parts.length
-          ? new Blob(parts, { type: rec.mimeType || "audio/webm" })
+        if (!owns(take)) {
+          releaseTake(take); // superseded: release only what this take holds
+          return;
+        }
+        const blob = take.chunks.length
+          ? new Blob(take.chunks, { type: rec.mimeType || "audio/webm" })
           : null;
-        waitForSpeech().then(() => finalize(gen, blob));
+        waitForSpeech(take).then(() => finalize(take, blob));
       };
 
       try {
         rec.start();
       } catch {
-        releaseStream();
-        stateRef.current = "idle";
-        setError("unsupported");
-        return false;
+        return fail("unavailable");
       }
 
-      recRef.current = rec;
+      if (mountedRef.current) {
+        setError(null);
+        setTranscript("");
+      }
 
-      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      /* Ownership before startup, exactly as for the stream and the recorder:
+         the take holds the recogniser from the moment it is constructed, so a
+         throw anywhere during configuration or start() leaves a recogniser that
+         someone is still responsible for releasing, rather than an orphan
+         holding the recording indicator open. */
+      const SR = typeof window !== "undefined"
+        && (window.SpeechRecognition || window.webkitSpeechRecognition);
       if (SR) {
+        let r = null;
         try {
-          const r = new SR();
+          r = new SR();
+          take.sr = r;
           r.continuous = true;
           r.interimResults = true;
           r.lang = "en-US";
-          let settled = "";
+          let settled = ""; // per-take closure; two takes cannot share it
           r.onresult = (e) => {
-            if (gen !== genRef.current) return;
+            if (take.dead) return;
             let interim = "";
             for (let i = e.resultIndex; i < e.results.length; i += 1) {
               if (e.results[i].isFinal) settled += `${e.results[i][0].transcript} `;
               else interim += e.results[i][0].transcript;
             }
-            transcriptRef.current = settled + interim;
-            setTranscript(transcriptRef.current);
+            take.transcript = settled + interim;
+            if (owns(take) && mountedRef.current) setTranscript(take.transcript);
           };
-          r.onerror = () => {
-            // Enhancement only: the take proceeds with whatever text exists.
-            srEndRef.current?.();
-          };
-          r.onend = () => { srEndRef.current?.(); };
+          // Enhancement only: the take proceeds with whatever text exists.
+          r.onerror = () => { take.srSettle?.(); };
+          r.onend = () => { take.srSettle?.(); };
           r.start();
-          srRef.current = r;
         } catch {
-          srRef.current = null;
+          // Recognition failing to start must not affect the recording. Release
+          // only the recogniser, and only if it is still the one this take owns.
+          if (take.sr === r) {
+            take.sr = null;
+            if (r) {
+              try { r.onresult = null; r.onerror = null; r.onend = null; } catch { /* frozen */ }
+              try { if (typeof r.abort === "function") r.abort(); else r.stop(); } catch { /* never started */ }
+            }
+          }
         }
       }
 
+      // No await since the ownership check above, so this cannot race a newer
+      // take: nothing could have replaced takeRef between there and here.
       stateRef.current = "recording";
-      setError(null);
-      setTranscript("");
-      setRecording(true);
+      if (mountedRef.current) setRecording(true);
       return true;
     },
-    [finalize, releaseStream, waitForSpeech]
+    [finalize, owns]
   );
 
   /* Only one start may become authoritative. Repeat calls observe the pending
@@ -556,9 +702,12 @@ function useRecorder() {
     if (stateRef.current === "recording") return Promise.resolve(true);
     if (stateRef.current === "stopping") return Promise.resolve(false);
 
+    salvageRef.current = null;
+    const take = newTake(++genRef.current);
+    takeRef.current = take; // authoritative from this instant, before any await
     stateRef.current = "starting";
-    const gen = ++genRef.current;
-    const p = beginRecording(gen).finally(() => {
+
+    const p = beginRecording(take).finally(() => {
       if (startPromiseRef.current === p) startPromiseRef.current = null;
     });
     startPromiseRef.current = p;
@@ -572,73 +721,108 @@ function useRecorder() {
   const stop = useCallback(() => {
     if (stopPromiseRef.current) return stopPromiseRef.current;
 
+    const take = takeRef.current;
+
     if (stateRef.current === "starting") {
       // No take exists yet. Invalidate the pending acquisition and resolve
       // deterministically rather than waiting on a recording that never began.
       genRef.current += 1;
-      stateRef.current = "idle";
+      takeRef.current = null;
       startPromiseRef.current = null;
-      teardownMedia();
-      setRecording(false);
-      return Promise.resolve({ blob: null, transcript: "" });
+      stateRef.current = "idle";
+      salvageRef.current = null;
+      releaseTake(take);
+      if (mountedRef.current) setRecording(false);
+      return Promise.resolve(emptyTake());
     }
 
-    if (stateRef.current !== "recording") {
-      return Promise.resolve({ blob: null, transcript: transcriptRef.current.trim() });
+    if (stateRef.current !== "recording" || !take?.rec) {
+      // Either nothing is running, or the recorder already stopped by itself.
+      // In the latter case the audio was held back for exactly this call.
+      const salvage = salvageRef.current;
+      salvageRef.current = null;
+      return Promise.resolve(
+        salvage && salvage.gen === genRef.current ? salvage.result : emptyTake()
+      );
     }
 
-    const gen = genRef.current;
     stateRef.current = "stopping";
-    setRecording(false);
+    salvageRef.current = null;
+    if (mountedRef.current) setRecording(false);
 
-    const p = new Promise((resolve) => { settleRef.current = resolve; });
+    const rec = take.rec;
+    const buildBlob = () =>
+      (take.chunks.length ? new Blob(take.chunks, { type: rec.mimeType || "audio/webm" }) : null);
+
+    const p = new Promise((resolve) => { take.settle = resolve; });
     stopPromiseRef.current = p;
 
+    take.stopTimer = setTimeout(() => {
+      if (!take.finalized) finalize(take, buildBlob());
+    }, STOP_WATCHDOG_MS);
+
     try {
-      recRef.current.stop(); // onstop drives finalize()
+      rec.stop(); // onstop drives finalize()
     } catch {
-      finalize(gen, null);
+      const blob = buildBlob();
+      waitForSpeech(take).then(() => finalize(take, blob));
     }
     return p;
-  }, [finalize, teardownMedia]);
+  }, [finalize]);
 
-  /* Discards the take and releases the microphone. The generation is bumped
-     first so callbacks still in flight cannot touch anything afterwards, and
-     any caller awaiting a stop is resolved rather than left hanging. */
+  /* Discards the take and releases the microphone. Ownership is dropped first,
+     so callbacks still in flight find themselves superseded, and any caller
+     awaiting a stop is resolved rather than left hanging. */
   const abort = useCallback(() => {
     genRef.current += 1;
-    const settle = settleRef.current;
-    settleRef.current = null;
-    stopPromiseRef.current = null;
+    const take = takeRef.current;
+    takeRef.current = null;
     startPromiseRef.current = null;
-    srEndRef.current = null;
-
-    teardownMedia();
-    chunksRef.current = [];
-    transcriptRef.current = "";
+    stopPromiseRef.current = null;
+    salvageRef.current = null;
     stateRef.current = "idle";
 
-    setRecording(false);
-    setTranscript("");
-    setError(null);
-    settle?.({ blob: null, transcript: "" });
-  }, [teardownMedia]);
+    let settle = null;
+    if (take) {
+      settle = take.settle;
+      take.settle = null;
+      releaseTake(take);
+    }
 
+    if (mountedRef.current) {
+      setRecording(false);
+      setTranscript("");
+      setError(null);
+    }
+    settle?.(emptyTake());
+  }, []);
+
+  /* Clears what the user can see. The live transcript belongs to the take, so
+     there is nothing else to reset. */
   const reset = useCallback(() => {
-    transcriptRef.current = "";
     setTranscript("");
     setError(null);
   }, []);
 
-  useEffect(
-    () => () => {
+  useEffect(() => {
+    mountedRef.current = true; // StrictMode remounts run this effect again
+    return () => {
+      mountedRef.current = false;
       genRef.current += 1;
-      settleRef.current?.({ blob: null, transcript: "" });
-      settleRef.current = null;
-      teardownMedia();
-    },
-    [teardownMedia]
-  );
+      const take = takeRef.current;
+      takeRef.current = null;
+      startPromiseRef.current = null;
+      stopPromiseRef.current = null;
+      salvageRef.current = null;
+      stateRef.current = "idle";
+      if (take) {
+        const settle = take.settle;
+        take.settle = null;
+        releaseTake(take);
+        settle?.(emptyTake()); // a pending stop must not hang past unmount
+      }
+    };
+  }, []);
 
   return { recording, transcript, error, start, stop, abort, reset };
 }
@@ -649,13 +833,31 @@ const FOCUSABLE = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(",");
 
+/* Rendered, not merely present. offsetParent is null for anything inside a
+   position: fixed subtree — which both dialog surfaces are — so it is the wrong
+   test here. getClientRects() is empty only for genuinely unrendered elements. */
+function isRendered(el) {
+  return el === document.activeElement || el.getClientRects().length > 0;
+}
+
+/* Focus must land somewhere deliberate when a dialog closes. The opener can
+   have been removed while the dialog was open — the archive can be opened from
+   a screen the user then leaves — and calling focus() on a detached node
+   silently drops focus to <body>. */
+function restoreFocus(opener) {
+  const usable =
+    opener && opener.isConnected && typeof opener.focus === "function" && isRendered(opener);
+  const target = usable ? opener : document.querySelector(".curio-wordmark");
+  try { target?.focus?.(); } catch { /* nothing focusable left; unmounting */ }
+}
+
 /**
  * Real focus containment for a modal surface.
  *
  * aria-modal="true" is a promise to assistive technology, not an implementation:
  * it does not stop Tab from walking into the application behind the dialog. This
- * moves focus in, cycles it within the dialog, handles Escape, and returns focus
- * to whatever opened it when the surface closes.
+ * moves focus in, cycles it within the dialog in both directions, handles
+ * Escape, and returns focus safely when the surface closes.
  */
 function useFocusTrap(active, containerRef, onClose) {
   useEffect(() => {
@@ -675,9 +877,9 @@ function useFocusTrap(active, containerRef, onClose) {
       }
       if (e.key !== "Tab") return;
 
-      const items = Array.from(node.querySelectorAll(FOCUSABLE)).filter(
-        (el) => el.offsetParent !== null || el === document.activeElement
-      );
+      // Queried per keystroke: the archive's contents change as entries are
+      // deleted and as delete confirmations open and close.
+      const items = Array.from(node.querySelectorAll(FOCUSABLE)).filter(isRendered);
       if (items.length === 0) {
         e.preventDefault();
         node.focus();
@@ -701,7 +903,7 @@ function useFocusTrap(active, containerRef, onClose) {
     document.addEventListener("keydown", onKey, true);
     return () => {
       document.removeEventListener("keydown", onKey, true);
-      if (opener && typeof opener.focus === "function") opener.focus();
+      restoreFocus(opener);
     };
   }, [active, containerRef, onClose]);
 }
@@ -763,17 +965,30 @@ export default function Curio() {
 
   const timerRef = useRef(null);
   const tickRef = useRef(null);
-  const settleRef = useRef(null);
+  const settleRef = useRef(null);      // reel landing fallback timer
   const rollAudioRef = useRef(null);
+  const landAudioRef = useRef(null);
   const speakStartRef = useRef(null);
   const urlsRef = useRef([]);
   const spinningRef = useRef(false);
   const topicLoadingRef = useRef(false); // synchronous mirror of topicLoading
+
+  /* drawSeqRef is the session token. Everything asynchronous that belongs to a
+     session captures it before awaiting and refuses to write if it has moved. */
   const drawSeqRef = useRef(0);
   const archiveSeqRef = useRef(0);
   const fbSeqRef = useRef(0);
   const pendingSeqRef = useRef(0);
   const pendingTopicIdRef = useRef(null);
+
+  // Single-flight latches. The first three are session-scoped and are cleared
+  // at every session boundary; deletion is archive-scoped and is not, because
+  // the archive outlives any one session.
+  const saveInFlightRef = useRef(null);
+  const fbInFlightRef = useRef(null);
+  const takeStopRef = useRef(null);
+  const deleteInFlightRef = useRef(null);
+
   const modalRef = useRef(null);
   const drawerRef = useRef(null);
 
@@ -812,29 +1027,47 @@ export default function Curio() {
 
   /* ---------- research countdown ---------- */
 
+  /* The tick only counts. A state updater must be pure — React may invoke it
+     more than once — so the phase change that follows zero is made in its own
+     effect rather than inside setTimeLeft. */
   useEffect(() => {
     if (phase !== "research") return undefined;
-    timerRef.current = setInterval(() => {
-      setTimeLeft((x) => {
-        if (x <= 1) {
-          clearInterval(timerRef.current);
-          setPhase("ready");
-          return 0;
-        }
-        return x - 1;
-      });
+    const id = setInterval(() => {
+      setTimeLeft((x) => (x <= 0 ? 0 : x - 1));
     }, 1000);
-    return () => clearInterval(timerRef.current);
+    timerRef.current = id;
+    return () => clearInterval(id);
   }, [phase]);
 
-  /* ---------- teardown ---------- */
+  /* One-way exit. Research is only ever entered with a full clock — by
+     advanceAfterCommit, which sets the time first, or by the ready-phase
+     control, which is offered only while time remains — so this can never
+     bounce a phase the user has just deliberately re-entered. */
+  useEffect(() => {
+    if (phase === "research" && timeLeft === 0) setPhase("ready");
+  }, [phase, timeLeft]);
+
+  /* ---------- teardown ----------
+     Unmount is a session boundary like any other: the draw sequence advances so
+     that a landing, a topic load, a feedback request or a save still in flight
+     can no longer write, and every held resource is released. */
 
   useEffect(
     () => () => {
+      drawSeqRef.current += 1;
+      spinningRef.current = false;
+      topicLoadingRef.current = false;
+      saveInFlightRef.current = null;
+      fbInFlightRef.current = null;
+      takeStopRef.current = null;
+      deleteInFlightRef.current = null;
       clearInterval(timerRef.current);
       clearInterval(tickRef.current);
       clearTimeout(settleRef.current);
       stopClip(rollAudioRef.current);
+      rollAudioRef.current = null;
+      stopClip(landAudioRef.current);
+      landAudioRef.current = null;
       urlsRef.current.forEach((u) => URL.revokeObjectURL(u));
       urlsRef.current = [];
     },
@@ -881,7 +1114,9 @@ export default function Curio() {
     rollAudioRef.current = null;
 
     playClip(CURIO_ASSETS.sounds.topicRoll, { loop: true }).then((el) => {
-      // The spin may already have ended or been abandoned while play() settled.
+      // The spin may already have ended, been abandoned, or the component
+      // unmounted while play() settled. Unmount advances drawSeqRef, so the
+      // same check covers all three.
       if (!el) {
         if (spinningRef.current && drawSeqRef.current === seq) startTickFallback();
         return;
@@ -900,15 +1135,36 @@ export default function Curio() {
     rollAudioRef.current = null;
   }
 
-  async function playLandAudio() {
+  function stopLandAudio() {
+    stopClip(landAudioRef.current);
+    landAudioRef.current = null;
+  }
+
+  async function playLandAudio(seq) {
     const el = await playClip(CURIO_ASSETS.sounds.topicLand);
-    if (!el) tone([392, 588], 0.085, 0.5);
+    if (drawSeqRef.current !== seq) {
+      stopClip(el); // the session ended while the clip was starting
+      return;
+    }
+    if (!el) {
+      tone([392, 588], 0.085, 0.5);
+      return;
+    }
+    stopLandAudio();
+    landAudioRef.current = el;
   }
 
   /* ---------- session reset ---------- */
 
   function resetSession() {
     releaseSessionUrls();
+    // Latches are per session: a completion from an abandoned session must not
+    // be able to unlock, or stay locking, the session that replaced it.
+    saveInFlightRef.current = null;
+    fbInFlightRef.current = null;
+    takeStopRef.current = null;
+    speakStartRef.current = null;
+
     setPhase("idle");
     setPrediction({ blob: null, url: null, transcript: "" });
     setExplanation({ blob: null, url: null, transcript: "" });
@@ -921,7 +1177,10 @@ export default function Curio() {
     setPriorEntry(null);
     setActiveTake(null);
     setTopicError(false);
-    recorder.reset();
+
+    // abort(), not reset(): ending a session must release the microphone even
+    // if a take was still running when it ended. abort() is idempotent.
+    recorder.abort();
   }
 
   /* ---------- Encounter ---------- */
@@ -1005,7 +1264,7 @@ export default function Curio() {
       setAttemptNumber(attempts + 1);
       setSeenIds((prev) => (prev.includes(id) ? prev : [...prev, id]));
       setLanded(true);
-      playLandAudio();
+      playLandAudio(seq);
     } catch {
       if (drawSeqRef.current !== seq) return;
       topicLoadingRef.current = false;
@@ -1036,15 +1295,15 @@ export default function Curio() {
     clearInterval(timerRef.current);
     clearInterval(tickRef.current);
     clearTimeout(settleRef.current);
-    drawSeqRef.current += 1; // voids any pending landing, load, feedback or prior-attempt
+    drawSeqRef.current += 1; // voids any pending landing, load, feedback, save or prior-attempt
     spinningRef.current = false;
     topicLoadingRef.current = false;
     setTopicLoading(false);
     setLockedSlotH(null);
     stopRollAudio();
-    recorder.abort();
+    stopLandAudio();
 
-    resetSession(); // releases session object URLs
+    resetSession(); // releases session object URLs and aborts any live take
     setTopic(null);
     setSpinning(false);
     setReelItems([]);
@@ -1064,8 +1323,12 @@ export default function Curio() {
   }
 
   async function startPrediction() {
+    const seq = drawSeqRef.current;
     const ok = await recorder.start();
-    if (ok) setActiveTake("prediction");
+    // Every path that ends a session aborts the recorder, so ok can only be
+    // true for the current session; the check states that invariant locally.
+    if (!ok || drawSeqRef.current !== seq) return;
+    setActiveTake("prediction");
   }
 
   function advanceAfterCommit() {
@@ -1078,14 +1341,25 @@ export default function Curio() {
   }
 
   async function stopPrediction() {
-    // The finalized transcript travels with the take; reading recorder.transcript
-    // here would race the last SpeechRecognition result.
-    const { blob, transcript } = await recorder.stop();
-    if (blob) {
+    const token = claim(takeStopRef);
+    if (!token) return; // a stop is already finalizing this take
+    const seq = drawSeqRef.current;
+
+    let take;
+    try {
+      // The finalized transcript travels with the take; reading
+      // recorder.transcript here would race the last SpeechRecognition result.
+      take = await recorder.stop();
+    } finally {
+      release(takeStopRef, token);
+    }
+    if (drawSeqRef.current !== seq) return; // the session ended while stopping
+
+    if (take.blob) {
       // Only discard the previous take once a valid replacement exists.
-      const nextUrl = trackUrl(blob);
+      const nextUrl = trackUrl(take.blob);
       const oldUrl = prediction.url;
-      setPrediction({ blob, url: nextUrl, transcript });
+      setPrediction({ blob: take.blob, url: nextUrl, transcript: take.transcript });
       releaseUrl(oldUrl);
     }
     setActiveTake(null);
@@ -1102,29 +1376,41 @@ export default function Curio() {
 
   async function startExplanation() {
     recorder.reset();
+    const seq = drawSeqRef.current;
     const ok = await recorder.start();
-    if (!ok) return;
+    if (!ok || drawSeqRef.current !== seq) return;
     setActiveTake("explanation");
     speakStartRef.current = Date.now();
     setPhase("speak");
   }
 
   async function stopExplanation() {
-    const { blob, transcript } = await recorder.stop();
-    if (blob) {
-      const nextUrl = trackUrl(blob);
+    const token = claim(takeStopRef);
+    if (!token) return;
+    const seq = drawSeqRef.current;
+
+    let take;
+    try {
+      take = await recorder.stop();
+    } finally {
+      release(takeStopRef, token);
+    }
+    if (drawSeqRef.current !== seq) return;
+
+    if (take.blob) {
+      const nextUrl = trackUrl(take.blob);
       const oldUrl = explanation.url;
-      setExplanation({ blob, url: nextUrl, transcript });
+      setExplanation({ blob: take.blob, url: nextUrl, transcript: take.transcript });
       releaseUrl(oldUrl);
     }
     setElapsed(speakStartRef.current ? (Date.now() - speakStartRef.current) / 60000 : 0);
     setActiveTake(null);
 
     // The previous attempt is revealed only on the next screen, never earlier.
-    // It is fetched against the current draw so a slow lookup for an abandoned
-    // topic cannot appear inside a later one.
-    if (attemptNumber > 1) {
-      const seq = drawSeqRef.current;
+    // It is fetched against the current session rather than merely the topic
+    // id, so a slow lookup for an abandoned attempt on the same topic cannot
+    // appear inside a later one.
+    if (attemptNumber > 1 && topic) {
       const topicId = topic.id;
       previousAttempt(topicId)
         .then((entry) => { if (drawSeqRef.current === seq) setPriorEntry(entry); })
@@ -1137,9 +1423,11 @@ export default function Curio() {
 
   /* The AI service cannot be cancelled, so a superseded request is ignored on
      arrival instead: it must not overwrite a newer result, nor the loading or
-     error state belonging to a newer request or a different topic. */
+     error state belonging to a newer request or a different session. */
   async function loadFeedback() {
-    if (fbState === "loading") return; // single-flight
+    const token = claim(fbInFlightRef);
+    if (!token) return; // single-flight, decided synchronously
+
     const reqSeq = ++fbSeqRef.current;
     const drawSeq = drawSeqRef.current;
     const stale = () => reqSeq !== fbSeqRef.current || drawSeq !== drawSeqRef.current;
@@ -1157,16 +1445,26 @@ export default function Curio() {
     } catch {
       if (stale()) return;
       setFbState("error");
+    } finally {
+      release(fbInFlightRef, token);
     }
   }
 
   /* ---------- Preserve ----------
      On failure the user stays on the reveal screen with the recording intact
-     and can retry. Nothing is cleared before persistence succeeds. */
+     and can retry. Nothing is cleared before persistence succeeds.
+
+     A save is owned by the session that started it. If the user leaves while it
+     is in flight the write still stands — it was deliberately requested and is
+     already committed — and the archive, which is global rather than per
+     session, is still refreshed. What the completion may not do is reach back
+     into a newer session and reset it or announce itself there. */
 
   async function preserve() {
-    if (saveState === "saving") return; // a second click must not duplicate
-    setSaveState("saving");
+    const token = claim(saveInFlightRef);
+    if (!token) return; // a second click must not duplicate the entry
+    const seq = drawSeqRef.current;
+
     try {
       await saveEntry({
         topic_id: topic.id,
@@ -1182,26 +1480,50 @@ export default function Curio() {
         feedback,
       });
     } catch {
-      setSaveState("error");
+      // A failure is only meaningful to the session that asked for the save.
+      if (drawSeqRef.current === seq) setSaveState("error");
       return;
+    } finally {
+      release(saveInFlightRef, token);
     }
+
     await refreshArchive();
+    if (drawSeqRef.current !== seq) return; // a newer session owns the screen
+
+    drawSeqRef.current += 1; // this session is over; late results are now void
     resetSession();
     setTopic(null);
-    setPrevTopicId(null);
     setPhase("saved");
   }
 
   /* ---------- Archive actions ---------- */
 
+  /* A deletion invalidates every archive read that is already in flight, and it
+     does so at the moment the deletion begins rather than when the follow-up
+     refresh is issued. Without that, a refresh whose continuation happens to be
+     queued ahead of the delete's would write the pre-delete list into `entries`
+     and the deleted entry would visibly reappear until the follow-up refresh
+     corrected it — rebuilding its object URL on the way. */
   async function removeEntry(id) {
+    const token = claim(deleteInFlightRef);
+    if (!token) return;
+    archiveSeqRef.current += 1; // any read older than this deletion is now void
+
     try {
       await deleteEntry(id); // removes the record and its blobs
       setConfirmDeleteId(null);
-      await refreshArchive();
     } catch {
       setArchiveError("That entry could not be deleted. Please try again.");
+      return;
+    } finally {
+      release(deleteInFlightRef, token);
     }
+
+    await refreshArchive();
+
+    // The row that held focus has just been removed from the DOM, which would
+    // otherwise drop focus to <body> and out of the dialog entirely.
+    if (drawerRef.current?.isConnected) drawerRef.current.focus();
   }
 
   async function doExport() {
@@ -1561,7 +1883,10 @@ export default function Curio() {
                   >
                     <Mic size={17} aria-hidden="true" /> Explain it in your own words
                   </button>
-                  {mode === "deep" && (
+                  {/* Only while time actually remains. Offering this at 00:00
+                      would re-enter a phase the countdown effect immediately
+                      exits again — a control that visibly does nothing. */}
+                  {mode === "deep" && timeLeft > 0 && (
                     <button
                       type="button"
                       className="curio-btn curio-btn--subtle curio-btn--block"
@@ -1871,7 +2196,7 @@ export default function Curio() {
                     className="curio-btn curio-btn--subtle curio-btn--flush"
                     onClick={() => setConfirmDeleteId(e.id)}
                     aria-label={`Delete entry: ${e.topic_title}`}
-                                      >
+                  >
                     <Trash2 size={13} aria-hidden="true" /> Delete
                   </button>
                 )}
